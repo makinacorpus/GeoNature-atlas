@@ -2,10 +2,12 @@
 CHANGELOG
 =========
 
-1.6.2 (?)
----------
+[Unreleased]
+------------------
 
 🐛 **Corrections**
+
+- Correction et amélioration de l'affichage de la fenêtre listant les sous-taxons aggrégés (#558 par @jpm-cbna)
 
 ⚠️ **Notes de version**
 
