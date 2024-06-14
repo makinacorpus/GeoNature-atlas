@@ -32,6 +32,7 @@ from atlas.modeles.repositories import (
     vmCorTaxonAttribut,
     vmTaxonsMostView,
     vmCorTaxonOrganism,
+    vmStatutBdcRepository,
 )
 
 
