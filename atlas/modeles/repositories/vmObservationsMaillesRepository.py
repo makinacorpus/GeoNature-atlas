@@ -124,20 +124,21 @@ def getObservationsMaillesChilds(session, cd_ref, year_min=None, year_max=None):
 
 def territoryObservationsMailles(connection):
     sql = """
-SELECT obs.cd_ref, obs.id_maille, obs.nbr, obs.type_code,
+SELECT obs.cd_ref, obs.id_maille, obs.nbr,-- obs.annee,  obs.id_observations,
        tax.lb_nom, tax.nom_vern, tax.group2_inpn,
        medias.url, medias.chemin, medias.id_media,
-       st_asgeojson(m.geojson_maille) AS geom
+       m.geojson_4326 AS geom,
+       m.type_code
 FROM atlas.vm_observations_mailles obs
          JOIN atlas.vm_taxons tax ON tax.cd_ref = obs.cd_ref
-         JOIN atlas.t_mailles_territoire m ON m.id_maille=obs.id_maille
+         JOIN (SELECT DISTINCT id_area, geojson_4326, type_code from atlas.vm_cor_area_synthese) m ON m.id_area=obs.id_maille
          LEFT JOIN atlas.vm_medias medias
                    ON medias.cd_ref = obs.cd_ref AND medias.id_type = 1
-GROUP BY obs.cd_ref, obs.id_maille, obs.nbr,
-         tax.lb_nom, tax.nom_vern, tax.group2_inpn,
-         medias.url, medias.chemin, medias.id_media,
-         m.geojson_maille,
-         obs.type_code
+        GROUP BY obs.cd_ref, obs.id_maille, obs.nbr,
+       tax.lb_nom, tax.nom_vern, tax.group2_inpn,
+       medias.url, medias.chemin, medias.id_media,
+       m.geojson_4326,
+       m.type_code
   """
 
     observations = connection.execute(text(sql))
