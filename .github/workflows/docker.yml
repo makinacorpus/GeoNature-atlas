@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - develop
+      - create_img_docker
   release:
     types: [published]
 
