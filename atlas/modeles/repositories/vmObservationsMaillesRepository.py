@@ -205,7 +205,7 @@ def lastObservationsMailles(connection, mylimit, idPhoto):
     return obsList
 
 
-def lastObservationsCommuneMaille(connection, obs_limit, insee_code):
+def lastObservationsAreaMaille(connection, obs_limit, id_area):
     sql = """
         SELECT
             obs.id_observations, obs.cd_ref, obs.type_code, obs.nbr, c.insee,
@@ -214,15 +214,15 @@ def lastObservationsCommuneMaille(connection, obs_limit, insee_code):
             t.nom_vern, m.the_geom as l_geom,
             m.geojson_maille, obs.id_maille
         FROM atlas.vm_observations_mailles obs
-            JOIN atlas.t_mailles_territoire m ON m.id_maille = obs.id_maille
-            JOIN atlas.vm_communes AS c
-                  ON ST_Intersects(m.the_geom, c.the_geom) AND NOT ST_Touches(m.the_geom, c.the_geom)
+            JOIN atlas.vm_l_areas AS area
+                ON area.id_area = obs.id_maille
             JOIN atlas.vm_taxons AS t
                 ON obs.cd_ref = t.cd_ref
-        WHERE c.insee = :inseeCode
+        WHERE area.id_area = :idAreaCode
+        ORDER BY obs.dateobs DESC
         LIMIT :obsLimit
     """
-    results = connection.execute(text(sql), inseeCode=insee_code, obsLimit=obs_limit)
+    results = connection.execute(text(sql), idAreaCode=id_area, obsLimit=obs_limit)
     observations = list()
     for r in results:
         infos = {
@@ -240,26 +240,27 @@ def lastObservationsCommuneMaille(connection, obs_limit, insee_code):
 
 
 # Use for API
-def getObservationsTaxonCommuneMaille(connection, insee, cd_ref):
+def getObservationsTaxonAreaMaille(connection, id_area, cd_ref):
     sql = """
         SELECT
             o.cd_ref,
             o.id_maille,
             o.type_code,
             o.annee,
-            m.geojson_maille,
-            m.the_geom,
+            area.area_geojson,
+            area.the_geom,
             t.cd_ref,
             t.nom_vern,
             t.lb_nom
         FROM atlas.vm_observations_mailles AS o
             JOIN atlas.vm_taxons AS t ON t.cd_ref = o.cd_ref
-		        JOIN atlas.t_mailles_territoire m ON m.id_maille = o.id_maille
-            JOIN atlas.vm_communes AS c ON c.insee = :thisInsee AND st_intersects(c.the_geom, m.the_geom) AND NOT st_touches(c.the_geom, m.the_geom)
+            JOIN atlas.vm_l_areas AS area
+                ON ST_INTERSECTS(o.the_geom_point, area.the_geom)
         WHERE o.cd_ref = :thiscdref
+            AND area.id_area = :thisIdArea
         ORDER BY id_maille
     """
-    observations = connection.execute(text(sql), thisInsee=insee, thiscdref=cd_ref)
+    observations = connection.execute(text(sql), thisIdArea=id_area, thiscdref=cd_ref)
     tabObs = list()
     for o in observations:
         temp = {

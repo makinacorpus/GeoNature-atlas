@@ -1,14 +1,14 @@
 # Translations template for PROJECT.
-# Copyright (C) 2024 ORGANIZATION
+# Copyright (C) 2025 ORGANIZATION
 # This file is distributed under the same license as the PROJECT project.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2024.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-12-02 12:01+0100\n"
+"POT-Creation-Date: 2025-01-17 00:30+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -28,27 +28,27 @@ msgstr ""
 msgid "home"
 msgstr ""
 
-#: atlas/static/custom/templates/footer.html:5
-#: atlas/static/custom/templates/footer.html:30
-#: atlas/static/custom/templates/footer.html.sample:5
-#: atlas/static/custom/templates/footer.html.sample:29
+#: static/custom/templates/footer.html:5 static/custom/templates/footer.html:30
+#: static/custom/templates/footer.html.sample:5
+#: static/custom/templates/footer.html.sample:29
 msgid "credits"
 msgstr ""
 
-#: atlas/static/custom/templates/footer.html:7
-#: atlas/static/custom/templates/footer.html:47
-#: atlas/static/custom/templates/footer.html.sample:7
-#: atlas/static/custom/templates/footer.html.sample:46
+#: static/custom/templates/footer.html:7 static/custom/templates/footer.html:47
+#: static/custom/templates/footer.html.sample:7
+#: static/custom/templates/footer.html.sample:46
 msgid "legal"
 msgstr ""
 
-#: atlas/static/custom/templates/footer.html:11
-#: atlas/static/custom/templates/footer.html:65
-#: atlas/static/custom/templates/footer.html.sample:11
-#: atlas/static/custom/templates/footer.html.sample:64
+#: static/custom/templates/footer.html:11
+#: static/custom/templates/footer.html:65
+#: static/custom/templates/footer.html.sample:11
+#: static/custom/templates/footer.html.sample:64
 msgid "personal_data"
 msgstr ""
 
+#: static/custom/templates/footer.html:18
+#: static/custom/templates/footer.html.sample:17
 #: atlas/static/custom/templates/footer.html:12
 msgid "preferences_cookies"
 msgstr ""
@@ -58,56 +58,55 @@ msgstr ""
 msgid "atlas.fauna.flora"
 msgstr ""
 
-#: atlas/static/custom/templates/footer.html:18
-#: atlas/static/custom/templates/footer.html.sample:17
-#: atlas/static/custom/templates/introduction.html:7
-#: atlas/static/custom/templates/introduction.html.sample:7
+#: static/custom/templates/footer.html:18
+#: static/custom/templates/footer.html.sample:17
+#: static/custom/templates/introduction.html.sample:7
 msgid "from1"
 msgstr ""
 
-#: atlas/static/custom/templates/footer.html:20
-#: atlas/static/custom/templates/footer.html.sample:19
+#: static/custom/templates/footer.html:20
+#: static/custom/templates/footer.html.sample:19
 msgid "powered.by"
 msgstr ""
 
-#: atlas/static/custom/templates/footer.html:20
-#: atlas/static/custom/templates/footer.html.sample:19
+#: static/custom/templates/footer.html:20
+#: static/custom/templates/footer.html.sample:19
 msgid "developed.by"
 msgstr ""
 
-#: atlas/static/custom/templates/footer.html:21
-#: atlas/static/custom/templates/footer.html.sample:20
+#: static/custom/templates/footer.html:21
+#: static/custom/templates/footer.html.sample:20
 msgid "ecrins.national.park"
 msgstr ""
 
-#: atlas/static/custom/templates/introduction.html:6
-#: atlas/static/custom/templates/introduction.html.sample:6
-msgid "welcome.message"
-msgstr ""
-
-#: atlas/static/custom/templates/introduction.html:7
-#: atlas/static/custom/templates/introduction.html.sample:7
+#: static/custom/templates/introduction.html:10
+#: static/custom/templates/introduction.html.sample:7
 msgid "from2"
 msgstr ""
 
-#: atlas/static/custom/templates/introduction.html:7
-#: atlas/static/custom/templates/introduction.html.sample:7
+#: static/custom/templates/introduction.html:14
+#: static/custom/templates/introduction.html.sample:11
+msgid "home.introduction.message"
+msgstr ""
+
+#: static/custom/templates/introduction.html.sample:6
+msgid "welcome.message"
+msgstr ""
+
+#: static/custom/templates/introduction.html.sample:7
 msgid "from3"
 msgstr ""
 
-#: atlas/static/custom/templates/introduction.html:7
-#: atlas/static/custom/templates/introduction.html.sample:7
+#: static/custom/templates/introduction.html.sample:7
 msgid "from4"
 msgstr ""
 
-#: atlas/static/custom/templates/introduction.html:7
-#: atlas/static/custom/templates/introduction.html.sample:7
+#: static/custom/templates/introduction.html.sample:7
 msgid "from5"
 msgstr ""
 
-#: atlas/static/custom/templates/introduction.html:11
-#: atlas/static/custom/templates/introduction.html.sample:11
-msgid "home.introduction.message"
+#: static/custom/templates/map.html:4
+msgid "atlas.map"
 msgstr ""
 
 #: atlas/static/custom/templates/navbar.html:34
@@ -117,10 +116,12 @@ msgstr ""
 msgid "search.species"
 msgstr ""
 
-#: atlas/static/custom/templates/navbar.html:47
-#: atlas/static/custom/templates/navbar.html.sample:47
-#: atlas/templates/home/globalStats.html:55
-msgid "search.city"
+#: static/custom/templates/navbar.html:47 templates/home/globalStats.html:55
+msgid "search.area"
+msgstr ""
+
+#: static/custom/templates/navbar.html.sample:47
+msgid "search.zone"
 msgstr ""
 
 #: atlas/static/custom/templates/presentation.html:4
@@ -128,21 +129,12 @@ msgstr ""
 msgid "atlas.presentation"
 msgstr ""
 
-#: atlas/templates/areaSheet/_main.html:6
-#: atlas/templates/areaSheet/_main.html:59
-msgid "municipality.of"
+#: templates/areaSheet/_main.html:55
+msgid "last.obs.area"
 msgstr ""
 
-#: atlas/templates/areaSheet/_main.html:70
-msgid "last.obs.municipality"
-msgstr ""
-
-#: atlas/templates/areaSheet/_main.html:73
-msgid "last.obs.zone"
-msgstr ""
-
-#: atlas/templates/areaSheet/surrounding_areas.html:10
-msgid "associate.zone"
+#: templates/areaSheet/surrounding_areas.html:10
+msgid "associate.area"
 msgstr ""
 
 #: atlas/templates/areaSheet/surrounding_areas.html:23
@@ -206,8 +198,8 @@ msgstr ""
 msgid "check.species.sheet"
 msgstr ""
 
-#: atlas/templates/core/extended_areas_search.html:13
-msgid "search.other.zones.type"
+#: templates/core/extended_areas_search.html:13
+msgid "search.other.areas.type"
 msgstr ""
 
 #: atlas/templates/core/listTaxons.html:14
@@ -226,23 +218,20 @@ msgstr ""
 msgid "this.taxon.has.a.protected.status"
 msgstr ""
 
-#: atlas/templates/core/listTaxons.html:80
-#: atlas/templates/core/statHierarchy.html:7
-#: atlas/templates/organismSheet/topSpecies.html:61
-#: atlas/templates/speciesSheet/map.html:15
-#: atlas/templates/speciesSheet/otherInformations.html:144
+#: templates/core/listTaxons.html:80 templates/core/statHierarchy.html:8
+#: templates/organismSheet/topSpecies.html:61
+#: templates/speciesSheet/map.html:15
+#: templates/speciesSheet/otherInformations.html:144
 msgid "observation"
 msgstr ""
 
-#: atlas/templates/core/listTaxons.html:81
-#: atlas/templates/core/statHierarchy.html:7
-#: atlas/templates/core/tabTaxons.html:19
-#: atlas/templates/home/globalStats.html:16
-#: atlas/templates/organismSheet/statsInfos.html:11
-#: atlas/templates/organismSheet/topSpecies.html:61
-#: atlas/templates/speciesSheet/identityCard.html:135
-#: atlas/templates/speciesSheet/map.html:15
-#: atlas/templates/speciesSheet/otherInformations.html:142
+#: templates/core/listTaxons.html:81 templates/core/statHierarchy.html:8
+#: templates/core/tabTaxons.html:19 templates/home/globalStats.html:16
+#: templates/organismSheet/statsInfos.html:11
+#: templates/organismSheet/topSpecies.html:61
+#: templates/speciesSheet/identityCard.html:135
+#: templates/speciesSheet/map.html:15
+#: templates/speciesSheet/otherInformations.html:142
 msgid "observations"
 msgstr ""
 
@@ -265,22 +254,18 @@ msgstr ""
 msgid "gallery.title"
 msgstr ""
 
-#: atlas/templates/core/statHierarchy.html:12
-#: atlas/templates/home/globalStats.html:28
-#: atlas/templates/home/taxoRank.html:32
-#: atlas/templates/organismSheet/statsInfos.html:21
+#: templates/core/statHierarchy.html:13 templates/home/globalStats.html:28
+#: templates/home/taxoRank.html:32 templates/organismSheet/statsInfos.html:21
 msgid "species"
 msgstr ""
 
-#: atlas/templates/core/statHierarchy.html:17
-#: atlas/templates/speciesSheet/map.html:25
-#: atlas/templates/speciesSheet/otherInformations.html:28
+#: templates/core/statHierarchy.html:18 templates/speciesSheet/map.html:25
+#: templates/speciesSheet/otherInformations.html:28
 msgid "observers"
 msgstr ""
 
-#: atlas/templates/core/statHierarchy.html:17
-#: atlas/templates/speciesSheet/map.html:25
-#: atlas/templates/speciesSheet/otherInformations.html:28
+#: templates/core/statHierarchy.html:18 templates/speciesSheet/map.html:25
+#: templates/speciesSheet/otherInformations.html:28
 msgid "observer"
 msgstr ""
 

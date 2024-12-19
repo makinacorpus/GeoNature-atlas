@@ -18,7 +18,7 @@ from flask import (
 
 from atlas.env import db
 from atlas import utils
-from atlas.modeles.entities import vmTaxons, vmCommunes
+from atlas.modeles.entities import vmTaxons, vmAreas
 from atlas.modeles.repositories import (
     vmOrganismsRepository,
     vmTaxonsRepository,
@@ -26,7 +26,7 @@ from atlas.modeles.repositories import (
     vmAltitudesRepository,
     vmMoisRepository,
     vmTaxrefRepository,
-    vmCommunesRepository,
+    tAreasRepository,
     vmObservationsMaillesRepository,
     vmMedias,
     vmCorTaxonAttribut,
@@ -127,9 +127,9 @@ if current_app.config["ORGANISM_MODULE"]:
 
 
 @main.route(
-    "/commune/" + current_app.config["REMOTE_MEDIAS_PATH"] + "<image>", methods=["GET", "POST"]
+    "/area/" + current_app.config["REMOTE_MEDIAS_PATH"] + "<image>", methods=["GET", "POST"]
 )
-def communeMedias(image):
+def areaMedias(image):
     return redirect(
         current_app.config["REMOTE_MEDIAS_URL"] + current_app.config["REMOTE_MEDIAS_PATH"] + image
     )
@@ -246,7 +246,6 @@ def ficheEspece(cd_nom):
     # Redirect to cd_ref if cd_nom is a synonym. Redirection is better for SEO.
     if cd_ref != cd_nom:
         return redirect(url_for(request.endpoint, cd_nom=cd_ref))
-
     # Get data to render template
     taxon = vmTaxrefRepository.searchEspece(connection, cd_ref)
     altitudes = vmAltitudesRepository.getAltitudesChilds(connection, cd_ref)
@@ -256,7 +255,7 @@ def ficheEspece(cd_nom):
     if current_app.config["AFFICHAGE_MAILLE"]:
         communes = vmCommunesRepository.getCommunesObservationsChildsMailles(connection, cd_ref)
     else:
-        communes = vmCommunesRepository.getCommunesObservationsChilds(connection, cd_ref)
+        areas = tAreasRepository.getAreasObservationsChilds(connection, cd_ref)
     taxonomyHierarchy = vmTaxrefRepository.getAllTaxonomy(db_session, cd_ref)
     firstPhoto = vmMedias.getFirstPhoto(connection, cd_ref, current_app.config["ATTR_MAIN_PHOTO"])
     photoCarousel = vmMedias.getPhotoCarousel(
@@ -302,7 +301,7 @@ def ficheEspece(cd_nom):
         months=months,
         data_source_values=data_source_values,
         synonyme=synonyme,
-        communes=communes,
+        areas=areas,
         taxonomyHierarchy=taxonomyHierarchy,
         firstPhoto=firstPhoto,
         photoCarousel=photoCarousel,
@@ -351,38 +350,39 @@ def _make_groupes_statuts(statuts):
     return groupes_statuts
 
 
-@main.route("/commune/<insee>", methods=["GET", "POST"])
-def ficheCommune(insee):
+@main.route("/area/<id_area>", methods=["GET", "POST"])
+def ficheArea(id_area):
     session = db.session
     connection = db.engine.connect()
 
-    commune = vmCommunesRepository.getCommuneFromInsee(connection, insee)
+    listTaxons = vmTaxonsRepository.getTaxonsAreas(connection, id_area)
+
+    area = tAreasRepository.getAreaFromIdArea(connection, id_area)
     if current_app.config["AFFICHAGE_MAILLE"]:
-        observations = vmObservationsMaillesRepository.lastObservationsCommuneMaille(
-            connection, current_app.config["NB_LAST_OBS"], str(insee)
+        observations = vmObservationsMaillesRepository.lastObservationsAreaMaille(
+            connection, current_app.config["NB_LAST_OBS"], str(id_area)
         )
     else:
-        observations = vmObservationsRepository.lastObservationsCommune(
-            connection, current_app.config["NB_LAST_OBS"], insee
+        observations = vmObservationsRepository.lastObservationsArea(
+            connection, current_app.config["NB_LAST_OBS"], id_area
         )
 
     surroundingAreas = []
-    listTaxons = vmTaxonsRepository.getTaxonsCommunes(connection, insee)
-    observers = vmObservationsRepository.getObserversCommunes(connection, insee)
+
+    observers = vmObservationsRepository.getObserversArea(connection, id_area)
 
     session.close()
     connection.close()
 
     return render_template(
         "templates/areaSheet/_main.html",
-        sheetType="commune",
         surroundingAreas=surroundingAreas,
         listTaxons=listTaxons,
-        areaInfos=commune,
+        areaInfos=area,
         observations=observations,
         observers=observers,
         DISPLAY_EYE_ON_LIST=True,
-        insee=insee,
+        id_area=id_area,
     )
 
 
@@ -482,11 +482,9 @@ def sitemap():
         modified_time = ten_days_ago
         pages.append([url, modified_time])
 
-    municipalities = (
-        session.query(vmCommunes.VmCommunes).order_by(vmCommunes.VmCommunes.insee).all()
-    )
+    municipalities = session.query(vmAreas.VmAreas).order_by(vmAreas.VmAreas.id_area).all()
     for municipalitie in municipalities:
-        url = url_root + url_for("main.ficheCommune", insee=municipalitie.insee)
+        url = url_root + url_for("main.ficheArea", id_area=municipalitie.id_area)
         modified_time = ten_days_ago
         pages.append([url, modified_time])
 
