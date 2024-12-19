@@ -13,6 +13,7 @@ CHANGELOG
 - Ajout du floutage dans l'application (#571 @juggler31)
 - Changement de la notion de "commune" en notion de "territoire" (#545 @juggler31)
 - Ajout d'un graphique de provenance des données (#538)
+- Ajout d'une carte territoire dans la page d'acceuil ainsi que la liste de toutes les espèces sur celui-ci.
 
 🐛 **Corrections**
 
