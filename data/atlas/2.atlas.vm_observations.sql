@@ -23,7 +23,7 @@ SELECT
     c.observateurs,
     c.id_dataset,
     c.type_code,
-    com.insee,
+    com.id_zone,
     tx.cd_ref,
     CASE
         WHEN sensi.cd_nomenclature::text = '0'::text
@@ -53,7 +53,7 @@ FROM centroid_synthese c
 --           GROUP BY s_1.id_synthese
 --         )
 --  SELECT s.id_synthese AS id_observation,
---    com.insee,
+--    com.id_zone,
 --     s.date_min AS dateobs,
 --     (s.altitude_min + s.altitude_max) / 2 AS altitude_retenue,
 --     s.observers AS observateurs,
@@ -78,7 +78,7 @@ FROM centroid_synthese c
 
 CREATE UNIQUE INDEX ON atlas.vm_observations (id_observation);
 CREATE INDEX ON atlas.vm_observations (cd_ref);
-CREATE INDEX ON atlas.vm_observations (insee);
+CREATE INDEX ON atlas.vm_observations (id_zone);
 CREATE INDEX ON atlas.vm_observations (altitude_retenue);
 CREATE INDEX ON atlas.vm_observations (dateobs);
 CREATE INDEX index_gist_vm_observations_the_geom_point ON atlas.vm_observations USING gist (the_geom_point);
