@@ -32,6 +32,7 @@ from atlas.modeles.repositories import (
     vmCorTaxonAttribut,
     vmTaxonsMostView,
     vmCorTaxonOrganism,
+    vmStatsStatutTaxonCommRepository,
 )
 
 
@@ -313,6 +314,11 @@ def ficheZone(id_zone):
     connection = db.engine.connect()
 
     listTaxons = vmTaxonsRepository.getTaxonsZones(connection, id_zone)
+    taxon_pro_patri = vmStatsStatutTaxonCommRepository.get_nb_taxon_pro_pat_zone(
+        connection, id_zone
+    )
+    nb_organism = vmOrganismsRepository.get_nb_organism_on_zone(connection, id_zone)
+    infosCommune = tZonesRepository.get_infos_zone(connection, id_zone)
 
     zone = tZonesRepository.getZoneFromIdZone(connection, id_zone)
     if current_app.config["AFFICHAGE_MAILLE"]:
@@ -340,6 +346,9 @@ def ficheZone(id_zone):
         observers=observers,
         DISPLAY_EYE_ON_LIST=True,
         id_zone=id_zone,
+        taxonProPatri=taxon_pro_patri,
+        nb_organism=nb_organism,
+        infosCommune=infosCommune,
     )
 
 
