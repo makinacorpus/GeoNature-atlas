@@ -126,13 +126,18 @@ if ! database_exists $db_name
         ###########################
         if $use_ref_geo_gn2
             then
-                echo "Creation of geographic tables from the ref_geo schema of the geonature database"
-                echo "--------------------" &>> log/install_db.log
-                echo "Creation of layers table from ref_geo of geonaturedb" &>> log/install_db.log
-                echo "--------------------" &>> log/install_db.log
-                export PGPASSWORD=$owner_atlas_pass; psql -d $db_name -U $owner_atlas -h $db_host -p $db_port \
-                    -v type_maille=$type_maille \
-                    -v type_territoire=$type_territoire \
+            ogr2ogr -f "ESRI Shapefile" -t_srs EPSG:4326 data/ref/emprise_territoire_4326.shp $limit_shp
+            sudo -u postgres -s shp2pgsql -W "LATIN1" -s 4326 -D -I ./data/ref/emprise_territoire_4326.shp atlas.t_layer_territoire | sudo -n -u postgres -s psql -d $db_name
+            rm data/ref/emprise_territoire_4326.*
+            sudo -u postgres -s psql -d $db_name -c "ALTER TABLE atlas.t_layer_territoire OWNER TO "$owner_atlas";"
+
+            echo "Creation of geographic tables from the ref_geo schema of the geonature database"
+            echo "--------------------" &>> log/install_db.log
+            echo "Creation of layers table from ref_geo of geonaturedb" &>> log/install_db.log
+            echo "--------------------" &>> log/install_db.log
+            export PGPASSWORD=$owner_atlas_pass; psql -d $db_name -U $owner_atlas -h $db_host -p $db_port \
+                -v type_maille=$type_maille \
+                -v type_territoire=$type_territoire \
                     -f data/gn2/atlas_ref_geo.sql &>> log/install_db.log
         else
             # FR: Import du shape des limites du territoire ($limit_shp) dans la BDD / atlas.t_layer_territoire

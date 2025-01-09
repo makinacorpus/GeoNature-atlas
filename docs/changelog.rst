@@ -13,6 +13,7 @@ CHANGELOG
 - Ajout d'une carte territoire dans la page d'acceuil ainsi que la liste de toutes les espèces sur celui-ci.
 - Ajout d'un graphique de provenance des données (#538)
 - Changement de la notion de "commune" en notion de "zoning" (#545 @juggler31)
+- Ajout de statistique sur la fiche de "zoning" (#540 @juggler31)
 
 🐛 **Corrections**
 
