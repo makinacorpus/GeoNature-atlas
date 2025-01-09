@@ -53,7 +53,7 @@ def getTaxonsZones(connection, id_zone):
             m.url, m.chemin, m.id_media
         FROM atlas.vm_observations o
         JOIN atlas.vm_taxons t ON t.cd_ref=o.cd_ref
-        JOIN atlas.zoning zone ON st_intersects(o.the_geom_point, zone.the_geom_4326)
+        JOIN atlas.zoning zone ON st_intersects(o.geom_point, zone.the_geom_4326)
         LEFT JOIN atlas.vm_medias m ON m.cd_ref=o.cd_ref AND m.id_type={}
         WHERE zone.id_zone = :thisIdZone
         GROUP BY o.cd_ref, t.nom_vern, t.nom_complet_html, t.group2_inpn,

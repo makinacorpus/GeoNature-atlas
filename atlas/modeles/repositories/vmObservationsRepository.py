@@ -213,7 +213,7 @@ def getObserversZone(connection, id_zone):
         SELECT DISTINCT observateurs
         FROM atlas.vm_observations AS obs
         JOIN atlas.zoning AS zone
-                ON ST_Intersects(obs.the_geom_point, zone.the_geom_4326)
+                ON ST_Intersects(obs.geom_point, zone.the_geom_4326)
         WHERE zone.id_zone = :thisIdZone
     """
     req = connection.execute(text(sql), thisIdZone=id_zone)

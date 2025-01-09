@@ -71,7 +71,7 @@ def getZonesObservationsChilds(connection, cd_ref):
             zone.id_zone
         FROM atlas.vm_observations AS obs
             JOIN atlas.zoning AS zone
-                ON st_intersects(obs.the_geom_point, zone.the_geom_4326)
+                ON st_intersects(obs.geom_point, zone.the_geom_4326)
         WHERE obs.cd_ref = ANY(:taxonsList)
         ORDER BY zone.area_name ASC
     """
