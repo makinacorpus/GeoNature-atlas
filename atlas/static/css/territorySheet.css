@@ -1,3 +1,31 @@
+.card.container {
+    align-items: center;
+    padding: 1rem;
+    max-width: 100%;
+    &.stat_card {
+        align-items: center;
+    }
+    &.info_card {
+        align-items: self-start;
+    }
+    .tab-content {
+        padding: 1rem;
+        width: 100%;
+
+        #observations_and_species {
+            text-align: center;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+
+            .chart_wrapper {
+
+            }
+        }
+    }
+}
+
+
 img.patrimonial_img {
     width: 1rem;
 }
@@ -6,6 +34,10 @@ img.patrimonial_img {
     width: 100%;
     justify-items: center;
     padding: 1rem;
+
+}
+.specie_list_map_block {
+    min-height: 50%;
 }
 
 .specie_list_map_block {

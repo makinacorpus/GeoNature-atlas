@@ -121,3 +121,64 @@ GROUP BY z.id_parent
         }
 
     return info_zone
+
+def get_nb_species_by_taxonimy_group(connection, id_zone):
+    """
+    Get number of species by taxonimy group:
+    """
+    sql = """
+SELECT COUNT(o.id_observation) AS nb_observations, t.group2_inpn
+from atlas.vm_observations o
+JOIN atlas.vm_taxons t ON t.cd_ref = o.cd_ref
+JOIN atlas.zoning z ON z.id_zone = o.id_zone
+WHERE z.id_zone = :id_zone
+GROUP BY t.group2_inpn, z.id_zone
+        """
+
+    result = connection.execute(text(sql), id_zone=id_zone)
+    info_chart = dict()
+    for r in result:
+        info_chart[r.group2_inpn] = r.nb_observations
+    return info_chart
+
+def get_nb_species_by_taxonimy_group(connection, id_zone):
+    """
+    Get number of species by taxonimy group:
+    """
+    sql = """
+SELECT COUNT(DISTINCT o.cd_ref) AS nb_species, t.group2_inpn, COUNT(t.patrimonial) AS nb_patrominal , COUNT(t.protection_stricte) AS nb_protection_stricte
+from atlas.vm_observations o
+JOIN atlas.vm_taxons t ON t.cd_ref = o.cd_ref
+JOIN atlas.zoning z ON z.id_zone = o.id_zone
+WHERE z.id_zone = :id_zone
+GROUP BY t.group2_inpn
+        """
+
+    result = connection.execute(text(sql), id_zone=id_zone)
+    info_chart = dict()
+    for r in result:
+        info_chart[r.group2_inpn] = {
+            "nb_species": r.nb_species,
+            "nb_patrimonial": 10,
+            "nb_protection": 15
+        }
+    return info_chart
+
+def get_nb_observations_by_taxonimy_group(connection, id_zone):
+    """
+    Get number of species by taxonimy group:
+    """
+    sql = """
+SELECT COUNT(o.id_observation) AS nb_observations, t.group2_inpn
+from atlas.vm_observations o
+JOIN atlas.vm_taxons t ON t.cd_ref = o.cd_ref
+JOIN atlas.zoning z ON z.id_zone = o.id_zone
+WHERE z.id_zone = :id_zone
+GROUP BY t.group2_inpn, z.id_zone
+        """
+
+    result = connection.execute(text(sql), id_zone=id_zone)
+    info_chart = dict()
+    for r in result:
+        info_chart[r.group2_inpn] = r.nb_observations
+    return info_chart

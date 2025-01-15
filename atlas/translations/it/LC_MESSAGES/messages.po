@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2025-01-09 21:50+0100\n"
+"POT-Creation-Date: 2025-01-10 01:05+0100\n"
 "PO-Revision-Date: 2021-07-19 09:53+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: it\n"
@@ -32,51 +32,52 @@ msgstr "Home"
 #: atlas/static/custom/templates/footer.html:5
 #: atlas/static/custom/templates/footer.html:30
 #: atlas/static/custom/templates/footer.html.sample:5
-#: atlas/static/custom/templates/footer.html.sample:29
+#: atlas/static/custom/templates/footer.html.sample:30
 msgid "credits"
 msgstr "Concezione e crediti"
 
 #: atlas/static/custom/templates/footer.html:7
 #: atlas/static/custom/templates/footer.html:47
 #: atlas/static/custom/templates/footer.html.sample:7
-#: atlas/static/custom/templates/footer.html.sample:46
+#: atlas/static/custom/templates/footer.html.sample:47
 msgid "legal"
 msgstr "Nota legale"
 
 #: atlas/static/custom/templates/footer.html:11
 #: atlas/static/custom/templates/footer.html:65
 #: atlas/static/custom/templates/footer.html.sample:11
-#: atlas/static/custom/templates/footer.html.sample:64
+#: atlas/static/custom/templates/footer.html.sample:65
 msgid "personal_data"
 msgstr "Dati personali"
 
 #: atlas/static/custom/templates/footer.html:12
+#: atlas/static/custom/templates/footer.html.sample:12
 msgid "preferences_cookies"
 msgstr ""
 
 #: atlas/static/custom/templates/footer.html:18
-#: atlas/static/custom/templates/footer.html.sample:17
+#: atlas/static/custom/templates/footer.html.sample:18
 msgid "atlas.fauna.flora"
 msgstr "Atlante della flora e della fauna"
 
 #: atlas/static/custom/templates/footer.html:18
-#: atlas/static/custom/templates/footer.html.sample:17
+#: atlas/static/custom/templates/footer.html.sample:18
 #: atlas/static/custom/templates/introduction.html.sample:7
 msgid "from1"
 msgstr "di"
 
 #: atlas/static/custom/templates/footer.html:20
-#: atlas/static/custom/templates/footer.html.sample:19
+#: atlas/static/custom/templates/footer.html.sample:20
 msgid "powered.by"
 msgstr "Realizzato da"
 
 #: atlas/static/custom/templates/footer.html:20
-#: atlas/static/custom/templates/footer.html.sample:19
+#: atlas/static/custom/templates/footer.html.sample:20
 msgid "developed.by"
 msgstr "sviluppato da il"
 
 #: atlas/static/custom/templates/footer.html:21
-#: atlas/static/custom/templates/footer.html.sample:20
+#: atlas/static/custom/templates/footer.html.sample:21
 msgid "ecrins.national.park"
 msgstr "Parco Nazionale degli Ecrins"
 
@@ -135,9 +136,28 @@ msgstr "Ricerca per zona"
 msgid "atlas.presentation"
 msgstr "Presentazione dell'atlante"
 
-#: atlas/templates/areaSheet/_main.html:63
+#: atlas/templates/areaSheet/_main.html:65
 msgid "last.obs.zone"
 msgstr "Ultime osservazioni: "
+
+#: atlas/templates/areaSheet/moreZoneInfo.html:4
+#, fuzzy
+msgid "general_presentation"
+msgstr "Presentazione dell'atlante"
+
+#: atlas/templates/areaSheet/moreZoneInfo.html:6
+#, fuzzy
+msgid "observations_and_species"
+msgstr "Osservazioni"
+
+#: atlas/templates/areaSheet/moreZoneInfo.html:7
+#, fuzzy
+msgid "data_source"
+msgstr "Origine"
+
+#: atlas/templates/areaSheet/moreZoneInfo.html:8
+msgid "links_and_documents"
+msgstr ""
 
 #: atlas/templates/areaSheet/surrounding_areas.html:10
 msgid "associate.zone"
@@ -228,7 +248,7 @@ msgid "this.taxon.has.a.protected.status"
 msgstr "Questo taxon ha uno status di protezione"
 
 #: atlas/templates/core/listTaxons.html:80
-#: atlas/templates/core/statHierarchy.html:7
+#: atlas/templates/core/statHierarchy.html:8
 #: atlas/templates/organismSheet/topSpecies.html:61
 #: atlas/templates/speciesSheet/map.html:15
 #: atlas/templates/speciesSheet/otherInformations.html:144
@@ -236,7 +256,7 @@ msgid "observation"
 msgstr "Osservazione"
 
 #: atlas/templates/core/listTaxons.html:81
-#: atlas/templates/core/statHierarchy.html:7
+#: atlas/templates/core/statHierarchy.html:8
 #: atlas/templates/core/tabTaxons.html:19
 #: atlas/templates/home/globalStats.html:16
 #: atlas/templates/organismSheet/statsInfos.html:11
@@ -266,46 +286,46 @@ msgstr "Tornare a Home"
 msgid "gallery.title"
 msgstr "Galleria di foto"
 
-#: atlas/templates/core/statHierarchy.html:12
+#: atlas/templates/core/statHierarchy.html:13
 #: atlas/templates/home/globalStats.html:28
 #: atlas/templates/home/taxoRank.html:32
 #: atlas/templates/organismSheet/statsInfos.html:21
 msgid "species"
 msgstr "Contanti"
 
-#: atlas/templates/core/statHierarchy.html:17
+#: atlas/templates/core/statHierarchy.html:18
 #: atlas/templates/speciesSheet/map.html:25
 #: atlas/templates/speciesSheet/otherInformations.html:28
 msgid "observers"
 msgstr "Osservatori"
 
-#: atlas/templates/core/statHierarchy.html:17
+#: atlas/templates/core/statHierarchy.html:18
 #: atlas/templates/speciesSheet/map.html:25
 #: atlas/templates/speciesSheet/otherInformations.html:28
 msgid "observer"
 msgstr "Osservatori"
 
-#: atlas/templates/core/statHierarchy.html:23
+#: atlas/templates/core/statHierarchy.html:24
 msgid "sources"
 msgstr "fonti"
 
-#: atlas/templates/core/statHierarchy.html:23
+#: atlas/templates/core/statHierarchy.html:24
 msgid "source"
 msgstr "Origine"
 
-#: atlas/templates/core/statHierarchy.html:28
+#: atlas/templates/core/statHierarchy.html:29
 msgid "first_observation"
 msgstr "prima osservazione"
 
-#: atlas/templates/core/statHierarchy.html:33
+#: atlas/templates/core/statHierarchy.html:34
 msgid "last_observation"
 msgstr "ultima osservazione"
 
-#: atlas/templates/core/statHierarchy.html:38
+#: atlas/templates/core/statHierarchy.html:39
 msgid "protected_species"
 msgstr "specie protette"
 
-#: atlas/templates/core/statHierarchy.html:44
+#: atlas/templates/core/statHierarchy.html:45
 msgid "patrimonial_species"
 msgstr "specie del patrimonio"
 
@@ -479,6 +499,11 @@ msgstr "Osservazioni per classi di altitudine"
 #: atlas/templates/speciesSheet/charts.html:10
 msgid "monthly.obs"
 msgstr "Osservazioni mensili"
+
+#: atlas/templates/speciesSheet/charts.html:16
+#, fuzzy
+msgid "data.source"
+msgstr "Origine"
 
 #: atlas/templates/speciesSheet/descriptionMedia.html:12
 #: atlas/templates/speciesSheet/otherInformations.html:42

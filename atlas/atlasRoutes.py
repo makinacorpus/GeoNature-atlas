@@ -334,6 +334,15 @@ def ficheZone(id_zone):
 
     observers = vmObservationsRepository.getObserversZone(connection, id_zone)
 
+    moreZoneInfos = {
+        'general_presentation': "<div>Texte de la <strong>présentation</strong> générale <img width=\"300px\" src=\"/static/custom/images/partenaires/logo_region_pdl.png\"/></div>",
+        'data_source': "Texte de la provenance des données",
+        'links_and_documents': "Texte de documents et liens",
+    }
+
+    biodiversity_values_chart = tZonesRepository.get_nb_species_by_taxonimy_group(connection, id_zone)
+    observations_values_chart = tZonesRepository.get_nb_observations_by_taxonimy_group(connection, id_zone)
+
     session.close()
     connection.close()
 
@@ -349,6 +358,9 @@ def ficheZone(id_zone):
         taxonProPatri=taxon_pro_patri,
         nb_organism=nb_organism,
         infosCommune=infosCommune,
+        moreZoneInfos=moreZoneInfos,
+        biodiversity_values_chart=biodiversity_values_chart,
+        observations_values_chart=observations_values_chart,
     )
 
 

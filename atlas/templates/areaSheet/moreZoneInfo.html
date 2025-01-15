@@ -1,0 +1,39 @@
+{% block moreZoneInfos %}
+    <div class="card container info_card">
+        <ul class="nav nav-tabs">
+            <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#general_presentation">{{ _('general_presentation') }}</a>
+            </li>
+            <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#observations_and_species">{{ _('observations_and_species') }}</a></li>
+            <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#data_source">{{ _('data_source') }}</a></li>
+            <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#links_and_documents">{{ _('links_and_documents') }}</a></li>
+        </ul>
+
+        <div class="tab-content">
+            <div id="general_presentation" class="tab-pane fade show active">
+                {{ moreZoneInfos.general_presentation | safe }}
+            </div>
+            <div id="observations_and_species" class="tab-pane fade">
+                <div class="infos_biodiversity">
+                    <h4>{{ _('Biodiversity') }}</h4>
+                    <div><strong>Nombre d'espèces</strong> par groupe taxonomique</div>
+                    <div class="chart-container" style="position: relative;">
+                        <canvas id="biodiversityChart" style="padding: 0.5rem;"></canvas>
+                    </div>
+                </div>
+                <div class="infos_observations">
+                    <h4>{{ _('Observations') }}</h4>
+                    <div><strong>Nombre d'observations</strong> par groupe taxonomique</div>
+                    <div class="chart-container" style="position: relative;">
+                        <canvas id="observationsChart" style="padding: 0.5rem;"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div id="data_source" class="tab-pane fade">
+                {{ moreZoneInfos.data_source }}
+            </div>
+            <div id="links_and_documents" class="tab-pane fade">
+                {{ moreZoneInfos.links_and_documents }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

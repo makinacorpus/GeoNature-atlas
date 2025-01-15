@@ -41,8 +41,8 @@ genericChart = function (element, labels, values) {
             maintainAspectRatio: false,
             plugins: {
                 legend: {
-                  position: 'top',
-                  display: false
+                    position: 'top',
+                    display: false
                 },
             }
         }
@@ -84,7 +84,7 @@ function getPieEndColor(index, isLastElem) {
     return chartThirdColor
 }
 
-function formatPieData(data) {
+function formatPieData(data, element) {
     let labels = []
     let data_count = []
     Object.keys(data).forEach(key => {
@@ -92,7 +92,6 @@ function formatPieData(data) {
         data_count.push(data[key])
     })
 
-    const element = document.getElementById("organismChart");
     const context2d = element.getContext("2d");
 
     return {
@@ -123,6 +122,75 @@ function formatPieData(data) {
     }
 }
 
+function stackedBarChartConfig(element, data) {
+    return new Chart(element, {
+        type: 'bar',
+        data: data,
+        options: {
+            plugins: {
+                title: {
+                    display: false
+                },
+            },
+            responsive: true,
+            maintainAspectRatio: true,
+            interaction: {
+                intersect: false,
+            },
+            scales: {
+                x: {
+                    stacked: true,
+                },
+                y: {
+                    stacked: true
+                }
+            },
+            borderRadius: '5',
+            barThickness: '20',
+            indexAxis: 'y',
+        }
+    });
+}
+
+function formatStackedBarChart(values, element) {
+    const labels = []
+    const nb_species = []
+    const nb_patrimonial = []
+    const nb_protection = []
+    Object.keys(values).forEach(key => {
+        labels.push(key)
+        nb_species.push(values[key].nb_species)
+        nb_patrimonial.push(values[key].nb_patrimonial)
+        nb_protection.push(values[key].nb_protection)
+    })
+
+    const data = {
+        labels: labels,
+        datasets: [
+            {
+                label: "Species",
+                data: nb_species,
+                backgroundColor: [configuration.COLOR_STACKED_BAR_CHARTS[0]],
+                stack: "0",
+            },
+            {
+                label: "Patrimonial",
+                data: nb_patrimonial,
+                backgroundColor: [configuration.COLOR_STACKED_BAR_CHARTS[1]],
+                stack: "0",
+            },
+            {
+                label: "Protection stricte",
+                data: nb_protection,
+                backgroundColor: [configuration.COLOR_STACKED_BAR_CHARTS[2]],
+                stack: "0",
+            }
+        ]
+    };
+
+    return data
+}
+
 var monthChartElement = document.getElementById('monthChart');
 if (monthChartElement) {
     const monthChart = genericChart(monthChartElement, months_name, getChartDatas(months_value, 'value'));
@@ -134,5 +202,17 @@ if (altiChartElement) {
 
 const dataSourceChartElement = document.getElementById('organismChart');
 if (dataSourceChartElement) {
-    const organismChart = pieChartConfig(dataSourceChartElement, formatPieData(data_source_values));
+    const organismChart = pieChartConfig(dataSourceChartElement, formatPieData(data_source_values, dataSourceChartElement));
+}
+
+const biodiversityChartElement = document.getElementById('biodiversityChart');
+if (biodiversityChartElement) {
+    const organismChart = stackedBarChartConfig(biodiversityChartElement, formatStackedBarChart(biodiversity_values_chart, biodiversityChartElement));
+}
+
+const observations_values = []
+
+const observationsChartElement = document.getElementById('observationsChart');
+if (observationsChartElement) {
+    const organismChart = pieChartConfig(observationsChartElement, formatPieData(observations_values_chart, observationsChartElement));
 }

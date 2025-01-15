@@ -142,6 +142,13 @@ class AtlasConfig(Schema):
     AFFICHAGE_GRAPH_ALTITUDES = fields.Boolean(load_default=True)
     AFFICHAGE_GRAPH_PHENOLOGIE = fields.Boolean(load_default=False)
     AFFICHAGE_GRAPH_PROVENANCE_DONNEE = fields.Boolean(load_default=False)
+    COLOR_STACKED_BAR_CHARTS = fields.List(
+        fields.String(),
+        load_default=[
+            "#E1CE7A",
+            "#FBFFB9",
+            "#FDD692"
+        ])
 
     RANG_STAT = fields.List(
         fields.Dict,

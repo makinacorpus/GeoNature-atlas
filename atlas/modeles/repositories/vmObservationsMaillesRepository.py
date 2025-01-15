@@ -208,7 +208,7 @@ def lastObservationsMailles(connection, mylimit, idPhoto):
 def lastObservationsZoneMaille(connection, obs_limit, id_zone):
     sql = """
         SELECT
-            obs.id_observations, obs.cd_ref, obs.type_code, obs.nbr, c.insee,
+            obs.id_observations, obs.cd_ref, obs.type_code, obs.nbr,
             COALESCE(t.nom_vern || ' | ', '') || t.lb_nom  AS display_name,
             m.the_geom AS l_geom,
             t.nom_vern, m.the_geom as l_geom,
