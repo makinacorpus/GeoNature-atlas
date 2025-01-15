@@ -716,3 +716,15 @@ footer {
 .spinner-border {
   animation-duration: 3s;
 }
+
+.navbar div.form-inline {
+    flex-flow: nowrap;
+}
+
+.navbar form.form-inline {
+    display: block;
+}
+
+.navbar input.form-control {
+    width: 100%;
+}
