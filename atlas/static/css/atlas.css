@@ -151,6 +151,17 @@ a {
   border-bottom: 1px solid var(--main-color);
   z-index: 1999;
   height: 60px;
+  flex-wrap: nowrap; /* surcharge propriété bootstrap */
+}
+
+.navbar a.titreAppli {
+  white-space: normal; /* surcharge propriété bootstrap */
+  /* Si titre trop long tronque le contenu au-delà de 2 lignes */
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+
 }
 
 .logoStructure {
@@ -712,6 +723,8 @@ footer {
 .spinner-border {
   animation-duration: 3s;
 }
+
+.navbar
 
 .navbar div.form-inline {
     flex-flow: nowrap;
