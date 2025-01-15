@@ -724,3 +724,11 @@ footer {
 .navbar input.form-control {
     width: 100%;
 }
+
+.partner-logos button.slick-prev {
+    left: 0;
+}
+
+.partner-logos button.slick-next {
+    right: 0;
+}
