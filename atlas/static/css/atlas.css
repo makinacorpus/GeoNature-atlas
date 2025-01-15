@@ -98,10 +98,6 @@ main {
     0 0 5px var(--main-color);
 }
 
-.form-inline .form-control {
-  width: 150 px;
-}
-
 /* carto */
 
 .leaflet-touch .leaflet-bar a:last-child {
