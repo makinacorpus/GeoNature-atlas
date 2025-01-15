@@ -142,6 +142,12 @@ class AtlasConfig(Schema):
     AFFICHAGE_GRAPH_ALTITUDES = fields.Boolean(load_default=True)
     AFFICHAGE_GRAPH_PHENOLOGIE = fields.Boolean(load_default=False)
     AFFICHAGE_GRAPH_PROVENANCE_DONNEE = fields.Boolean(load_default=False)
+    AFFICHAGE_GRAPH_AREA_GENERAL_PRESENTATION = fields.Boolean(load_default=False)
+    AFFICHAGE_GRAPH_AREA_OBS_ESPECES = fields.Boolean(load_default=False)
+    AFFICHAGE_GRAPH_AREA_PROVENANCE_DONNEE = fields.Boolean(load_default=False)
+    COLOR_STACKED_BAR_CHARTS = fields.List(
+        fields.String(), load_default=["#E1CE7A", "#FBFFB9", "#FDD692"]
+    )
     COLOR_PIE_CHARTS = fields.List(
         fields.String(),
         load_default=[
@@ -238,6 +244,7 @@ class AtlasConfig(Schema):
     )
 
     AFFICHAGE_MAILLE = fields.Boolean(load_default=False)
+    TYPES_TERRITOIRE = fields.List(fields.String(), load_default=["COM"])
     ZOOM_LEVEL_POINT = fields.Integer(load_default=11)
     LIMIT_CLUSTER_POINT = fields.Integer(load_default=1000)
     NB_DAY_LAST_OBS = fields.String(load_default="7")

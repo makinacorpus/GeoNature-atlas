@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2025-01-17 00:30+0100\n"
+"POT-Creation-Date: 2025-01-21 16:02+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: fr\n"
@@ -101,12 +101,12 @@ msgstr ""
 msgid "search.species"
 msgstr "Recherche par espèce"
 
-#: static/custom/templates/navbar.html:47 templates/home/globalStats.html:55
+#: atlas/static/custom/templates/navbar.html:47
+#: atlas/templates/home/globalStats.html:55
 msgid "search.area"
-msgstr "Recherche par zone"
+msgstr "Recherche par territoire"
 
-#: static/custom/templates/navbar.html.sample:47
-#, fuzzy
+#: atlas/static/custom/templates/navbar.html.sample:47
 msgid "search.zone"
 msgstr "Recherche par zone"
 
@@ -119,9 +119,31 @@ msgstr "Présentation de l'atlas"
 msgid "last.obs.area"
 msgstr "Dernière observations : "
 
-#: templates/areaSheet/surrounding_areas.html:10
+#: atlas/templates/areaSheet/moreZoneInfo.html:5
+msgid "general_presentation"
+msgstr "Présentation générale"
+
+#: atlas/templates/areaSheet/moreZoneInfo.html:7
+msgid "observations_and_species"
+msgstr "Observations et espèces"
+
+#: atlas/templates/areaSheet/moreZoneInfo.html:8
+msgid "data_sources"
+msgstr "Provenance des données"
+
+#: atlas/templates/areaSheet/moreZoneInfo.html:19
+#: atlas/templates/areaSheet/moreZoneInfo.html:35
+msgid "Biodiversity"
+msgstr "Biodiversité"
+
+#: atlas/templates/areaSheet/moreZoneInfo.html:26
+#: atlas/templates/areaSheet/moreZoneInfo.html:42
+msgid "Observations"
+msgstr "Observations"
+
+#: atlas/templates/areaSheet/surrounding_areas.html:10
 msgid "associate.area"
-msgstr "Zones associées"
+msgstr "territoire associées"
 
 #: templates/areaSheet/surrounding_areas.html:23
 msgid "check.area.sheet"
@@ -182,7 +204,7 @@ msgstr "Fiche espèce"
 msgid "check.species.sheet"
 msgstr "Voir la fiche espèce"
 
-#: templates/core/extended_areas_search.html:13
+#: atlas/templates/core/extended_areas_search.html:13
 msgid "search.other.areas.type"
 msgstr "Recherche par autre type de zones"
 
@@ -201,20 +223,23 @@ msgstr "Voir les observations sur le territoire"
 msgid "this.taxon.has.a.protected.status"
 msgstr "Ce taxon a un statut de protection"
 
-#: templates/core/listTaxons.html:80 templates/core/statHierarchy.html:8
-#: templates/organismSheet/topSpecies.html:61
-#: templates/speciesSheet/map.html:15
-#: templates/speciesSheet/otherInformations.html:144
+#: atlas/templates/core/listTaxons.html:80
+#: atlas/templates/core/statHierarchy.html:8
+#: atlas/templates/organismSheet/topSpecies.html:61
+#: atlas/templates/speciesSheet/map.html:15
+#: atlas/templates/speciesSheet/otherInformations.html:144
 msgid "observation"
 msgstr "Observation"
 
-#: templates/core/listTaxons.html:81 templates/core/statHierarchy.html:8
-#: templates/core/tabTaxons.html:19 templates/home/globalStats.html:16
-#: templates/organismSheet/statsInfos.html:11
-#: templates/organismSheet/topSpecies.html:61
-#: templates/speciesSheet/identityCard.html:135
-#: templates/speciesSheet/map.html:15
-#: templates/speciesSheet/otherInformations.html:142
+#: atlas/templates/core/listTaxons.html:81
+#: atlas/templates/core/statHierarchy.html:8
+#: atlas/templates/core/tabTaxons.html:19
+#: atlas/templates/home/globalStats.html:16
+#: atlas/templates/organismSheet/statsInfos.html:11
+#: atlas/templates/organismSheet/topSpecies.html:61
+#: atlas/templates/speciesSheet/identityCard.html:135
+#: atlas/templates/speciesSheet/map.html:15
+#: atlas/templates/speciesSheet/otherInformations.html:142
 msgid "observations"
 msgstr "Observations"
 
@@ -235,22 +260,50 @@ msgstr "Retour à l'accueil"
 msgid "gallery.title"
 msgstr "Galerie photos"
 
-#: templates/core/statHierarchy.html:13 templates/home/globalStats.html:28
-#: templates/home/taxoRank.html:32 templates/organismSheet/statsInfos.html:21
+#: atlas/templates/core/statHierarchy.html:13
+#: atlas/templates/home/globalStats.html:28
+#: atlas/templates/home/taxoRank.html:32
+#: atlas/templates/organismSheet/statsInfos.html:21
 msgid "species"
 msgstr "Espèces"
 
-#: templates/core/statHierarchy.html:18 templates/speciesSheet/map.html:25
-#: templates/speciesSheet/otherInformations.html:28
+#: atlas/templates/core/statHierarchy.html:18
+#: atlas/templates/speciesSheet/map.html:25
+#: atlas/templates/speciesSheet/otherInformations.html:28
 msgid "observers"
 msgstr "Observateurs"
 
-#: templates/core/statHierarchy.html:18 templates/speciesSheet/map.html:25
-#: templates/speciesSheet/otherInformations.html:28
+#: atlas/templates/core/statHierarchy.html:18
+#: atlas/templates/speciesSheet/map.html:25
+#: atlas/templates/speciesSheet/otherInformations.html:28
 msgid "observer"
 msgstr "Observateur"
 
-#: templates/core/tabTaxons.html:7
+#: atlas/templates/core/statHierarchy.html:24
+msgid "sources"
+msgstr "sources"
+
+#: atlas/templates/core/statHierarchy.html:24
+msgid "source"
+msgstr "source"
+
+#: atlas/templates/core/statHierarchy.html:29
+msgid "first_observation"
+msgstr "première observation"
+
+#: atlas/templates/core/statHierarchy.html:34
+msgid "last_observation"
+msgstr "dernière observation"
+
+#: atlas/templates/core/statHierarchy.html:39
+msgid "protected_species"
+msgstr "espèces protectégés"
+
+#: atlas/templates/core/statHierarchy.html:45
+msgid "patrimonial_species"
+msgstr "espèces patrimoniales"
+
+#: atlas/templates/core/tabTaxons.html:7
 msgid "group"
 msgstr "Groupe"
 
@@ -287,11 +340,11 @@ msgstr "En quelques chiffres"
 msgid "home.seelatestobs"
 msgstr "Voir les dernières observations"
 
-#: templates/home/globalStats.html:47 templates/speciesSheet/map.html:20
-#: templates/speciesSheet/otherInformations.html:10
-#: templates/speciesSheet/otherInformations.html:14
-msgid "municipalities"
-msgstr "Zones"
+#: atlas/templates/home/globalStats.html:47
+#: atlas/templates/speciesSheet/otherInformations.html:10
+#: atlas/templates/speciesSheet/otherInformations.html:14
+msgid "territories"
+msgstr "Territoires"
 
 #: templates/home/globalStats.html:67
 msgid "photos"
@@ -433,11 +486,11 @@ msgstr "Voir la fiche espèce INPN"
 msgid "protection"
 msgstr "Statut de protection"
 
-#: templates/speciesSheet/map.html:20
-#: templates/speciesSheet/otherInformations.html:10
-#: templates/speciesSheet/otherInformations.html:14
-msgid "municipality"
-msgstr "Commune"
+#: atlas/templates/speciesSheet/map.html:20
+#: atlas/templates/speciesSheet/otherInformations.html:10
+#: atlas/templates/speciesSheet/otherInformations.html:14
+msgid "territory"
+msgstr "territoire"
 
 #: templates/speciesSheet/map.html:29
 #: templates/speciesSheet/otherInformations.html:21
