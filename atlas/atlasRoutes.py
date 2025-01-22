@@ -351,6 +351,7 @@ def _make_groupes_statuts(statuts):
 
 @main.route("/area/<id_area>", methods=["GET", "POST"])
 def ficheArea(id_area):
+    print("Fiche Area")
     session = db.session
     connection = db.engine.connect()
 
@@ -358,7 +359,7 @@ def ficheArea(id_area):
     taxon_pro_patri = vmStatsStatutTaxonCommRepository.get_nb_taxon_pro_pat_area(
         connection, id_area
     )
-    nb_organism = vmOrganismsRepository.get_nb_organism_on_area(connection, id_area)
+    nb_organism = 10 #vmOrganismsRepository.get_nb_organism_on_area(connection, id_area)
     infos_area = vmAreasRepository.get_infos_area(connection, id_area)
 
     area = tAreasRepository.getAreaFromIdArea(connection, id_area)
