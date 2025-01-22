@@ -145,6 +145,7 @@ class AtlasConfig(Schema):
     AFFICHAGE_GRAPH_AREA_GENERAL_PRESENTATION = fields.Boolean(load_default=False)
     AFFICHAGE_GRAPH_AREA_OBS_ESPECES = fields.Boolean(load_default=False)
     AFFICHAGE_GRAPH_AREA_PROVENANCE_DONNEE = fields.Boolean(load_default=False)
+    TYPE_TERRITOIRE_SPECIES = fields.List(fields.String(), load_default=["COM"])
     COLOR_STACKED_BAR_CHARTS = fields.List(
         fields.String(), load_default=["#E1CE7A", "#FBFFB9", "#FDD692"]
     )
