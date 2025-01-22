@@ -17,10 +17,10 @@ FROM taxonomie.bdc_statut_taxons AS s
          JOIN taxonomie.bdc_statut_type AS ty
               ON ty.cd_type_statut = t.cd_type_statut
 WHERE t.ENABLE = true
-  and t.cd_type_statut = ANY (ARRAY :list_status)
-  and t.cd_sig = ANY (ARRAY :geo_status);
+  and t.cd_type_statut = ANY(SELECT * from string_to_table(:list_status, ','))
+  and t.cd_sig = ANY(SELECT * from string_to_table(:geo_status, ','));
 
-GRANT SELECT ON TABLE atlas.vm_bdc_statut TO my_reader_user;
+GRANT SELECT ON TABLE atlas.vm_bdc_statut TO gnatlas;
 
 CREATE INDEX ON atlas.vm_bdc_statut
     USING btree (cd_ref);

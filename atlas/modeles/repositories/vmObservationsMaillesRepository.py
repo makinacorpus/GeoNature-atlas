@@ -4,7 +4,6 @@ from geojson import Feature, FeatureCollection
 from sqlalchemy.sql import text, func, any_
 
 from atlas.modeles.entities.vmObservations import VmObservations, VmObservationsMailles
-# from atlas.modeles.entities.tMaillesTerritoire import TMaillesTerritoire
 from atlas.modeles.entities.vmAreas import VmAreas
 from atlas.modeles.entities.vmTaxons import VmTaxons
 from atlas.modeles.utils import deleteAccent, findPath
