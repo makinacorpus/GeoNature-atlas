@@ -23,7 +23,7 @@ SELECT
     c.observateurs,
     c.id_dataset,
     c.type_code,
-    com.insee,
+    area.id_area,
     tx.cd_ref,
     CASE
         WHEN sensi.cd_nomenclature::text = '0'::text
@@ -39,7 +39,7 @@ SELECT
 FROM centroid_synthese c
          JOIN atlas.vm_taxref tx ON tx.cd_nom = c.cd_nom
          LEFT JOIN synthese.t_nomenclatures sensi ON c.id_nomenclature_sensitivity = sensi.id_nomenclature
-         JOIN atlas.l_communes com ON st_intersects(c.the_geom_point, com.the_geom);
+         JOIN atlas.vm_l_areas area ON st_intersects(c.the_geom_point, area.the_geom);
 
 
 -- --DROP materialized view atlas.vm_observations;
@@ -78,7 +78,7 @@ FROM centroid_synthese c
 
 CREATE UNIQUE INDEX ON atlas.vm_observations (id_observation);
 CREATE INDEX ON atlas.vm_observations (cd_ref);
-CREATE INDEX ON atlas.vm_observations (insee);
+CREATE INDEX ON atlas.vm_observations (id_area);
 CREATE INDEX ON atlas.vm_observations (altitude_retenue);
 CREATE INDEX ON atlas.vm_observations (dateobs);
 CREATE INDEX index_gist_vm_observations_the_geom_point ON atlas.vm_observations USING gist (the_geom_point);

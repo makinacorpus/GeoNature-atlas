@@ -253,10 +253,7 @@ def ficheEspece(cd_nom):
     months = vmMoisRepository.getMonthlyObservationsChilds(connection, cd_ref)
     data_source_values = vmCorTaxonOrganism.getTaxonOrganism(connection, cd_ref)
     synonyme = vmTaxrefRepository.getSynonymy(connection, cd_ref)
-    if current_app.config["AFFICHAGE_MAILLE"]:
-        communes = vmCommunesRepository.getCommunesObservationsChildsMailles(connection, cd_ref)
-    else:
-        areas = tAreasRepository.getAreasObservationsChilds(connection, cd_ref)
+    areas = tAreasRepository.getAreasObservationsChilds(connection, cd_ref)
     taxonomyHierarchy = vmTaxrefRepository.getAllTaxonomy(db_session, cd_ref)
     firstPhoto = vmMedias.getFirstPhoto(connection, cd_ref, current_app.config["ATTR_MAIN_PHOTO"])
     photoCarousel = vmMedias.getPhotoCarousel(

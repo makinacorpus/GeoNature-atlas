@@ -23,7 +23,7 @@
             </thead>
             <tbody>
             {% for taxon in listTaxons.taxons %}
-                <tr class="taxonRow" insee="{{ referenciel.insee }}" cdRef="{{ taxon.cd_ref }}">
+                <tr class="taxonRow" id_area="{{ referenciel.id_area }}" cdRef="{{ taxon.cd_ref }}">
                     <td>
                         {% if taxon.path == None %}
                             <img

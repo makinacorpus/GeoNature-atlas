@@ -96,7 +96,7 @@ FROM atlas.vm_observations obs
          JOIN gn_meta.cor_dataset_actor AS rcda
               ON obs.id_dataset = rcda.id_dataset
          JOIN atlas.vm_cor_taxon_organism cto ON rcda.id_organism = cto.id_organism
-        JOIN atlas.vm_l_areas area ON st_intersects(obs.the_geom_point, area.the_geom)
+        JOIN atlas.vm_l_areas area ON st_intersects(obs.geom_point, area.the_geom)
 WHERE area.id_area = :id_area;
     """
     res = connection.execute(text(sql), id_area=id_area)
@@ -113,7 +113,7 @@ FROM atlas.vm_observations obs
      JOIN gn_meta.cor_dataset_actor AS rcda
           ON obs.id_dataset = rcda.id_dataset
     JOIN atlas.vm_cor_taxon_organism cto ON rcda.id_organism = cto.id_organism
-        JOIN atlas.vm_l_areas area ON st_intersects(obs.the_geom_point, area.the_geom)
+        JOIN atlas.vm_l_areas area ON st_intersects(obs.geom_point, area.the_geom)
 WHERE area.id_area = :id_area
 GROUP BY cto.nom_organism
 ORDER BY cto.nom_organism;
@@ -132,7 +132,7 @@ SELECT COUNT(obs.id_observation) AS nb_observations, b.nom_organisme
 FROM atlas.vm_observations obs
      JOIN gn_meta.cor_dataset_actor AS rcda ON obs.id_dataset = rcda.id_dataset
     JOIN utilisateurs.bib_organismes b ON b.id_organisme = rcda.id_organism
-        JOIN atlas.vm_l_areas area ON st_intersects(obs.the_geom_point, area.the_geom)
+        JOIN atlas.vm_l_areas area ON st_intersects(obs.geom_point, area.the_geom)
 WHERE area.id_area = :id_area
 GROUP BY b.nom_organisme
 ORDER BY b.nom_organisme;

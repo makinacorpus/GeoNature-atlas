@@ -3,8 +3,9 @@ import json
 from geojson import Feature, FeatureCollection
 from sqlalchemy.sql import text, func, any_
 
-from atlas.modeles.entities.vmObservations import VmObservationsMailles
-from atlas.modeles.entities.tMaillesTerritoire import TMaillesTerritoire
+from atlas.modeles.entities.vmObservations import VmObservations, VmObservationsMailles
+# from atlas.modeles.entities.tMaillesTerritoire import TMaillesTerritoire
+from atlas.modeles.entities.vmAreas import VmAreas
 from atlas.modeles.entities.vmTaxons import VmTaxons
 from atlas.modeles.utils import deleteAccent, findPath
 
@@ -20,8 +21,8 @@ def getObservationsMaillesTerritorySpecies(session, cd_ref):
 
     query = (
         session.query(
-            VmObservationsMailles.id_maille,
-            TMaillesTerritoire.geojson_maille,
+            VmAreas.id_area,
+            VmAreas.area_geojson,
             func.max(VmObservationsMailles.annee).label("last_obs_year"),
             func.sum(VmObservationsMailles.nbr).label("obs_nbr"),
             VmObservationsMailles.type_code,
@@ -30,8 +31,8 @@ def getObservationsMaillesTerritorySpecies(session, cd_ref):
             VmTaxons.lb_nom,
         )
         .join(
-            TMaillesTerritoire,
-            TMaillesTerritoire.id_maille == VmObservationsMailles.id_maille,
+            VmAreas,
+            VmAreas.id_area == VmObservationsMailles.id_maille,
         )
         .join(
             VmTaxons,
@@ -39,8 +40,8 @@ def getObservationsMaillesTerritorySpecies(session, cd_ref):
         )
         .filter(VmObservationsMailles.cd_ref == any_(taxons_ids))
         .group_by(
-            VmObservationsMailles.id_maille,
-            TMaillesTerritoire.geojson_maille,
+            VmAreas.id_area,
+            VmAreas.area_geojson,
             VmObservationsMailles.type_code,
             VmTaxons.cd_ref,
             VmTaxons.nom_vern,
@@ -51,9 +52,9 @@ def getObservationsMaillesTerritorySpecies(session, cd_ref):
     return FeatureCollection(
         [
             Feature(
-                id=o.id_maille,
-                geojson_maille=json.loads(o.geojson_maille),
-                id_maille=o.id_maille,
+                id=o.id_area,
+                geojson_maille=json.loads(o.area_geojson),
+                id_maille=o.id_area,
                 type_code=o.type_code,
                 nb_observations=int(o.obs_nbr),
                 last_observation=o.last_obs_year,
@@ -86,30 +87,30 @@ def getObservationsMaillesChilds(session, cd_ref, year_min=None, year_max=None):
     query = (
         session.query(
             VmObservationsMailles.id_maille,
-            TMaillesTerritoire.geojson_maille,
+            VmAreas.area_geojson,
             func.max(VmObservationsMailles.annee).label("last_obs_year"),
             func.sum(VmObservationsMailles.nbr).label("obs_nbr"),
             VmObservationsMailles.type_code,
         )
         .join(
-            TMaillesTerritoire,
-            TMaillesTerritoire.id_maille == VmObservationsMailles.id_maille,
+            VmAreas,
+            VmAreas.id_area == VmObservationsMailles.id_maille,
         )
         .filter(VmObservationsMailles.cd_ref == any_(taxons_ids))
         .group_by(
             VmObservationsMailles.id_maille,
-            TMaillesTerritoire.geojson_maille,
+            VmAreas.area_geojson,
             VmObservationsMailles.type_code,
         )
     )
     if year_min and year_max:
         query = query.filter(VmObservationsMailles.annee.between(year_min, year_max))
-
+    print("trororororro")
     return FeatureCollection(
         [
             Feature(
                 id=o.id_maille,
-                geometry=json.loads(o.geojson_maille),
+                geometry=json.loads(o.area_geojson),
                 properties={
                     "id_maille": o.id_maille,
                     "type_code": o.type_code,
@@ -127,16 +128,16 @@ def territoryObservationsMailles(connection):
 SELECT obs.cd_ref, obs.id_maille, obs.nbr, obs.type_code,
        tax.lb_nom, tax.nom_vern, tax.group2_inpn,
        medias.url, medias.chemin, medias.id_media,
-       st_asgeojson(m.geojson_maille) AS geom
+       st_asgeojson(area.area_geojson) AS geom
 FROM atlas.vm_observations_mailles obs
          JOIN atlas.vm_taxons tax ON tax.cd_ref = obs.cd_ref
-         JOIN atlas.t_mailles_territoire m ON m.id_maille=obs.id_maille
+         JOIN atlas.vm_l_areas area ON area.id_area=obs.id_maille
          LEFT JOIN atlas.vm_medias medias
                    ON medias.cd_ref = obs.cd_ref AND medias.id_type = 1
 GROUP BY obs.cd_ref, obs.id_maille, obs.nbr,
          tax.lb_nom, tax.nom_vern, tax.group2_inpn,
          medias.url, medias.chemin, medias.id_media,
-         m.geojson_maille,
+         area.area_geojson,
          obs.type_code
   """
 
@@ -208,18 +209,18 @@ def lastObservationsMailles(connection, mylimit, idPhoto):
 def lastObservationsAreaMaille(connection, obs_limit, id_area):
     sql = """
         SELECT
-            obs.id_observations, obs.cd_ref, obs.type_code, obs.nbr, c.insee,
+            obs.id_observations, obs.cd_ref, obs.type_code, obs.nbr, area.id_area,
             COALESCE(t.nom_vern || ' | ', '') || t.lb_nom  AS display_name,
-            m.the_geom AS l_geom,
-            t.nom_vern, m.the_geom as l_geom,
-            m.geojson_maille, obs.id_maille
+            area.the_geom AS l_geom,
+            t.nom_vern,
+            area.area_geojson, obs.id_maille
         FROM atlas.vm_observations_mailles obs
             JOIN atlas.vm_l_areas AS area
                 ON area.id_area = obs.id_maille
             JOIN atlas.vm_taxons AS t
                 ON obs.cd_ref = t.cd_ref
         WHERE area.id_area = :idAreaCode
-        ORDER BY obs.dateobs DESC
+        ORDER BY obs.annee DESC
         LIMIT :obsLimit
     """
     results = connection.execute(text(sql), idAreaCode=id_area, obsLimit=obs_limit)
@@ -227,7 +228,7 @@ def lastObservationsAreaMaille(connection, obs_limit, id_area):
     for r in results:
         infos = {
             "cd_ref": r.cd_ref,
-            "insee": r.insee,
+            "id_area": r.id_area,
             "taxon": r.display_name,
             "geojson_maille": json.loads(r.geojson_maille),
             "id_maille": r.id_maille,

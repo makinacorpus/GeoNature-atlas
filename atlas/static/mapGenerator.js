@@ -748,7 +748,7 @@ function generateGeoJsonMailleLastObs(observations, isRefresh=false) {
                 geometry: obs.geojson_maille,
                 properties: {
                     type_code: obs.type_code,
-                    insee: obs.insee,
+                    id_area: obs.id_area,
                     last_observation: obs.annee,
                     meshId: obs.id_maille,
                     list_id_observation: [obs.id_observation],

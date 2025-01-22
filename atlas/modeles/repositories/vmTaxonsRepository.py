@@ -53,7 +53,7 @@ def getTaxonsAreas(connection, id_area):
             m.url, m.chemin, m.id_media
         FROM atlas.vm_observations o
         JOIN atlas.vm_taxons t ON t.cd_ref=o.cd_ref
-        JOIN atlas.vm_l_areas area ON st_intersects(o.the_geom_point, area.the_geom)
+        JOIN atlas.vm_l_areas area ON st_intersects(o.geom_point, area.the_geom)
         LEFT JOIN atlas.vm_medias m ON m.cd_ref=o.cd_ref AND m.id_type={}
         WHERE area.id_area = :thisIdArea
         GROUP BY o.cd_ref, t.nom_vern, t.nom_complet_html, t.group2_inpn,

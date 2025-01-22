@@ -112,7 +112,7 @@ def lastObservationsArea(connection, mylimit, id_area):
                 '</i>'
             ) AS taxon
     FROM atlas.vm_observations o
-    JOIN atlas.vm_l_areas area ON ST_Intersects(o.the_geom_point, area.the_geom)
+    JOIN atlas.vm_l_areas area ON ST_Intersects(o.geom_point, area.the_geom)
     JOIN atlas.vm_taxons tax ON  o.cd_ref = tax.cd_ref
     WHERE area.id_area = :thisIdArea
     ORDER BY o.dateobs DESC
@@ -213,7 +213,7 @@ def getObserversArea(connection, id_area):
         SELECT DISTINCT observateurs
         FROM atlas.vm_observations AS obs
         JOIN atlas.vm_l_areas AS area
-                ON ST_Intersects(obs.the_geom_point, area.the_geom)
+                ON ST_Intersects(obs.geom_point, area.the_geom)
         WHERE area.id_area = :thisIdArea
     """
     req = connection.execute(text(sql), thisIdArea=id_area)

@@ -139,7 +139,7 @@ SELECT
         JOIN atlas.vm_bib_areas_types type ON type.id_type = l.id_type
     WHERE l.id_area = ca.id_area_group) AS area_parent_type_name
 FROM atlas.vm_observations o
-    JOIN atlas.vm_l_areas area ON st_intersects(o.the_geom_point, area.the_geom)
+    JOIN atlas.vm_l_areas area ON st_intersects(o.geom_point, area.the_geom)
     JOIN atlas.vm_cor_areas ca ON ca.id_area = area.id_area
 WHERE area.id_area = :id_area
 GROUP BY area.description,ca.id_area_group;
@@ -173,7 +173,7 @@ def get_nb_species_by_taxonimy_group(connection, id_area):
         FROM atlas.vm_taxons taxon
         WHERE taxon.group2_inpn = t.group2_inpn) AS nb_species_in_teritory
       from atlas.vm_observations o
-         JOIN atlas.vm_l_areas area ON st_intersects(o.the_geom_point, area.the_geom)
+         JOIN atlas.vm_l_areas area ON st_intersects(o.geom_point, area.the_geom)
          FULL JOIN atlas.vm_taxons t ON t.cd_ref = o.cd_ref
 WHERE area.id_area = :id_area
 GROUP BY t.group2_inpn
@@ -198,7 +198,7 @@ def get_nb_observations_by_taxonimy_group(connection, id_area):
 SELECT COUNT(o.id_observation) AS nb_observations, t.group2_inpn
 from atlas.vm_observations o
 JOIN atlas.vm_taxons t ON t.cd_ref = o.cd_ref
-JOIN atlas.vm_l_areas area ON st_intersects(o.the_geom_point, area.the_geom)
+JOIN atlas.vm_l_areas area ON st_intersects(o.geom_point, area.the_geom)
 WHERE area.id_area = :id_area
 GROUP BY t.group2_inpn, area.id_area
         """

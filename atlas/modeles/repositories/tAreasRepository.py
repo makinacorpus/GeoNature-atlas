@@ -73,12 +73,13 @@ def getAreasObservationsChilds(connection, cd_ref):
             area.id_area
         FROM atlas.vm_observations AS obs
             JOIN atlas.vm_l_areas AS area
-                ON st_intersects(obs.the_geom_point, area.the_geom)
+                ON st_intersects(obs.geom_point, area.the_geom)
         WHERE obs.cd_ref = ANY(:taxonsList) AND area.id_type IN 
             (SELECT id_type FROM atlas.vm_bib_areas_types 
             WHERE type_code = ANY(:list_id_type))
         ORDER BY area.area_name ASC
     """
+
     results = connection.execute(
         text(sql), taxonsList=taxons, list_id_type=current_app.config["TYPE_TERRITOIRE"]
     )
