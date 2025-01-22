@@ -229,7 +229,7 @@ def lastObservationsAreaMaille(connection, obs_limit, id_area):
             "cd_ref": r.cd_ref,
             "id_area": r.id_area,
             "taxon": r.display_name,
-            "geojson_maille": json.loads(r.geojson_maille),
+            "geojson_maille": json.loads(r.area_geojson),
             "id_maille": r.id_maille,
             "id_observation": r.id_observations,
             "nb_observations": r.nbr,
@@ -270,7 +270,7 @@ def getObservationsTaxonAreaMaille(connection, id_area, cd_ref):
             "type_code": o.type_code,
             "nb_observations": 1,
             "annee": o.annee,
-            "geojson_maille": json.loads(o.geojson_maille),
+            "geojson_maille": json.loads(o.area_geojson),
         }
         tabObs.append(temp)
 
