@@ -242,23 +242,23 @@ def lastObservationsAreaMaille(connection, obs_limit, id_area):
 # Use for API
 def getObservationsTaxonAreaMaille(connection, id_area, cd_ref):
     sql = """
-        SELECT
-            o.cd_ref,
-            o.id_maille,
-            o.type_code,
-            o.annee,
-            area.area_geojson,
-            area.the_geom,
-            t.cd_ref,
-            t.nom_vern,
-            t.lb_nom
-        FROM atlas.vm_observations_mailles AS o
-            JOIN atlas.vm_taxons AS t ON t.cd_ref = o.cd_ref
-            JOIN atlas.vm_l_areas AS area
-                ON o.id_maille = area.id_area
+SELECT
+    o.cd_ref,
+    area.id_area,
+    o.type_code,
+    date_part('year'::text, o.dateobs) AS annee,
+    area.area_geojson,
+    area.the_geom,
+    t.cd_ref,
+    t.nom_vern,
+    t.lb_nom
+FROM atlas.vm_observations AS o
+         JOIN atlas.vm_taxons AS t ON t.cd_ref = o.cd_ref
+         JOIN atlas.vm_l_areas AS area
+              ON ST_INTERSECTS(o.geom_point, area.the_geom)
         WHERE o.cd_ref = :thiscdref
             AND area.id_area = :thisIdArea
-        ORDER BY id_maille
+        ORDER BY area.id_area
     """
     observations = connection.execute(text(sql), thisIdArea=id_area, thiscdref=cd_ref)
     tabObs = list()
