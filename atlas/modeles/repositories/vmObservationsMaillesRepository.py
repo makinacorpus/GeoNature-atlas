@@ -104,7 +104,7 @@ def getObservationsMaillesChilds(session, cd_ref, year_min=None, year_max=None):
     )
     if year_min and year_max:
         query = query.filter(VmObservationsMailles.annee.between(year_min, year_max))
-    print("trororororro")
+
     return FeatureCollection(
         [
             Feature(
@@ -255,7 +255,7 @@ def getObservationsTaxonAreaMaille(connection, id_area, cd_ref):
         FROM atlas.vm_observations_mailles AS o
             JOIN atlas.vm_taxons AS t ON t.cd_ref = o.cd_ref
             JOIN atlas.vm_l_areas AS area
-                ON ST_INTERSECTS(o.the_geom_point, area.the_geom)
+                ON o.id_maille = area.id_area
         WHERE o.cd_ref = :thiscdref
             AND area.id_area = :thisIdArea
         ORDER BY id_maille
