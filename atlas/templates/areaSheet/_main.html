@@ -37,6 +37,7 @@
         var biodiversity_organism_values_chart = {{ biodiversity_organism_values_chart | tojson}};
         var observations_organism_values_chart = {{ observations_organism_values_chart | tojson}};
     </script>
+    {% include 'templates/core/assets_couches_sig.html' %}
     <script src="{{ url_for('static', filename='custom/maps-custom.js') }}"></script>
     <script src="{{ url_for('static', filename='listeEspeces.js') }}"></script>
     <script src="{{ url_for('static', filename='mapGenerator.js') }}"></script>
