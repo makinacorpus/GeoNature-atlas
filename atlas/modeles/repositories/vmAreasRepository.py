@@ -201,6 +201,7 @@ JOIN atlas.vm_taxons t ON t.cd_ref = o.cd_ref
 JOIN atlas.vm_l_areas area ON st_intersects(o.geom_point, area.the_geom)
 WHERE area.id_area = :id_area
 GROUP BY t.group2_inpn, area.id_area
+ORDER BY nb_observations DESC
         """
 
     result = connection.execute(text(sql), id_area=id_area)
