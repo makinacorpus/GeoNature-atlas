@@ -1,19 +1,19 @@
 {% block moreZoneInfos %}
     <div class="card container info_card">
         <ul class="nav nav-tabs">
-            {% if configuration.AFFICHAGE_GRAPH_AREA_GENERAL_PRESENTATION%}
+            {% if configuration.AFFICHAGE_TAB_AREA_GENERAL_PRESENTATION%}
                 <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#general_presentation">{{ _('general_presentation') }}</a></li>
             {% endif %}
-            {% if configuration.AFFICHAGE_GRAPH_AREA_OBS_ESPECES%}
+            {% if configuration.AFFICHAGE_TAB_AREA_OBS_ESPECES%}
                 <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#observations_and_species">{{ _('observations_and_species') }}</a></li>
             {% endif %}
-            {% if configuration.AFFICHAGE_GRAPH_AREA_PROVENANCE_DONNEE%}
+            {% if configuration.AFFICHAGE_TAB_AREA_PROVENANCE_DONNEE%}
                 <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#data_sources">{{ _('data_sources') }}</a></li>
             {% endif %}
         </ul>
 
         <div class="tab-content">
-            {% if configuration.AFFICHAGE_GRAPH_AREA_GENERAL_PRESENTATION%}
+            {% if configuration.AFFICHAGE_TAB_AREA_GENERAL_PRESENTATION%}
                 <div id="general_presentation" class="tab-pane fade show active">
                     {% if infos_area.description %}
                         {{ infos_area.description | safe }}
@@ -22,7 +22,7 @@
                     {% endif %}
                 </div>
             {% endif %}
-            {% if configuration.AFFICHAGE_GRAPH_AREA_OBS_ESPECES%}
+            {% if configuration.AFFICHAGE_TAB_AREA_OBS_ESPECES%}
                 <div id="observations_and_species" class="tab-pane fade">
                         <div class="infos_biodiversity">
                             <h4>{{ _('Biodiversity') }}</h4>
@@ -40,7 +40,7 @@
                     </div>
                 </div>
             {% endif %}
-            {% if configuration.AFFICHAGE_GRAPH_AREA_PROVENANCE_DONNEE%}
+            {% if configuration.AFFICHAGE_TAB_AREA_PROVENANCE_DONNEE%}
                 <div id="data_sources" class="tab-pane fade">
                     <div class="infos_biodiversity">
                         <h4>{{ _('Biodiversity') }}</h4>
