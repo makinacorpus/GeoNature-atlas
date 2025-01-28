@@ -22,11 +22,7 @@ const areaBorderColor = String(
 function clearOverlays(){
     // remove all Layer from leaflet overlays (featureGroup)
     // TODO: Rendre les overlays dynamiques.
-    m1FeatureGroup.eachLayer(
-        function(l){
-            m1FeatureGroup.removeLayer(l);
-        });
-    m5FeatureGroup.eachLayer(
+    m500FeatureGroup.eachLayer(
         function(l){
             m5FeatureGroup.removeLayer(l);
         });
@@ -104,16 +100,14 @@ function generateMap(zoomHomeButton) {
 
     // TODO: Rendre les overlays dynamiques.
     m10FeatureGroup = L.featureGroup();
-    m5FeatureGroup = L.featureGroup();
+    m500FeatureGroup = L.featureGroup();
     COMFeatureGroup = L.featureGroup();
-    m1FeatureGroup = L.featureGroup();
 
         // "Maille 5": m5FeatureGroup,
     var overlays = {
         "Maille 10": m10FeatureGroup,
         "Maille COM": COMFeatureGroup,
-        "Maille 5": m5FeatureGroup,
-        "Maille 1": m1FeatureGroup,
+        "Maille 500": m500FeatureGroup,
     };
     // Add layers
     control = L.control.layers(null, overlays);
@@ -690,11 +684,9 @@ function styleMailleClickedOrHover(layer) {
     );
 
     let fillOpacity = 0.85;
-    if (mailleCode === "M1") {
+    if (mailleCode === "COM") {
         fillOpacity = 0.2;
-    } else if (mailleCode === "COM") {
-        fillOpacity = 0.4;
-    } else if (mailleCode === "M5") {
+    } else if (mailleCode === "M500") {
         fillOpacity = 0.4;
     } else if (mailleCode === "M10") {
         fillOpacity = 0.6;
@@ -724,12 +716,10 @@ function filterObservations(feature, layer) {
     if (mailleTypeCode === "M10") {
         m10FeatureGroup.addLayer(layer);
         m10FeatureGroup.bringToBack();
-    } else if (mailleTypeCode === "M5") {
-        m5FeatureGroup.addLayer(layer);
+    } else if (mailleTypeCode === "M500") {
+        m500FeatureGroup.addLayer(layer);
     } else if (mailleTypeCode === "COM") {
         COMFeatureGroup.addLayer(layer);
-    } else if (mailleTypeCode === "M1") {
-        m1FeatureGroup.addLayer(layer);
     }
 }
 
