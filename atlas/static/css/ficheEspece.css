@@ -2,8 +2,7 @@
   color: var(--main-color);
 }
 
-#identityCard {
-}
+#identityCard {}
 
 #taxonIdentity {
   padding-top: 10px;
@@ -79,6 +78,13 @@ p.imgDescription.main {
 
 /*  */
 
+#groupLogoCol {
+  padding-left: 0px;
+  position: absolute;
+  right: 2%;
+  top: 4%;
+}
+
 #taxonName {
     display: flex;
     justify-content: space-between;
@@ -92,7 +98,7 @@ p.imgDescription.main {
     margin: 1.5rem 0;
 }
 
-.nav > li > a {
+.nav>li>a {
   padding: 10px 7px;
 }
 
@@ -279,9 +285,23 @@ text {
   bottom: 0px;
 }
 
+#organisms>ul {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+  padding:0;
+}
+
+#organisms>ul .media-body {
+  gap: 0.5rem;
+}
+
+#organisms>ul h3 {
+  font-size: 1.5rem;
+}
+
 div#statut-bdc span.NT {
 	background-color: #fbf2ca ;
-} 
+}
 
 div#statut-bdc span.LC {
 	background-color: #78b74a ;
