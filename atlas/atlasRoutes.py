@@ -377,7 +377,7 @@ def ficheArea(id_area):
     for observation in observations:
         list_id_observation.append(observation["id_observation"])
 
-    observers = vmObservationsRepository.getObserversArea(connection, id_area)
+    observers = vmObservationsRepository.getObserversArea(connection, list_id_observation)
 
     biodiversity_values_chart = vmAreasRepository.get_nb_species_by_taxonimy_group(
         connection, list_id_observation
