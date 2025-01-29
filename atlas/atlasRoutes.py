@@ -389,7 +389,9 @@ def ficheArea(id_area):
         connection, list_id_observation
     )
     observations_organism_values_chart = (
-        vmOrganismsRepository.get_nb_observations_by_organism_on_area(connection, list_id_observation)
+        vmOrganismsRepository.get_nb_observations_by_organism_on_area(
+            connection, list_id_observation
+        )
     )
 
     session.close()
