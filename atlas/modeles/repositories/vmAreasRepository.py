@@ -160,7 +160,7 @@ GROUP BY area.description,ca.id_area_group;
     return info_area
 
 
-def get_nb_species_by_taxonimy_group(connection, id_area):
+def get_nb_species_by_taxonimy_group(connection, list_id_observation):
     """
     Get number of species by taxonimy group:
     """
@@ -173,13 +173,12 @@ def get_nb_species_by_taxonimy_group(connection, id_area):
         FROM atlas.vm_taxons taxon
         WHERE taxon.group2_inpn = t.group2_inpn) AS nb_species_in_teritory
       from atlas.vm_observations o
-         JOIN atlas.vm_l_areas area ON st_intersects(o.geom_point, area.the_geom)
          FULL JOIN atlas.vm_taxons t ON t.cd_ref = o.cd_ref
-WHERE area.id_area = :id_area
+WHERE o.id_observation = ANY(:id_observations)
 GROUP BY t.group2_inpn
         """
 
-    result = connection.execute(text(sql), id_area=id_area)
+    result = connection.execute(text(sql), id_observations=list_id_observation)
     info_chart = dict()
     for r in result:
         info_chart[r.group2_inpn] = {
@@ -190,7 +189,7 @@ GROUP BY t.group2_inpn
     return info_chart
 
 
-def get_nb_observations_by_taxonimy_group(connection, id_area):
+def get_nb_observations_by_taxonimy_group(connection, list_id_observation):
     """
     Get number of species by taxonimy group:
     """
@@ -198,13 +197,12 @@ def get_nb_observations_by_taxonimy_group(connection, id_area):
 SELECT COUNT(o.id_observation) AS nb_observations, t.group2_inpn
 from atlas.vm_observations o
 JOIN atlas.vm_taxons t ON t.cd_ref = o.cd_ref
-JOIN atlas.vm_l_areas area ON st_intersects(o.geom_point, area.the_geom)
-WHERE area.id_area = :id_area
-GROUP BY t.group2_inpn, area.id_area
+WHERE o.id_observation = ANY(:id_observations)
+GROUP BY t.group2_inpn
 ORDER BY nb_observations DESC
         """
 
-    result = connection.execute(text(sql), id_area=id_area)
+    result = connection.execute(text(sql), id_observations=list_id_observation)
     info_chart = dict()
     for r in result:
         info_chart[r.group2_inpn] = r.nb_observations

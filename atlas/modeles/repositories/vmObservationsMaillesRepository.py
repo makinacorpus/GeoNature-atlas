@@ -207,32 +207,32 @@ def lastObservationsMailles(connection, mylimit, idPhoto):
 
 def lastObservationsAreaMaille(connection, obs_limit, id_area):
     sql = """
-        SELECT
-            obs.id_observations, obs.cd_ref, obs.type_code, obs.nbr, area.id_area,
-            COALESCE(t.nom_vern || ' | ', '') || t.lb_nom  AS display_name,
-            area.the_geom AS l_geom,
-            t.nom_vern,
-            area.area_geojson, obs.id_maille
-        FROM atlas.vm_observations_mailles obs
-            JOIN atlas.vm_l_areas AS area
-                ON area.id_area = obs.id_maille
-            JOIN atlas.vm_taxons AS t
-                ON obs.cd_ref = t.cd_ref
-        WHERE area.id_area = :idAreaCode
-        ORDER BY obs.annee DESC
-        LIMIT :obsLimit
+SELECT
+    obs.id_observation, obs.cd_ref,
+    COALESCE(t.nom_vern || ' | ', '') || t.lb_nom  AS display_name,
+    cas.type_code,
+    cas.id_area,
+    cas.geojson_4326
+FROM atlas.vm_observations AS obs
+    JOIN atlas.vm_cor_area_synthese cas ON cas.id_area = obs.id_area
+         JOIN atlas.vm_l_areas AS area
+              ON ST_Intersects(obs.geom_point, area.the_geom)
+         JOIN atlas.vm_taxons AS t
+              ON obs.cd_ref = t.cd_ref
+WHERE area.id_area = :idAreaCode
+GROUP BY obs.id_observation, obs.cd_ref, display_name, cas.id_area, cas.geojson_4326, cas.type_code
+ORDER BY display_name
+LIMIT :obsLimit
     """
     results = connection.execute(text(sql), idAreaCode=id_area, obsLimit=obs_limit)
     observations = list()
     for r in results:
         infos = {
             "cd_ref": r.cd_ref,
-            "id_area": r.id_area,
             "taxon": r.display_name,
-            "geojson_maille": json.loads(r.area_geojson),
-            "id_maille": r.id_maille,
-            "id_observation": r.id_observations,
-            "nb_observations": r.nbr,
+            "geojson_maille": json.loads(r.geojson_4326),
+            "id_maille": r.id_area,
+            "id_observation": r.id_observation,
             "type_code": r.type_code,
         }
         observations.append(infos)

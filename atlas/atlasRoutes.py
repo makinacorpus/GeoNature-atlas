@@ -351,7 +351,6 @@ def _make_groupes_statuts(statuts):
 
 @main.route("/area/<id_area>", methods=["GET", "POST"])
 def ficheArea(id_area):
-    print("Fiche Area")
     session = db.session
     connection = db.engine.connect()
 
@@ -359,7 +358,7 @@ def ficheArea(id_area):
     taxon_pro_patri = vmStatsStatutTaxonCommRepository.get_nb_taxon_pro_pat_area(
         connection, id_area
     )
-    nb_organism = 10  # vmOrganismsRepository.get_nb_organism_on_area(connection, id_area)
+    nb_organism = vmOrganismsRepository.get_nb_organism_on_area(connection, id_area)
     infos_area = vmAreasRepository.get_infos_area(connection, id_area)
 
     area = tAreasRepository.getAreaFromIdArea(connection, id_area)
@@ -374,19 +373,23 @@ def ficheArea(id_area):
 
     surroundingAreas = []
 
+    list_id_observation = []
+    for observation in observations:
+        list_id_observation.append(observation["id_observation"])
+
     observers = vmObservationsRepository.getObserversArea(connection, id_area)
 
     biodiversity_values_chart = vmAreasRepository.get_nb_species_by_taxonimy_group(
-        connection, id_area
+        connection, list_id_observation
     )
     observations_values_chart = vmAreasRepository.get_nb_observations_by_taxonimy_group(
-        connection, id_area
+        connection, list_id_observation
     )
     biodiversity_organism_values_chart = vmOrganismsRepository.get_nb_species_by_organism_on_area(
-        connection, id_area
+        connection, list_id_observation
     )
     observations_organism_values_chart = (
-        vmOrganismsRepository.get_nb_observations_by_organism_on_area(connection, id_area)
+        vmOrganismsRepository.get_nb_observations_by_organism_on_area(connection, list_id_observation)
     )
 
     session.close()

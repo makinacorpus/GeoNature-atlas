@@ -110,7 +110,8 @@ def lastObservationsArea(connection, mylimit, id_area):
                 '<i>',
                 tax.lb_nom,
                 '</i>'
-            ) AS taxon
+            ) AS taxon,
+            o.id_observation
     FROM atlas.vm_observations o
     JOIN atlas.vm_l_areas area ON ST_Intersects(o.geom_point, area.the_geom)
     JOIN atlas.vm_taxons tax ON  o.cd_ref = tax.cd_ref
@@ -124,6 +125,7 @@ def lastObservationsArea(connection, mylimit, id_area):
         temp.pop("the_geom_point", None)
         temp["geojson_point"] = json.loads(o.geojson_point or "{}")
         temp["dateobs"] = o.dateobs
+        temp["id_observation"] = o.id_observation
         obsList.append(temp)
     return obsList
 
@@ -210,7 +212,7 @@ def getGroupeObservers(connection, groupe):
 
 def getObserversArea(connection, id_area):
     sql = """
-        SELECT DISTINCT observateurs
+        SELECT DISTINCT obs.observateurs
         FROM atlas.vm_observations AS obs
         JOIN atlas.vm_l_areas AS area
                 ON ST_Intersects(obs.geom_point, area.the_geom)

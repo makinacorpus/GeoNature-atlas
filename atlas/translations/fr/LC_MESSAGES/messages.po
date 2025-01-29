@@ -339,7 +339,7 @@ msgstr "dernière observation"
 
 #: atlas/templates/core/statHierarchy.html:39
 msgid "protected_species"
-msgstr "espèces protectégés"
+msgstr "espèces protégées"
 
 #: atlas/templates/core/statHierarchy.html:45
 msgid "patrimonial_species"

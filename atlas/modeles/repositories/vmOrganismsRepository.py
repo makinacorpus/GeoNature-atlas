@@ -106,38 +106,38 @@ WHERE area.id_area = :id_area;
     return result
 
 
-def get_nb_species_by_organism_on_area(connection, id_area):
+def get_nb_species_by_organism_on_area(connection, list_id_observation):
     sql = """
 SELECT COUNT(DISTINCT obs.cd_ref) AS nb_species, cto.nom_organism
 FROM atlas.vm_observations obs
-     JOIN gn_meta.cor_dataset_actor AS rcda
-          ON obs.id_dataset = rcda.id_dataset
-    JOIN atlas.vm_cor_taxon_organism cto ON rcda.id_organism = cto.id_organism
-        JOIN atlas.vm_l_areas area ON st_intersects(obs.geom_point, area.the_geom)
-WHERE area.id_area = :id_area
+JOIN gn_meta.cor_dataset_actor AS rcda
+     ON obs.id_dataset = rcda.id_dataset
+JOIN atlas.vm_cor_taxon_organism cto ON rcda.id_organism = cto.id_organism
+
+WHERE obs.id_observation = ANY(:id_observations)
 GROUP BY cto.nom_organism
 ORDER BY cto.nom_organism;
     """
-    # result = connection.execute(text(sql), id_area=id_area)
+    result = connection.execute(text(sql), id_observations=list_id_observation)
     list_species_by_organism = list()
-    # for r in result:
-    #     temp = {"nb": r.nb_species, "label": r.nom_organism}
-    #     list_species_by_organism.append(temp)
+    for r in result:
+        temp = {"nb": r.nb_species, "label": r.nom_organism}
+        list_species_by_organism.append(temp)
     return list_species_by_organism
 
 
-def get_nb_observations_by_organism_on_area(connection, id_area):
+def get_nb_observations_by_organism_on_area(connection, list_id_observation):
     sql = """
 SELECT COUNT(obs.id_observation) AS nb_observations, b.nom_organisme
 FROM atlas.vm_observations obs
      JOIN gn_meta.cor_dataset_actor AS rcda ON obs.id_dataset = rcda.id_dataset
     JOIN utilisateurs.bib_organismes b ON b.id_organisme = rcda.id_organism
-        JOIN atlas.vm_l_areas area ON st_intersects(obs.geom_point, area.the_geom)
-WHERE area.id_area = 16586
+
+WHERE obs.id_observation = ANY(:id_observations)
 GROUP BY b.nom_organisme
 ORDER BY b.nom_organisme;
     """
-    result = connection.execute(text(sql), id_area=id_area)
+    result = connection.execute(text(sql), id_observations=list_id_observation)
     list_observations_by_organism = list()
     for r in result:
         temp = {"nb": r.nb_observations, "label": r.nom_organisme}
