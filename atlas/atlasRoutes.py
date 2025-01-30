@@ -372,9 +372,9 @@ def ficheArea(id_area):
         connection, list_id_observation
     )
     nb_organism = vmOrganismsRepository.get_nb_organism_on_area(connection, list_id_observation)
-    infos_area = vmAreasRepository.get_infos_area(connection, list_id_observation)
+    infos_area = vmAreasRepository.get_infos_area(connection, id_area, list_id_observation)
 
-    area = tAreasRepository.getAreaFromIdArea(connection, list_id_observation)
+    area = tAreasRepository.getAreaFromIdArea(connection, id_area)
 
     surroundingAreas = []
 

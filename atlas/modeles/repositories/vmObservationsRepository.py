@@ -214,7 +214,7 @@ def getObserversArea(connection, list_id_observation):
     sql = """
         SELECT DISTINCT obs.observateurs
         FROM atlas.vm_observations AS obs
-        WHERE o.id_observation = ANY(:id_observations)
+        WHERE obs.id_observation = ANY(:id_observations)
     """
     req = connection.execute(text(sql), id_observations=list_id_observation)
     return observersParser(req)
