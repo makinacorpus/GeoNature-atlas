@@ -44,24 +44,30 @@ def getTaxonsTerritory(connection):
 
 
 # With distinct the result in a array not an object, 0: lb_nom, 1: nom_vern
-def getTaxonsAreas(connection, list_id_observation):
+def getTaxonsAreas(connection, id_area):
     sql = """
+        WITH obs_in_area AS (
+        SELECT DISTINCT obs.id_observation
+        FROM atlas.vm_cor_area_synthese AS cas
+                 JOIN atlas.vm_observations obs ON cas.id_synthese = obs.id_observation
+        WHERE cas.id_area = :idAreaCode
+    )
         SELECT DISTINCT
             o.cd_ref, max(date_part('year'::text, o.dateobs)) as last_obs,
             COUNT(DISTINCT o.id_observation) AS nb_obs, t.nom_complet_html, t.nom_vern,
             t.group2_inpn, t.patrimonial, t.protection_stricte,
             m.url, m.chemin, m.id_media
-        FROM atlas.vm_observations o
+        FROM obs_in_area oia 
+        JOIN atlas.vm_observations o ON o.id_observation = oia.id_observation
         JOIN atlas.vm_taxons t ON t.cd_ref=o.cd_ref
         LEFT JOIN atlas.vm_medias m ON m.cd_ref=o.cd_ref AND m.id_type={}
-        WHERE o.id_observation = ANY(:id_observations)
         GROUP BY o.cd_ref, t.nom_vern, t.nom_complet_html, t.group2_inpn,
             t.patrimonial, t.protection_stricte, m.url, m.chemin, m.id_media
         ORDER BY nb_obs DESC
     """.format(
         current_app.config["ATTR_MAIN_PHOTO"]
     )
-    req = connection.execute(text(sql), id_observations=list_id_observation)
+    req = connection.execute(text(sql), idAreaCode=id_area)
     taxonAreasList = list()
     nbObsTotal = 0
     for r in req:

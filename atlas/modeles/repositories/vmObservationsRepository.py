@@ -210,13 +210,14 @@ def getGroupeObservers(connection, groupe):
     return observersParser(req)
 
 
-def getObserversArea(connection, list_id_observation):
+def getObserversArea(connection, id_area):
     sql = """
         SELECT DISTINCT obs.observateurs
-        FROM atlas.vm_observations AS obs
-        WHERE obs.id_observation = ANY(:id_observations)
+        FROM atlas.vm_cor_area_synthese AS cas
+        JOIN atlas.vm_observations AS obs  ON cas.id_synthese = obs.id_observation
+        WHERE cas.id_area = :idAreaCode
     """
-    req = connection.execute(text(sql), id_observations=list_id_observation)
+    req = connection.execute(text(sql), idAreaCode=id_area)
     return observersParser(req)
 
 

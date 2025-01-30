@@ -118,7 +118,7 @@ def get_surrounding_areas(session, id_area):
     return query.all()
 
 
-def get_infos_area(connection, id_area, list_id_observation):
+def get_infos_area(connection, id_area):
     """
     Get area info:
     yearmin: fisrt observation year
@@ -128,6 +128,12 @@ def get_infos_area(connection, id_area, list_id_observation):
     area_type_name: type parent area
     """
     sql = """
+WITH obs_in_area AS (
+        SELECT DISTINCT obs.id_observation
+        FROM atlas.vm_cor_area_synthese AS cas
+                 JOIN atlas.vm_observations obs ON cas.id_synthese = obs.id_observation
+        WHERE cas.id_area = :idAreaCode
+)
 SELECT
     MIN(extract(YEAR FROM o.dateobs)) AS yearmin,
     MAX(extract(YEAR FROM o.dateobs)) AS yearmax,
@@ -138,14 +144,14 @@ SELECT
         FROM atlas.vm_l_areas l
         JOIN atlas.vm_bib_areas_types type ON type.id_type = l.id_type
     WHERE l.id_area = ca.id_area_group) AS area_parent_type_name
-FROM atlas.vm_observations o
-    JOIN atlas.vm_l_areas area ON area.id_area = :thisid_area
+FROM obs_in_area AS oia
+    JOIN atlas.vm_observations o ON oia.id_observation = o.id_observation
+    JOIN atlas.vm_l_areas area ON area.id_area = :idAreaCode
     JOIN atlas.vm_cor_areas ca ON ca.id_area = area.id_area
-WHERE o.id_observation = ANY(:id_observations)
 GROUP BY area.description,ca.id_area_group;
     """
     print("id_area", id_area)
-    result = connection.execute(text(sql), thisid_area=id_area, id_observations=list_id_observation)
+    result = connection.execute(text(sql), idAreaCode=id_area)
     info_area = dict()
     for r in result:
         info_area = {
@@ -160,25 +166,26 @@ GROUP BY area.description,ca.id_area_group;
     return info_area
 
 
-def get_nb_species_by_taxonimy_group(connection, list_id_observation):
+def get_nb_species_by_taxonimy_group(connection, id_area):
     """
     Get number of species by taxonimy group:
     """
     sql = """
-    SELECT
+SELECT
      COUNT(DISTINCT o.cd_ref)                  AS nb_species,
      t.group2_inpn,
      COUNT(DISTINCT case t.patrimonial when 'oui' then t.cd_ref else null end) AS nb_patrominal,
      (SELECT COUNT(*)
         FROM atlas.vm_taxons taxon
         WHERE taxon.group2_inpn = t.group2_inpn) AS nb_species_in_teritory
-      from atlas.vm_observations o
-         FULL JOIN atlas.vm_taxons t ON t.cd_ref = o.cd_ref
-WHERE o.id_observation = ANY(:id_observations)
+FROM atlas.vm_cor_area_synthese AS cas
+    JOIN atlas.vm_observations o ON cas.id_synthese = o.id_observation
+     FULL JOIN atlas.vm_taxons t ON t.cd_ref = o.cd_ref
+WHERE cas.id_area = :idAreaCode
 GROUP BY t.group2_inpn
         """
 
-    result = connection.execute(text(sql), id_observations=list_id_observation)
+    result = connection.execute(text(sql), idAreaCode=id_area)
     info_chart = dict()
     for r in result:
         info_chart[r.group2_inpn] = {
@@ -189,20 +196,21 @@ GROUP BY t.group2_inpn
     return info_chart
 
 
-def get_nb_observations_by_taxonimy_group(connection, list_id_observation):
+def get_nb_observations_by_taxonimy_group(connection, id_area):
     """
     Get number of species by taxonimy group:
     """
     sql = """
-SELECT COUNT(o.id_observation) AS nb_observations, t.group2_inpn
-from atlas.vm_observations o
+SELECT COUNT(DISTINCT o.id_observation) AS nb_observations, t.group2_inpn
+FROM atlas.vm_cor_area_synthese AS cas
+    JOIN atlas.vm_observations o ON cas.id_synthese = o.id_observation
 JOIN atlas.vm_taxons t ON t.cd_ref = o.cd_ref
-WHERE o.id_observation = ANY(:id_observations)
+WHERE cas.id_area = :idAreaCode
 GROUP BY t.group2_inpn
 ORDER BY nb_observations DESC
         """
 
-    result = connection.execute(text(sql), id_observations=list_id_observation)
+    result = connection.execute(text(sql), idAreaCode=id_area)
     info_chart = dict()
     for r in result:
         info_chart[r.group2_inpn] = r.nb_observations

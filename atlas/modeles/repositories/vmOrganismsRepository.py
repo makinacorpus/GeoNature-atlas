@@ -90,34 +90,42 @@ def getTaxonRepartitionOrganism(connection, id_organism):
     return ListGroup
 
 
-def get_nb_organism_on_area(connection, list_id_observation):
-    sql = """SELECT COUNT(DISTINCT cto.nom_organism) AS nb_organism
-FROM atlas.vm_observations obs
+def get_nb_organism_on_area(connection, id_area):
+    sql = """
+WITH obs_in_area AS (
+    SELECT DISTINCT obs.id_observation
+    FROM atlas.vm_cor_area_synthese AS cas
+             JOIN atlas.vm_observations obs ON cas.id_synthese = obs.id_observation
+    WHERE cas.id_area = :idAreaCode
+)
+SELECT COUNT(DISTINCT cto.nom_organism) AS nb_organism
+FROM obs_in_area AS oia 
+    JOIN atlas.vm_observations obs ON obs.id_observation = oia.id_observation
          JOIN gn_meta.cor_dataset_actor AS rcda
               ON obs.id_dataset = rcda.id_dataset
          JOIN atlas.vm_cor_taxon_organism cto ON rcda.id_organism = cto.id_organism
-WHERE obs.id_observation = ANY(:id_observations)
     """
-    res = connection.execute(text(sql), id_observations=list_id_observation)
+    res = connection.execute(text(sql), idAreaCode=id_area)
     result = dict()
     for r in res:
         result = r.nb_organism
     return result
 
 
-def get_nb_species_by_organism_on_area(connection, list_id_observation):
+def get_nb_species_by_organism_on_area(connection, id_area):
     sql = """
 SELECT COUNT(DISTINCT obs.cd_ref) AS nb_species, cto.nom_organism
-FROM atlas.vm_observations obs
+FROM atlas.vm_cor_area_synthese AS cas
+    JOIN atlas.vm_observations obs ON obs.id_observation = cas.id_synthese
 JOIN gn_meta.cor_dataset_actor AS rcda
      ON obs.id_dataset = rcda.id_dataset
 JOIN atlas.vm_cor_taxon_organism cto ON rcda.id_organism = cto.id_organism
 
-WHERE obs.id_observation = ANY(:id_observations)
+WHERE cas.id_area = :idAreaCode
 GROUP BY cto.nom_organism
 ORDER BY cto.nom_organism;
     """
-    result = connection.execute(text(sql), id_observations=list_id_observation)
+    result = connection.execute(text(sql), idAreaCode=id_area)
     list_species_by_organism = list()
     for r in result:
         temp = {"nb": r.nb_species, "label": r.nom_organism}
@@ -125,18 +133,19 @@ ORDER BY cto.nom_organism;
     return list_species_by_organism
 
 
-def get_nb_observations_by_organism_on_area(connection, list_id_observation):
+def get_nb_observations_by_organism_on_area(connection, id_area):
     sql = """
 SELECT COUNT(obs.id_observation) AS nb_observations, b.nom_organisme
-FROM atlas.vm_observations obs
-     JOIN gn_meta.cor_dataset_actor AS rcda ON obs.id_dataset = rcda.id_dataset
+FROM atlas.vm_cor_area_synthese AS cas
+    JOIN atlas.vm_observations obs ON obs.id_observation = cas.id_synthese
+    JOIN gn_meta.cor_dataset_actor AS rcda ON obs.id_dataset = rcda.id_dataset
     JOIN utilisateurs.bib_organismes b ON b.id_organisme = rcda.id_organism
 
-WHERE obs.id_observation = ANY(:id_observations)
+WHERE cas.id_area = :idAreaCode
 GROUP BY b.nom_organisme
 ORDER BY b.nom_organisme;
     """
-    result = connection.execute(text(sql), id_observations=list_id_observation)
+    result = connection.execute(text(sql), idAreaCode=id_area)
     list_observations_by_organism = list()
     for r in result:
         temp = {"nb": r.nb_observations, "label": r.nom_organisme}
