@@ -52,6 +52,12 @@ msgstr "Personal data"
 
 #: atlas/static/custom/templates/footer.html:18
 #: atlas/static/custom/templates/footer.html.sample:18
+#: static/custom/templates/footer.html:12
+msgid "preferences_cookies"
+msgstr "Changing cookie preferences"
+
+#: static/custom/templates/footer.html:17
+#: static/custom/templates/footer.html.sample:17
 msgid "atlas.fauna.flora"
 msgstr "Faune and flora atlas"
 

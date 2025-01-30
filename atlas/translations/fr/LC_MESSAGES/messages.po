@@ -52,6 +52,12 @@ msgstr "Données personnelles"
 
 #: atlas/static/custom/templates/footer.html:18
 #: atlas/static/custom/templates/footer.html.sample:18
+#: static/custom/templates/footer.html:12
+msgid "preferences_cookies"
+msgstr "Modifier les préférences de cookies"
+
+#: static/custom/templates/footer.html:18
+#: static/custom/templates/footer.html.sample:17
 msgid "atlas.fauna.flora"
 msgstr "Atlas de la faune et de la flore"
 
@@ -321,31 +327,7 @@ msgstr "Observateurs"
 msgid "observer"
 msgstr "Observateur"
 
-#: atlas/templates/core/statHierarchy.html:24
-msgid "sources"
-msgstr "sources"
-
-#: atlas/templates/core/statHierarchy.html:24
-msgid "source"
-msgstr "source"
-
-#: atlas/templates/core/statHierarchy.html:29
-msgid "first_observation"
-msgstr "première observation"
-
-#: atlas/templates/core/statHierarchy.html:34
-msgid "last_observation"
-msgstr "dernière observation"
-
-#: atlas/templates/core/statHierarchy.html:39
-msgid "protected_species"
-msgstr "espèces protégées"
-
-#: atlas/templates/core/statHierarchy.html:45
-msgid "patrimonial_species"
-msgstr "espèces patrimoniales"
-
-#: atlas/templates/core/tabTaxons.html:7
+#: templates/core/tabTaxons.html:7
 msgid "group"
 msgstr "Groupe"
 
@@ -577,7 +559,4 @@ msgstr "Observation pour le taxon"
 
 #~ msgid "photo"
 #~ msgstr "Photo"
-
-#~ msgid "last.obs.area"
-#~ msgstr "Dernière observations : "
 
