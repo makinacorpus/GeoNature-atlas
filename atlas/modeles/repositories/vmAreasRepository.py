@@ -207,3 +207,20 @@ ORDER BY nb_observations DESC
     for r in result:
         info_chart[r.group2_inpn] = r.nb_observations
     return info_chart
+
+def get_all_id_observation_area(connection, id_area):
+    """
+    Get all id in area:
+    """
+    sql = """
+    SELECT DISTINCT obs.id_observation, obs.cd_ref
+    FROM atlas.vm_cor_area_synthese AS cas
+             JOIN atlas.vm_observations obs ON cas.id_synthese = obs.id_observation
+    WHERE cas.id_area = :idAreaCode
+            """
+
+    result = connection.execute(text(sql), idAreaCode=id_area)
+    list_id = []
+    for r in result:
+        list_id.append(r.id_observation)
+    return list_id

@@ -363,9 +363,7 @@ def ficheArea(id_area):
             connection, current_app.config["NB_LAST_OBS"], id_area
         )
 
-    list_id_observation = []
-    for observation in observations:
-        list_id_observation.append(observation["id_observation"])
+    list_id_observation = vmAreasRepository.get_all_id_observation_area(connection, id_area)
 
     listTaxons = vmTaxonsRepository.getTaxonsAreas(connection, list_id_observation)
     taxon_pro_patri = vmStatsStatutTaxonCommRepository.get_nb_taxon_pro_pat_area(
