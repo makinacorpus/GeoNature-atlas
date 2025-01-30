@@ -354,14 +354,6 @@ def ficheArea(id_area):
     session = db.session
     connection = db.engine.connect()
 
-    listTaxons = vmTaxonsRepository.getTaxonsAreas(connection, id_area)
-    taxon_pro_patri = vmStatsStatutTaxonCommRepository.get_nb_taxon_pro_pat_area(
-        connection, id_area
-    )
-    nb_organism = vmOrganismsRepository.get_nb_organism_on_area(connection, id_area)
-    infos_area = vmAreasRepository.get_infos_area(connection, id_area)
-
-    area = tAreasRepository.getAreaFromIdArea(connection, id_area)
     if current_app.config["AFFICHAGE_MAILLE"]:
         observations = vmObservationsMaillesRepository.lastObservationsAreaMaille(
             connection, current_app.config["NB_LAST_OBS"], str(id_area)
@@ -371,11 +363,20 @@ def ficheArea(id_area):
             connection, current_app.config["NB_LAST_OBS"], id_area
         )
 
-    surroundingAreas = []
-
     list_id_observation = []
     for observation in observations:
         list_id_observation.append(observation["id_observation"])
+
+    listTaxons = vmTaxonsRepository.getTaxonsAreas(connection, list_id_observation)
+    taxon_pro_patri = vmStatsStatutTaxonCommRepository.get_nb_taxon_pro_pat_area(
+        connection, list_id_observation
+    )
+    nb_organism = vmOrganismsRepository.get_nb_organism_on_area(connection, list_id_observation)
+    infos_area = vmAreasRepository.get_infos_area(connection, list_id_observation)
+
+    area = tAreasRepository.getAreaFromIdArea(connection, list_id_observation)
+
+    surroundingAreas = []
 
     observers = vmObservationsRepository.getObserversArea(connection, list_id_observation)
 

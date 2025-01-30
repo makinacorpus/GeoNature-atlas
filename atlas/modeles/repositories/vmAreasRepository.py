@@ -118,7 +118,7 @@ def get_surrounding_areas(session, id_area):
     return query.all()
 
 
-def get_infos_area(connection, id_area):
+def get_infos_area(connection, list_id_observation):
     """
     Get area info:
     yearmin: fisrt observation year
@@ -139,13 +139,12 @@ SELECT
         JOIN atlas.vm_bib_areas_types type ON type.id_type = l.id_type
     WHERE l.id_area = ca.id_area_group) AS area_parent_type_name
 FROM atlas.vm_observations o
-    JOIN atlas.vm_l_areas area ON st_intersects(o.geom_point, area.the_geom)
     JOIN atlas.vm_cor_areas ca ON ca.id_area = area.id_area
-WHERE area.id_area = :id_area
+WHERE o.id_observation = ANY(:id_observations)
 GROUP BY area.description,ca.id_area_group;
     """
 
-    result = connection.execute(text(sql), id_area=id_area)
+    result = connection.execute(text(sql), id_observations=list_id_observation)
     info_area = dict()
     for r in result:
         info_area = {
