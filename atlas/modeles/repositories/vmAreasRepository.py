@@ -145,7 +145,9 @@ WHERE o.id_observation = ANY(:id_observations)
 GROUP BY area.description,ca.id_area_group;
     """
     print("id_area", id_area)
-    result = connection.execute(text(sql), thisid_area=id_area, id_observations=list_id_observation)
+    result = connection.execute(
+        text(sql), thisid_area=id_area, id_observations=list_id_observation
+    )
     info_area = dict()
     for r in result:
         info_area = {
@@ -207,6 +209,7 @@ ORDER BY nb_observations DESC
     for r in result:
         info_chart[r.group2_inpn] = r.nb_observations
     return info_chart
+
 
 def get_all_id_observation_area(connection, id_area):
     """

@@ -91,7 +91,7 @@ def getTaxonRepartitionOrganism(connection, id_organism):
 
 
 def get_nb_organism_on_area(connection, list_id_observation):
-    sql = """SELECT COUNT(DISTINCT cto.nom_organism) AS nb_organism
+    sql = """SELECT COUNT(DISTINCT cto.id_organism) AS nb_organism
 FROM atlas.vm_observations obs
          JOIN gn_meta.cor_dataset_actor AS rcda
               ON obs.id_dataset = rcda.id_dataset
