@@ -98,7 +98,7 @@ WITH obs_in_area AS (
              JOIN atlas.vm_observations obs ON cas.id_synthese = obs.id_observation
     WHERE cas.id_area = :idAreaCode
 )
-SELECT COUNT(DISTINCT cto.id_organism) AS nb_organism
+SELECT COUNT(DISTINCT cto.nom_organism) AS nb_organism
 FROM obs_in_area AS oia 
     JOIN atlas.vm_observations obs ON obs.id_observation = oia.id_observation
          JOIN gn_meta.cor_dataset_actor AS rcda
