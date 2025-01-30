@@ -363,31 +363,35 @@ def ficheArea(id_area):
             connection, current_app.config["NB_LAST_OBS"], id_area
         )
 
-    listTaxons = vmTaxonsRepository.getTaxonsAreas(connection, id_area)
+    list_id_observation = []
+    for observation in observations:
+        list_id_observation.append(observation["id_observation"])
+
+    listTaxons = vmTaxonsRepository.getTaxonsAreas(connection, list_id_observation)
     taxon_pro_patri = vmStatsStatutTaxonCommRepository.get_nb_taxon_pro_pat_area(
-        connection, id_area
+        connection, list_id_observation
     )
-    nb_organism = vmOrganismsRepository.get_nb_organism_on_area(connection, id_area)
-    infos_area = vmAreasRepository.get_infos_area(connection, id_area)
+    nb_organism = vmOrganismsRepository.get_nb_organism_on_area(connection, list_id_observation)
+    infos_area = vmAreasRepository.get_infos_area(connection, id_area, list_id_observation)
 
     area = tAreasRepository.getAreaFromIdArea(connection, id_area)
 
     surroundingAreas = []
 
-    observers = vmObservationsRepository.getObserversArea(connection, id_area)
+    observers = vmObservationsRepository.getObserversArea(connection, list_id_observation)
 
     biodiversity_values_chart = vmAreasRepository.get_nb_species_by_taxonimy_group(
-        connection, id_area
+        connection, list_id_observation
     )
     observations_values_chart = vmAreasRepository.get_nb_observations_by_taxonimy_group(
-        connection, id_area
+        connection, list_id_observation
     )
     biodiversity_organism_values_chart = vmOrganismsRepository.get_nb_species_by_organism_on_area(
-        connection, id_area
+        connection, list_id_observation
     )
     observations_organism_values_chart = (
         vmOrganismsRepository.get_nb_observations_by_organism_on_area(
-            connection, id_area
+            connection, list_id_observation
         )
     )
 
