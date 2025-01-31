@@ -215,7 +215,9 @@ if (dataSourceChartElement) {
     const organismChart = pieChartConfig(dataSourceChartElement, formatPieData(data_source_values, dataSourceChartElement));
 }
 
-fetch(`/api${window.location.pathname}`)
+const areaCode = document.getElementById("taxonListItem").getAttribute("area-code")
+
+fetch(`/api/area_chart_values/${areaCode}`)
     .then(response => response.json())
     .then(data => {
         biodiversity_values_chart = data.biodiversity_values_chart
