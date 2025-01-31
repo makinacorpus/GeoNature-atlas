@@ -401,21 +401,6 @@ def ficheArea(id_area):
 
     observers = vmObservationsRepository.getObserversArea(connection, list_id_observation)
 
-    biodiversity_values_chart = vmAreasRepository.get_nb_species_by_taxonimy_group(
-        connection, list_id_observation
-    )
-    observations_values_chart = vmAreasRepository.get_nb_observations_by_taxonimy_group(
-        connection, list_id_observation
-    )
-    biodiversity_organism_values_chart = vmOrganismsRepository.get_nb_species_by_organism_on_area(
-        connection, list_id_observation
-    )
-    observations_organism_values_chart = (
-        vmOrganismsRepository.get_nb_observations_by_organism_on_area(
-            connection, list_id_observation
-        )
-    )
-
     couches_sig_info = _get_couches_sig_info("commune")
 
     session.close()
@@ -433,10 +418,6 @@ def ficheArea(id_area):
         taxonProPatri=taxon_pro_patri,
         nb_organism=nb_organism,
         infos_area=infos_area,
-        biodiversity_values_chart=biodiversity_values_chart,
-        observations_values_chart=observations_values_chart,
-        biodiversity_organism_values_chart=biodiversity_organism_values_chart,
-        observations_organism_values_chart=observations_organism_values_chart,
         couchesSigInfo=couches_sig_info,
     )
 

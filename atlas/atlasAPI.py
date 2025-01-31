@@ -4,9 +4,11 @@ from flask import jsonify, Blueprint, request, current_app
 
 from atlas import utils
 from atlas.modeles.repositories import (
+    vmAreasRepository,
     vmSearchTaxonRepository,
     vmObservationsRepository,
     vmObservationsMaillesRepository,
+    vmOrganismsRepository,
     vmMedias,
     tAreasRepository,
 )
@@ -172,3 +174,36 @@ def rank_stat():
     return jsonify(
         vmObservationsRepository.genericStat(connection, current_app.config["RANG_STAT"])
     )
+
+
+@api.route("/area_chart_values/<id_area>", methods=["GET"])
+def get_area_chart_valuesAPI(id_area):
+    session = db.session
+    connection = db.engine.connect()
+    list_id_observation = vmAreasRepository.get_all_id_observation_area(connection, id_area)
+
+    biodiversity_values_chart = vmAreasRepository.get_nb_species_by_taxonimy_group(
+        connection, list_id_observation
+    )
+    observations_values_chart = vmAreasRepository.get_nb_observations_by_taxonimy_group(
+        connection, list_id_observation
+    )
+    biodiversity_organism_values_chart = vmOrganismsRepository.get_nb_species_by_organism_on_area(
+        connection, list_id_observation
+    )
+    observations_organism_values_chart = (
+        vmOrganismsRepository.get_nb_observations_by_organism_on_area(
+            connection, list_id_observation
+        )
+    )
+
+    graph_data = {
+        "biodiversity_values_chart": biodiversity_values_chart,
+        "observations_values_chart": observations_values_chart,
+        "biodiversity_organism_values_chart": biodiversity_organism_values_chart,
+        "observations_organism_values_chart": observations_organism_values_chart,
+    }
+
+    session.close()
+    connection.close()
+    return jsonify(graph_data)

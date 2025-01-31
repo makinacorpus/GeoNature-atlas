@@ -215,26 +215,38 @@ if (dataSourceChartElement) {
     const organismChart = pieChartConfig(dataSourceChartElement, formatPieData(data_source_values, dataSourceChartElement));
 }
 
+fetch(`/api${window.location.pathname}`)
+    .then(response => response.json())
+    .then(data => {
+        biodiversity_values_chart = data.biodiversity_values_chart
+        observations_values_chart = data.observations_values_chart
+        biodiversity_organism_values_chart = data.biodiversity_organism_values_chart
+        observations_organism_values_chart = data.observations_organism_values_chart
 // Onglet observations et espèces
 
-const biodiversityChartElement = document.getElementById('biodiversityChart');
-if (biodiversityChartElement) {
-    const organismChart = stackedBarChartConfig(biodiversityChartElement, formatStackedBarChart(biodiversity_values_chart, biodiversityChartElement));
-}
+        const biodiversityChartElement = document.getElementById('biodiversityChart');
+        if (biodiversityChartElement) {
+            const organismChart = stackedBarChartConfig(biodiversityChartElement, formatStackedBarChart(biodiversity_values_chart, biodiversityChartElement));
+        }
 
-const observationsChartElement = document.getElementById('observationsChart');
-if (observationsChartElement) {
-    const organismChart = pieChartConfig(observationsChartElement, formatPieData(observations_values_chart, observationsChartElement));
-}
+        const observationsChartElement = document.getElementById('observationsChart');
+        if (observationsChartElement) {
+            const organismChart = pieChartConfig(observationsChartElement, formatPieData(observations_values_chart, observationsChartElement));
+        }
 
 // Onglet provenance des données
 
-const biodiversityByTerritoryChartElement = document.getElementById('biodiversity_by_territoryChart');
-if (biodiversityByTerritoryChartElement) {
-    const organismChart = barChartConfig(biodiversityByTerritoryChartElement, formatBarChart(biodiversity_organism_values_chart, biodiversityByTerritoryChartElement, "Espèces"));
-}
+        const biodiversityByTerritoryChartElement = document.getElementById('biodiversity_by_territoryChart');
+        if (biodiversityByTerritoryChartElement) {
+            const organismChart = barChartConfig(biodiversityByTerritoryChartElement, formatBarChart(biodiversity_organism_values_chart, biodiversityByTerritoryChartElement, "Espèces"));
+        }
 
-const observationsByTerritoryChartElement = document.getElementById('observations_by_territoryChart');
-if (observationsByTerritoryChartElement) {
-    const organismChart = barChartConfig(observationsByTerritoryChartElement, formatBarChart(observations_organism_values_chart, observationsByTerritoryChartElement, "Observations"));
-}
+        const observationsByTerritoryChartElement = document.getElementById('observations_by_territoryChart');
+        if (observationsByTerritoryChartElement) {
+            const organismChart = barChartConfig(observationsByTerritoryChartElement, formatBarChart(observations_organism_values_chart, observationsByTerritoryChartElement, "Observations"));
+        }
+    })
+    .catch(error => {
+        console.log('Error fetching data: ', error);
+    });
+
