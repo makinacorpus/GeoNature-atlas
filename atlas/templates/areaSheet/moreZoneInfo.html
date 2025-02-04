@@ -15,8 +15,8 @@
         <div class="tab-content">
             {% if configuration.AFFICHAGE_TAB_AREA_GENERAL_PRESENTATION%}
                 <div id="general_presentation" class="tab-pane fade show active">
-                    {% if infos_area.description %}
-                        {{ infos_area.description | safe }}
+                    {% if stats_area.description %}
+                        {{ stats_area.description | safe }}
                     {% else %}
                         {{ _('not.resigned.for.the.moment') }}
                     {% endif %}

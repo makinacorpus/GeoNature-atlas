@@ -180,28 +180,26 @@ def rank_stat():
 def get_area_chart_valuesAPI(id_area):
     session = db.session
     connection = db.engine.connect()
-    list_id_observation = vmAreasRepository.get_all_id_observation_area(connection, id_area)
-
-    biodiversity_values_chart = vmAreasRepository.get_nb_species_by_taxonimy_group(
-        connection, list_id_observation
+    biodiversity_stats_by_taxonimy_group_values_chart = vmAreasRepository.get_biodiversity_stats_by_taxonimy_group(
+        connection, id_area
     )
-    observations_values_chart = vmAreasRepository.get_nb_observations_by_taxonimy_group(
-        connection, list_id_observation
+    observations_stats_by_taxonimy_group_values_chart = vmAreasRepository.get_observations_stats_taxonimy_group(
+        connection, id_area
     )
-    biodiversity_organism_values_chart = vmOrganismsRepository.get_nb_species_by_organism_on_area(
-        connection, list_id_observation
+    biodiversity_stats_organism_values_chart = vmOrganismsRepository.get_biodiversity_stats_by_organism_on_area(
+        connection, id_area
     )
-    observations_organism_values_chart = (
-        vmOrganismsRepository.get_nb_observations_by_organism_on_area(
-            connection, list_id_observation
+    observations_stats_organism_values_chart = (
+        vmOrganismsRepository.get_observations_stats_by_organism_on_area(
+            connection, id_area
         )
     )
 
     graph_data = {
-        "biodiversity_values_chart": biodiversity_values_chart,
-        "observations_values_chart": observations_values_chart,
-        "biodiversity_organism_values_chart": biodiversity_organism_values_chart,
-        "observations_organism_values_chart": observations_organism_values_chart,
+        "biodiversity_stats_taxonimy_values_chart": biodiversity_stats_by_taxonimy_group_values_chart,
+        "observations_taxonomy_values_chart": observations_stats_by_taxonimy_group_values_chart,
+        "biodiversity_stats_organism_values_chart": biodiversity_stats_organism_values_chart,
+        "observations_organism_values_chart": observations_stats_organism_values_chart,
     }
 
     session.close()

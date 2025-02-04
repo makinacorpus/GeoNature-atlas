@@ -50,5 +50,3 @@ CREATE INDEX ON atlas.vm_observations (altitude_retenue);
 CREATE INDEX ON atlas.vm_observations (dateobs);
 CREATE INDEX index_gist_vm_observations_the_geom_point ON atlas.vm_observations USING gist (the_geom_point);
 CREATE INDEX index_gist_vm_observations_geom_point ON atlas.vm_observations USING gist (geom_point);
-
-pg_dump  –U gnatlas –t 'atlas.t_layer_territoire' -d gnatlas -h 127.0.0.1

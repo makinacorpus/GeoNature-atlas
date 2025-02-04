@@ -33,7 +33,7 @@ from atlas.modeles.repositories import (
     vmCorTaxonAttribut,
     vmTaxonsMostView,
     vmCorTaxonOrganism,
-    vmStatsStatutTaxonCommRepository,
+    vmStatsRepository,
     vmStatutBdcRepository,
 )
 
@@ -402,17 +402,10 @@ def ficheArea(id_area):
     list_id_observation = vmAreasRepository.get_all_id_observation_area(connection, id_area)
 
     listTaxons = vmTaxonsRepository.getTaxonsAreas(connection, list_id_observation)
-    taxon_pro_patri = vmStatsStatutTaxonCommRepository.get_nb_taxon_pro_pat_area(
-        connection, list_id_observation
-    )
-    nb_organism = vmOrganismsRepository.get_nb_organism_on_area(connection, list_id_observation)
-    infos_area = vmAreasRepository.get_infos_area(connection, id_area, list_id_observation)
-
     area = tAreasRepository.getAreaFromIdArea(connection, id_area)
 
     surroundingAreas = []
-
-    observers = vmObservationsRepository.getObserversArea(connection, list_id_observation)
+    stats_area = vmStatsRepository.getStatsTerritory(connection, id_area)
 
     couches_sig_info = _get_couches_sig_info("commune")
 
@@ -423,14 +416,15 @@ def ficheArea(id_area):
         "templates/areaSheet/_main.html",
         surroundingAreas=surroundingAreas,
         listTaxons=listTaxons,
+        stats_area=stats_area,
         areaInfos=area,
         observations=observations,
-        observers=observers,
+        # observers=observers,
         DISPLAY_EYE_ON_LIST=True,
         id_area=id_area,
-        taxonProPatri=taxon_pro_patri,
-        nb_organism=nb_organism,
-        infos_area=infos_area,
+        # taxonProPatri=taxon_pro_patri,
+        # nb_organism=nb_organism,
+        # infos_area=infos_area,
         couchesSigInfo=couches_sig_info,
     )
 

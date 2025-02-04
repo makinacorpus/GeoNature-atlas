@@ -210,16 +210,6 @@ def getGroupeObservers(connection, groupe):
     return observersParser(req)
 
 
-def getObserversArea(connection, list_id_observation):
-    sql = """
-        SELECT DISTINCT obs.observateurs
-        FROM atlas.vm_observations AS obs
-        WHERE obs.id_observation = ANY(:id_observations)
-    """
-    req = connection.execute(text(sql), id_observations=list_id_observation)
-    return observersParser(req)
-
-
 def statIndex(connection):
     result = {"nbTotalObs": None, "nbTotalTaxons": None, "town": None, "photo": None}
     sql = """
@@ -233,8 +223,10 @@ def statIndex(connection):
     sql = """
         SELECT COUNT(*) AS count
         FROM atlas.vm_l_areas
+        JOIN atlas.vm_bib_areas_types bat ON bat.id_type = vla.id_type
+        WHERE bat.type_code IN :type_code
     """
-    req = connection.execute(text(sql))
+    req = connection.execute(text(sql), type_code=current_app.config["TYPE_TERRITOIRE_SHEET"])
     for r in req:
         result["town"] = r.count
 

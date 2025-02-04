@@ -54,7 +54,7 @@ def getTaxonsAreas(connection, list_id_observation):
         FROM atlas.vm_observations o
         JOIN atlas.vm_taxons t ON t.cd_ref=o.cd_ref
         LEFT JOIN atlas.vm_medias m ON m.cd_ref=o.cd_ref AND m.id_type={}
-        WHERE o.id_observation = ANY(:id_observations)
+        WHERE o.id_observation IN :id_observations
         GROUP BY o.cd_ref, t.nom_vern, t.nom_complet_html, t.group2_inpn,
             t.patrimonial, t.protection_stricte, m.url, m.chemin, m.id_media
         ORDER BY nb_obs DESC

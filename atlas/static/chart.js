@@ -220,27 +220,27 @@ const areaCode = document.getElementById("taxonListItem").getAttribute("area-cod
 fetch(`/api/area_chart_values/${areaCode}`)
     .then(response => response.json())
     .then(data => {
-        biodiversity_values_chart = data.biodiversity_values_chart
-        observations_values_chart = data.observations_values_chart
-        biodiversity_organism_values_chart = data.biodiversity_organism_values_chart
+        biodiversity_stats_taxonimy_values_chart = data.biodiversity_stats_taxonimy_values_chart
+        observations_taxonomy_values_chart = data.observations_taxonomy_values_chart
+        biodiversity_stats_organism_values_chart = data.biodiversity_stats_organism_values_chart
         observations_organism_values_chart = data.observations_organism_values_chart
 // Onglet observations et espèces
 
         const biodiversityChartElement = document.getElementById('biodiversityChart');
         if (biodiversityChartElement) {
-            const organismChart = stackedBarChartConfig(biodiversityChartElement, formatStackedBarChart(biodiversity_values_chart, biodiversityChartElement));
+            const organismChart = stackedBarChartConfig(biodiversityChartElement, formatStackedBarChart(biodiversity_stats_taxonimy_values_chart, biodiversityChartElement));
         }
 
         const observationsChartElement = document.getElementById('observationsChart');
         if (observationsChartElement) {
-            const organismChart = pieChartConfig(observationsChartElement, formatPieData(observations_values_chart, observationsChartElement));
+            const organismChart = pieChartConfig(observationsChartElement, formatPieData(observations_taxonomy_values_chart, observationsChartElement));
         }
 
 // Onglet provenance des données
 
         const biodiversityByTerritoryChartElement = document.getElementById('biodiversity_by_territoryChart');
         if (biodiversityByTerritoryChartElement) {
-            const organismChart = barChartConfig(biodiversityByTerritoryChartElement, formatBarChart(biodiversity_organism_values_chart, biodiversityByTerritoryChartElement, "Espèces"));
+            const organismChart = barChartConfig(biodiversityByTerritoryChartElement, formatBarChart(biodiversity_stats_organism_values_chart, biodiversityByTerritoryChartElement, "Espèces"));
         }
 
         const observationsByTerritoryChartElement = document.getElementById('observations_by_territoryChart');

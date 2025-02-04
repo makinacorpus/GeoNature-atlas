@@ -81,7 +81,7 @@ def getAreasObservationsChilds(connection, cd_ref):
     """
 
     results = connection.execute(
-        text(sql), taxonsList=taxons, list_id_type=current_app.config["TYPE_TERRITOIRE_SPECIES"]
+        text(sql), taxonsList=taxons, list_id_type=current_app.config["TYPE_TERRITOIRE_SHEET"]
     )
     municipalities = list()
     for r in results:
