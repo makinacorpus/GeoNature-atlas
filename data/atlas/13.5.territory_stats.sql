@@ -6,7 +6,7 @@ CREATE MATERIALIZED VIEW atlas.territory_stats AS
     COUNT(DISTINCT obs.id_observation) AS nb_obs,
     COUNT(DISTINCT obs.cd_ref) AS nb_species,
     COUNT(DISTINCT obs.observateurs) AS nb_observers,
-    COUNT(DISTINCT cto.id_organism) AS nb_organism,
+    COUNT(DISTINCT u.id_organisme) AS nb_organism,
     MIN(extract(YEAR FROM obs.dateobs)) AS yearmin,
     MAX(extract(YEAR FROM obs.dateobs)) AS yearmax,
     COUNT(DISTINCT case t.patrimonial when 'oui' then t.cd_ref else null end) AS nb_taxon_patrimonial,
@@ -23,7 +23,7 @@ FROM atlas.vm_cor_area_synthese AS cas
          JOIN atlas.vm_taxons t ON t.cd_ref=obs.cd_ref
          JOIN gn_meta.cor_dataset_actor AS rcda
               ON obs.id_dataset = rcda.id_dataset
-         JOIN atlas.vm_cor_taxon_organism cto ON rcda.id_organism = cto.id_organism
+         JOIN utilisateurs.bib_organismes u ON rcda.id_organism = u.id_organisme
          JOIN atlas.vm_l_areas area ON area.id_area = cas.id_area
          FULL JOIN atlas.vm_cor_areas ca ON ca.id_area = area.id_area
 WHERE area.id_type In (25, 35)
@@ -57,12 +57,11 @@ SELECT
     cas.id_area,
     COUNT(DISTINCT obs.cd_ref) AS nb_species,
     COUNT(DISTINCT obs.id_observation) AS nb_obs,
-    cto.nom_organism
+    u.nom_organisme AS nom_organism
 FROM atlas.vm_cor_area_synthese AS cas
          JOIN atlas.vm_observations obs ON cas.id_synthese = obs.id_observation
          JOIN gn_meta.cor_dataset_actor AS rcda
               ON obs.id_dataset = rcda.id_dataset
-         JOIN atlas.vm_cor_taxon_organism cto ON rcda.id_organism = cto.id_organism
+         JOIN utilisateurs.bib_organismes u ON rcda.id_organism = u.id_organisme
 WHERE cas.type_code IN ('COM', 'EPCI')
-GROUP BY cas.id_area, cto.nom_organism
-ORDER BY cto.nom_organism;
+GROUP BY cas.id_area, u.nom_organisme;

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2025-01-23 09:34+0100\n"
+"POT-Creation-Date: 2025-02-05 17:50+0100\n"
 "PO-Revision-Date: 2021-07-12 12:12+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -52,12 +52,6 @@ msgstr "Personal data"
 
 #: atlas/static/custom/templates/footer.html:18
 #: atlas/static/custom/templates/footer.html.sample:18
-#: static/custom/templates/footer.html:12
-msgid "preferences_cookies"
-msgstr "Changing cookie preferences"
-
-#: static/custom/templates/footer.html:17
-#: static/custom/templates/footer.html.sample:17
 msgid "atlas.fauna.flora"
 msgstr "Faune and flora atlas"
 
@@ -147,7 +141,7 @@ msgstr "Search by area"
 msgid "atlas.presentation"
 msgstr "Atlas presentation"
 
-#: atlas/templates/areaSheet/_main.html:75
+#: atlas/templates/areaSheet/_main.html:72
 #, fuzzy
 msgid "last.obs.zone"
 msgstr "Latest observations within"
@@ -180,6 +174,74 @@ msgstr "Biodiversity"
 #: atlas/templates/areaSheet/moreZoneInfo.html:53
 msgid "Observations"
 msgstr "Observations"
+
+#: atlas/templates/areaSheet/statArea.html:8
+#: atlas/templates/core/listTaxons.html:80
+#: atlas/templates/core/statHierarchy.html:7
+#: atlas/templates/core/tabTaxons.html:19
+#: atlas/templates/home/globalStats.html:16
+#: atlas/templates/organismSheet/statsInfos.html:11
+#: atlas/templates/organismSheet/topSpecies.html:61
+#: atlas/templates/speciesSheet/identityCard.html:144
+#: atlas/templates/speciesSheet/map.html:15
+#: atlas/templates/speciesSheet/otherInformations.html:141
+msgid "observations"
+msgstr "Observations"
+
+#: atlas/templates/areaSheet/statArea.html:8
+#: atlas/templates/core/listTaxons.html:79
+#: atlas/templates/core/statHierarchy.html:7
+#: atlas/templates/organismSheet/topSpecies.html:61
+#: atlas/templates/speciesSheet/map.html:15
+#: atlas/templates/speciesSheet/otherInformations.html:143
+msgid "observation"
+msgstr "Observation"
+
+#: atlas/templates/areaSheet/statArea.html:13
+#: atlas/templates/core/statHierarchy.html:12
+#: atlas/templates/home/globalStats.html:28
+#: atlas/templates/home/taxoRank.html:32
+#: atlas/templates/organismSheet/statsInfos.html:21
+msgid "species"
+msgstr "Species"
+
+#: atlas/templates/areaSheet/statArea.html:18
+#: atlas/templates/core/statHierarchy.html:17
+#: atlas/templates/speciesSheet/map.html:25
+#: atlas/templates/speciesSheet/otherInformations.html:28
+msgid "observers"
+msgstr "Observers"
+
+#: atlas/templates/areaSheet/statArea.html:18
+#: atlas/templates/core/statHierarchy.html:17
+#: atlas/templates/speciesSheet/map.html:25
+#: atlas/templates/speciesSheet/otherInformations.html:28
+msgid "observer"
+msgstr "Observer"
+
+#: atlas/templates/areaSheet/statArea.html:24
+msgid "sources"
+msgstr "sources"
+
+#: atlas/templates/areaSheet/statArea.html:24
+msgid "source"
+msgstr "source"
+
+#: atlas/templates/areaSheet/statArea.html:29
+msgid "first_observation"
+msgstr "first observation"
+
+#: atlas/templates/areaSheet/statArea.html:34
+msgid "last_observation"
+msgstr "last observation"
+
+#: atlas/templates/areaSheet/statArea.html:39
+msgid "protected_species"
+msgstr "protected species"
+
+#: atlas/templates/areaSheet/statArea.html:45
+msgid "patrimonial_species"
+msgstr "patrimonial species"
 
 #: atlas/templates/areaSheet/surrounding_areas.html:10
 msgid "associate.area"
@@ -269,26 +331,6 @@ msgstr "View observations on the territory"
 msgid "this.taxon.has.a.protected.status"
 msgstr "This taxon has a protected status"
 
-#: atlas/templates/core/listTaxons.html:79
-#: atlas/templates/core/statHierarchy.html:8
-#: atlas/templates/organismSheet/topSpecies.html:61
-#: atlas/templates/speciesSheet/map.html:15
-#: atlas/templates/speciesSheet/otherInformations.html:144
-msgid "observation"
-msgstr "Observation"
-
-#: atlas/templates/core/listTaxons.html:80
-#: atlas/templates/core/statHierarchy.html:8
-#: atlas/templates/core/tabTaxons.html:19
-#: atlas/templates/home/globalStats.html:16
-#: atlas/templates/organismSheet/statsInfos.html:11
-#: atlas/templates/organismSheet/topSpecies.html:61
-#: atlas/templates/speciesSheet/identityCard.html:144
-#: atlas/templates/speciesSheet/map.html:15
-#: atlas/templates/speciesSheet/otherInformations.html:142
-msgid "observations"
-msgstr "Observations"
-
 #: atlas/templates/core/listTaxons.html:81
 msgid "last.obs.in"
 msgstr "Latest observations within"
@@ -307,49 +349,6 @@ msgstr "Back home"
 #: atlas/templates/photoGalery/_main.html:51
 msgid "gallery.title"
 msgstr "Photos gallery"
-
-#: atlas/templates/core/statHierarchy.html:13
-#: atlas/templates/home/globalStats.html:28
-#: atlas/templates/home/taxoRank.html:32
-#: atlas/templates/organismSheet/statsInfos.html:21
-msgid "species"
-msgstr "Species"
-
-#: atlas/templates/core/statHierarchy.html:18
-#: atlas/templates/speciesSheet/map.html:25
-#: atlas/templates/speciesSheet/otherInformations.html:28
-msgid "observers"
-msgstr "Observers"
-
-#: atlas/templates/core/statHierarchy.html:18
-#: atlas/templates/speciesSheet/map.html:25
-#: atlas/templates/speciesSheet/otherInformations.html:28
-msgid "observer"
-msgstr "Observer"
-
-#: atlas/templates/core/statHierarchy.html:24
-msgid "sources"
-msgstr "sources"
-
-#: atlas/templates/core/statHierarchy.html:24
-msgid "source"
-msgstr "source"
-
-#: atlas/templates/core/statHierarchy.html:29
-msgid "first_observation"
-msgstr "first observation"
-
-#: atlas/templates/core/statHierarchy.html:34
-msgid "last_observation"
-msgstr "last observation"
-
-#: atlas/templates/core/statHierarchy.html:39
-msgid "protected_species"
-msgstr "protected species"
-
-#: atlas/templates/core/statHierarchy.html:45
-msgid "patrimonial_species"
-msgstr "patrimonial species"
 
 #: atlas/templates/core/tabTaxons.html:7
 msgid "group"
@@ -561,19 +560,19 @@ msgstr "Title"
 msgid "date"
 msgstr "Date"
 
-#: atlas/templates/speciesSheet/otherInformations.html:139
+#: atlas/templates/speciesSheet/otherInformations.html:138
 msgid "organism.participation"
 msgstr "Participation to "
 
-#: atlas/templates/speciesSheet/otherInformations.html:147
+#: atlas/templates/speciesSheet/otherInformations.html:146
 msgid "organism.prospection"
 msgstr "Proportion of prospecting assistance"
 
-#: atlas/templates/speciesSheet/otherInformations.html:153
+#: atlas/templates/speciesSheet/otherInformations.html:150
 msgid "check.organism.sheet"
 msgstr "View organism sheet"
 
-#: atlas/templates/speciesSheet/otherInformations.html:154
+#: atlas/templates/speciesSheet/otherInformations.html:151
 msgid "organism.sheet"
 msgstr "Organism sheet"
 
