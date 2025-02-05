@@ -241,7 +241,7 @@ msgstr "espèces protégées"
 
 #: atlas/templates/areaSheet/statArea.html:45
 msgid "patrimonial_species"
-msgstr "Observations et espèces"
+msgstr "espèces patrimoniales"
 
 #: atlas/templates/areaSheet/surrounding_areas.html:10
 msgid "associate.area"
