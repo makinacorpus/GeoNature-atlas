@@ -757,3 +757,10 @@ footer {
 .partner-logos button.slick-next {
     right: 0;
 }
+
+/* Position de la bannière de cookies */
+
+#orejime{
+  position: relative;
+  z-index: 1999;
+}
