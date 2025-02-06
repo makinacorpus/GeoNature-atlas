@@ -760,7 +760,13 @@ footer {
 
 /* Position de la bannière de cookies */
 
-#orejime{
-  position: relative;
+#orejime {
+  position: relative; 
   z-index: 1999;
+}
+
+/* Vignettes du bloc "Nouvelles espèces observées" à la même hauteur */
+
+#newSpecies .card {
+  height: 100%
 }
