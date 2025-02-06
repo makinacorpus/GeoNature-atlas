@@ -33,12 +33,14 @@
                 <br><strong>{{ stats_area.yearmax}}</strong>
                 <br>{{ _('last_observation')|lower }}
             </div>
+            {% if configuration.DISPLAY_PATRIMONIALITE %}
             <div class="col-sm center">
                 <img class="patrimonial_img" src="{{ url_for('static', filename=configuration.PATRIMONIALITE.config['oui'].icon) }}"/>
                 <br><strong>{{ stats_area.nb_taxon_patrimonial }}</strong>
                 <br>{{ _('protected_species')|lower }}
             </div>
-            {% if configuration.DISPLAY_PATRIMONIALITE %}
+            {% endif %}
+            {% if configuration.PROTECTION %}
             <div class="col-sm center border-left">
                 <i class="fa fa-paw"></i>
                 <br><strong>{{ stats_area.nb_taxon_protege }}</strong>
