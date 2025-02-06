@@ -37,14 +37,14 @@
             <div class="col-sm center">
                 <img class="patrimonial_img" src="{{ url_for('static', filename=configuration.PATRIMONIALITE.config['oui'].icon) }}"/>
                 <br><strong>{{ stats_area.nb_taxon_patrimonial }}</strong>
-                <br>{{ _('protected_species')|lower }}
+                <br>{{ _('patrimonial _species')|lower }}
             </div>
             {% endif %}
             {% if configuration.PROTECTION %}
             <div class="col-sm center border-left">
                 <img class="patrimonial_img" src="{{ url_for('static', 'images/logo_protection.png') }}"/>
                 <br><strong>{{ stats_area.nb_taxon_protege }}</strong>
-                <br>{{ _('patrimonial_species')|lower }}
+                <br>{{ _('protected_species')|lower }}
             </div>
             {% endif %}
 
