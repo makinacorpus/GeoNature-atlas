@@ -34,7 +34,7 @@
                 <br>{{ _('last_observation')|lower }}
             </div>
             <div class="col-sm center">
-                <img class="patrimonial_img" src="{{ url_for('static', filename=configuration.PATRIMONIALITE.config.taxon.patrimonial.icon) }}"/>
+                <img class="patrimonial_img" src="{{ url_for('static', filename=configuration.PATRIMONIALITE.config['oui'].icon) }}"/>
                 <br><strong>{{ stats_area.nb_taxon_patrimonial }}</strong>
                 <br>{{ _('protected_species')|lower }}
             </div>
