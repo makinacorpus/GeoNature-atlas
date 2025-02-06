@@ -42,7 +42,7 @@
             {% endif %}
             {% if configuration.PROTECTION %}
             <div class="col-sm center border-left">
-                <i class="fa fa-paw"></i>
+                <img class="patrimonial_img" src="{{ url_for('static', 'images/logo_protection.png') }}"/>
                 <br><strong>{{ stats_area.nb_taxon_protege }}</strong>
                 <br>{{ _('patrimonial_species')|lower }}
             </div>
