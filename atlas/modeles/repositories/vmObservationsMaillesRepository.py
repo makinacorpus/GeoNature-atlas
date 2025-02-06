@@ -208,23 +208,21 @@ def lastObservationsMailles(connection, mylimit, idPhoto):
 def lastObservationsAreaMaille(connection, obs_limit, id_area):
     sql = """
 WITH obs_in_area AS (
-    SELECT DISTINCT obs.id_observation, obs.cd_ref
+    SELECT DISTINCT obs.id_observation, obs.cd_ref, cas.type_code, cas.id_area, cas.geojson_4326
     FROM atlas.vm_cor_area_synthese AS cas
              JOIN atlas.vm_observations obs ON cas.id_synthese = obs.id_observation
-    WHERE cas.id_area = :idAreaCode
+    WHERE cas.id_area = :idAreaCode AND cas.is_blurred_geom = true
 )
 SELECT
     oia.id_observation, oia.cd_ref,
     COALESCE(t.nom_vern || ' | ', '') || t.lb_nom  AS display_name,
-    cas.type_code,
-    cas.id_area,
-    cas.geojson_4326
+    oia.type_code,
+    oia.id_area,
+    oia.geojson_4326
 FROM obs_in_area AS oia
-         JOIN atlas.vm_cor_area_synthese cas ON cas.id_synthese = oia.id_observation
          JOIN atlas.vm_taxons AS t
               ON oia.cd_ref = t.cd_ref
-WHERE cas.is_blurred_geom = true
-GROUP BY oia.id_observation, oia.cd_ref, display_name, cas.id_area, cas.geojson_4326, cas.type_code
+GROUP BY oia.id_observation, oia.cd_ref, display_name, oia.id_area, oia.geojson_4326, oia.type_code
 ORDER BY display_name
 LIMIT :obsLimit
     """
