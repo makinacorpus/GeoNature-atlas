@@ -24,17 +24,17 @@
             {% endif %}
             {% if configuration.AFFICHAGE_TAB_AREA_OBS_ESPECES%}
                 <div id="observations_and_species" class="tab-pane fade">
-                        <div class="infos_biodiversity">
-                            <h4>{{ _('Biodiversity') }}</h4>
-                            <div><strong>Nombre d'espèces</strong> par groupe taxonomique</div>
-                            <div class="chart-container" style="position: relative;width: 600px;height: 400px">
-                                <canvas id="biodiversityChart" style="padding: 0.5rem;"></canvas>
-                            </div>
+                    <div class="infos_biodiversity">
+                        <h4>{{ _('Biodiversity') }}</h4>
+                        <div><strong>Nombre d'espèces</strong> par groupe taxonomique</div>
+                        <div class="chart-container" style="position: relative;">
+                            <canvas id="biodiversityChart" style="padding: 0.5rem;"></canvas>
                         </div>
+                    </div>
                     <div class="infos_observations">
                         <h4>{{ _('Observations') }}</h4>
                         <div><strong>Nombre d'observations</strong> par groupe taxonomique</div>
-                        <div class="chart-container" style="position: relative;width: 400px;height: 400px">
+                        <div class="chart-container" style="position: relative;">
                             <canvas id="observationsChart" style="padding: 0.5rem;"></canvas>
                         </div>
                     </div>
@@ -45,14 +45,14 @@
                     <div class="infos_biodiversity">
                         <h4>{{ _('Biodiversity') }}</h4>
                         <div><strong>Nombre d'espèces</strong> sur le territoire par source de données</div>
-                        <div class="chart-container" style="position: relative;width: 600px;">
+                        <div class="chart-container" style="position: relative;">
                             <canvas id="biodiversity_by_territoryChart" style="padding: 0.5rem;"></canvas>
                         </div>
                     </div>
                     <div class="infos_observations">
                         <h4>{{ _('Observations') }}</h4>
                         <div><strong>Nombre d'observations</strong> sur le territoire par source de données</div>
-                        <div class="chart-container" style="position: relative;width: 600px;">
+                        <div class="chart-container" style="position: relative;">
                             <canvas id="observations_by_territoryChart" style="padding: 0.5rem;"></canvas>
                         </div>
                     </div>

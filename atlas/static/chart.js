@@ -56,6 +56,9 @@ pieChartConfig = function (element, data) {
             responsive: true,
             cutout: "30%",
             maintainAspectRatio: false,
+            layout: {
+                padding: 25
+            },
             plugins: {
                 legend: {
                     position: 'top',
@@ -101,7 +104,7 @@ function stackedBarChartConfig(element, data) {
                 },
             },
             responsive: true,
-            maintainAspectRatio: true,
+            maintainAspectRatio: false,
             interaction: {
                 intersect: false,
             },
@@ -170,7 +173,7 @@ function barChartConfig(element, data) {
                 },
             },
             responsive: true,
-            maintainAspectRatio: true,
+            maintainAspectRatio: false,
             borderRadius: '5',
             barThickness: '20',
             indexAxis: 'x',

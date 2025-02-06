@@ -222,9 +222,9 @@ def statIndex(connection):
 
     sql = """
         SELECT COUNT(*) AS count
-        FROM atlas.vm_l_areas
+        FROM atlas.vm_l_areas AS vla
         JOIN atlas.vm_bib_areas_types bat ON bat.id_type = vla.id_type
-        WHERE bat.type_code IN :type_code
+        WHERE bat.type_code = any(:type_code)
     """
     req = connection.execute(text(sql), type_code=current_app.config["TYPE_TERRITOIRE_SHEET"])
     for r in req:

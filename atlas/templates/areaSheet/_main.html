@@ -11,7 +11,7 @@
 
 {% block additionalHeaderAssets %}
     <!-- ChartJS -->
-    <script src="{{ url_for('static', filename='node_modules/chart.js/dist/chart.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='node_modules/chart.js/dist/chart.umd.js') }}"></script>
     {# Ajoutez ici les assets complémentaires qui seront dans le bloc <head></head> #}
     <script src="{{ url_for('static', filename='node_modules/leaflet.markercluster/dist/leaflet.markercluster.js') }}"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename='node_modules/leaflet.markercluster/dist/MarkerCluster.css') }}"/>

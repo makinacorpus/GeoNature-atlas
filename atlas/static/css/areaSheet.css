@@ -12,11 +12,14 @@
         padding: 1rem;
         width: 100%;
 
-        #observations_and_species.active {
+        .infos_biodiversity, .infos_observations {
             text-align: center;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-around;
+            padding: 2rem;
+
+            .chart-container {
+                height: 500px;
+                width: 100%;
+            }
         }
 
         #data_sources.active {
@@ -25,6 +28,17 @@
             flex-wrap: wrap;
             justify-content: space-around;
         }
+    }
+}
+@media (min-width: 900px) {
+    #observations_and_species.active {
+        display: flex;
+    }
+
+    .infos_biodiversity, .infos_observations {
+        flex-grow: 1;
+        flex-shrink: 1;
+        max-width: 50%;
     }
 }
 
