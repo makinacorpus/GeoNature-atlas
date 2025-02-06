@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2025-02-05 17:50+0100\n"
+"POT-Creation-Date: 2025-02-06 22:17+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -300,8 +300,20 @@ msgstr ""
 msgid "search.other.areas.type"
 msgstr ""
 
-#: atlas/templates/core/listTaxons.html:14
+#: atlas/templates/core/listTaxons.html:15
 msgid "filter.species"
+msgstr ""
+
+#: atlas/templates/core/listTaxons.html:24
+msgid "autres.filtres"
+msgstr ""
+
+#: atlas/templates/core/listTaxons.html:33
+msgid "espèces.protégées.uniquement"
+msgstr ""
+
+#: atlas/templates/core/listTaxons.html:39
+msgid "espèces.patrimoniales.uniquement"
 msgstr ""
 
 #: atlas/templates/core/listTaxons.html:23
