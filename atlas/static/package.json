@@ -32,7 +32,7 @@
     "leaflet-fullscreen": "0.0.2",
     "leaflet-layer-tree": "git+https://github.com/makinacorpus/L.LayerTreeControl.git",
     "leaflet.fullscreen": "^2.0.0",
-    "leaflet.markercluster": "^1.4.1",
+    "leaflet.markercluster": "^1.5.3",
     "leaflet.snogylop": "^0.4.0",
     "leaflet.zoomhome": "^1.0.0",
     "lightbox2": "^2.8.2",
