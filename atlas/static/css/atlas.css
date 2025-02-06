@@ -98,6 +98,19 @@ main {
     0 0 5px var(--main-color);
 }
 
+.form-inline .form-control {
+  width: 150 px;
+}
+
+#navbarSupportedContent .form-inline {
+  flex-flow: nowrap;
+}
+
+#searchTaxons .form-control,
+#searchCommunes .form-control {
+  width: 100%;
+}
+
 /* carto */
 
 .leaflet-touch .leaflet-bar a:last-child {
