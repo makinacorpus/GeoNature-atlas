@@ -220,7 +220,7 @@ SELECT
     cas.id_area,
     cas.geojson_4326
 FROM obs_in_area AS oia
-         JOIN atlas.vm_cor_area_synthese cas ON cas.id_synthese = oia.id_observation
+         JOIN atlas.vm_cor_area_synthese cas ON cas.id_synthese = oia.id_observation AND cas.is_blurred_geom IS TRUE
          JOIN atlas.vm_taxons AS t
               ON oia.cd_ref = t.cd_ref
 WHERE cas.is_blurred_geom = true
