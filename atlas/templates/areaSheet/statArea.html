@@ -35,7 +35,7 @@
             </div>
             {% if configuration.PROTECTION %}
             <div class="col-sm center border-left">
-                <img class="statut_icon" src="{{ url_for('static', 'images/logo_protection.png') }}"/>
+                <img class="statut_icon" src="{{ url_for('static', filename='images/logo_protection.png') }}"/>
                 <br><strong>{{ stats_area.nb_taxon_protege }}</strong>
                 <br>{{ _('protected_species')|lower }}
             </div>
