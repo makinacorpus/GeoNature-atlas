@@ -529,7 +529,7 @@ msgstr "Observations mensuelles"
 
 #: atlas/templates/speciesSheet/charts.html:16
 msgid "data.source"
-msgstr "Graphique de provenance des données"
+msgstr "Provenance des données"
 
 #: atlas/templates/speciesSheet/descriptionMedia.html:12
 #: atlas/templates/speciesSheet/otherInformations.html:42
