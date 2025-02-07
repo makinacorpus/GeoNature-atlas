@@ -208,7 +208,7 @@ def lastObservationsMailles(connection, mylimit, idPhoto):
 def lastObservationsAreaMaille(connection, obs_limit, id_area):
     sql = """
 WITH obs_in_area AS (
-    SELECT DISTINCT obs.id_observation, obs.cd_ref
+    SELECT obs.id_observation, obs.cd_ref
     FROM atlas.vm_cor_area_synthese AS cas
              JOIN atlas.vm_observations obs ON cas.id_synthese = obs.id_observation
     WHERE cas.id_area = :idAreaCode
@@ -220,11 +220,10 @@ SELECT
     cas.id_area,
     cas.geojson_4326
 FROM obs_in_area AS oia
-         JOIN atlas.vm_cor_area_synthese cas ON cas.id_synthese = oia.id_observation AND cas.is_blurred_geom IS TRUE
+         JOIN atlas.vm_cor_area_synthese cas ON cas.id_synthese = oia.id_observation
          JOIN atlas.vm_taxons AS t
               ON oia.cd_ref = t.cd_ref
 WHERE cas.is_blurred_geom = true
-GROUP BY oia.id_observation, oia.cd_ref, display_name, cas.id_area, cas.geojson_4326, cas.type_code
 ORDER BY display_name
 LIMIT :obsLimit
     """
@@ -268,7 +267,7 @@ FROM atlas.vm_observations AS o
     tabObs = list()
     for o in observations:
         temp = {
-            "id_maille": o.id_maille,
+            "id_maille": o.id_area,
             "cd_ref": o.cd_ref,
             "taxon": format_taxon_name(o),
             "type_code": o.type_code,
