@@ -399,9 +399,7 @@ def ficheArea(id_area):
             connection, current_app.config["NB_LAST_OBS"], id_area
         )
 
-    list_id_observation = vmAreasRepository.get_all_id_observation_area(connection, id_area)
-
-    listTaxons = vmTaxonsRepository.getTaxonsAreas(connection, list_id_observation)
+    listTaxons = vmTaxonsRepository.getTaxonsAreas(connection, id_area)
     area = tAreasRepository.getAreaFromIdArea(connection, id_area)
 
     surroundingAreas = []
