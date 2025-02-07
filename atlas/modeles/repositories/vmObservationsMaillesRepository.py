@@ -209,23 +209,25 @@ def lastObservationsAreaMaille(connection, obs_limit, id_area):
     sql = """
 WITH obs_in_area AS (
     SELECT obs.id_observation, obs.cd_ref
-    FROM atlas.vm_cor_area_synthese AS cas
-             JOIN atlas.vm_observations obs ON cas.id_synthese = obs.id_observation
+    FROM atlas.vm_observations obs
+             JOIN atlas.vm_cor_area_synthese AS cas  ON cas.id_synthese = obs.id_observation
     WHERE cas.id_area = :idAreaCode
 )
 SELECT
-    oia.id_observation, oia.cd_ref,
+    obs.id_observation,
+    obs.cd_ref,
     COALESCE(t.nom_vern || ' | ', '') || t.lb_nom  AS display_name,
+    date_part('year', obs.dateobs) AS annee,
     cas.type_code,
     cas.id_area,
     cas.geojson_4326
-FROM obs_in_area AS oia
-         JOIN atlas.vm_cor_area_synthese cas ON cas.id_synthese = oia.id_observation
-         JOIN atlas.vm_taxons AS t
-              ON oia.cd_ref = t.cd_ref
-WHERE cas.is_blurred_geom = true
-ORDER BY display_name
-LIMIT :obsLimit
+FROM obs_in_area
+         JOIN atlas.vm_cor_area_synthese cas ON cas.id_synthese = obs_in_area.id_observation
+         JOIN atlas.vm_observations obs ON cas.id_synthese = obs.id_observation
+         JOIN atlas.vm_taxons AS t ON t.cd_ref = obs.cd_ref
+WHERE cas.is_blurred_geom = TRUE
+ORDER BY annee DESC
+LIMIT :obsLimit;
     """
     results = connection.execute(text(sql), idAreaCode=id_area, obsLimit=obs_limit)
     observations = list()
