@@ -2,7 +2,7 @@
 DROP materialized view atlas.vm_observations;
 CREATE MATERIALIZED VIEW atlas.vm_observations AS
     WITH centroid_synthese AS (
-         SELECT st_centroid(cor.geom) AS geom_point,
+         SELECT st_centroid(vla.the_geom) AS geom_point,
             s.id_synthese AS id_observation,
 		    s.date_min AS dateobs,
 		    (s.altitude_min + s.altitude_max) / 2 AS altitude_retenue,
@@ -15,6 +15,7 @@ CREATE MATERIALIZED VIEW atlas.vm_observations AS
            cor.id_area
            FROM synthese.synthese s
              JOIN atlas.vm_cor_area_synthese cor ON cor.id_synthese = s.id_synthese AND cor.is_blurred_geom IS TRUE
+            JOIN atlas.vm_l_areas vla ON vla.id_area=cor.id_area
         )
 SELECT
     c.geom_point,

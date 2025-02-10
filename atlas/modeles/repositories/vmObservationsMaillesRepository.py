@@ -169,11 +169,12 @@ def lastObservationsMailles(connection, mylimit, idPhoto):
         tax.lb_nom, tax.nom_vern, tax.group2_inpn,
         o.dateobs, o.altitude_retenue, o.id_observation,
         medias.url, medias.chemin, medias.id_media,
-        m.geojson_4326 AS geom
+        vla.the_geom AS geom
         FROM atlas.vm_observations_mailles obs
         JOIN atlas.vm_taxons tax ON tax.cd_ref = obs.cd_ref
         JOIN atlas.vm_observations o ON o.id_observation=ANY(obs.id_observations)
         JOIN atlas.vm_cor_area_synthese m ON m.id_synthese=o.id_observation AND m.is_blurred_geom IS TRUE
+        JOIN atlas.vm_l_areas vla ON vla.id_area=m.id_area
         LEFT JOIN atlas.vm_medias medias
             ON medias.cd_ref = obs.cd_ref AND medias.id_type = 1
         WHERE  o.dateobs >= (CURRENT_TIMESTAMP - INTERVAL :thislimit)
@@ -220,10 +221,11 @@ SELECT
     date_part('year', obs.dateobs) AS annee,
     cas.type_code,
     cas.id_area,
-    cas.geojson_4326
+    vla.area_geojson AS geojson_4326
 FROM obs_in_area
          JOIN atlas.vm_cor_area_synthese cas ON cas.id_synthese = obs_in_area.id_observation
          JOIN atlas.vm_observations obs ON cas.id_synthese = obs.id_observation
+         JOIn atlas.vm_l_areas vla ON vla.id_area=cas.id_area
          JOIN atlas.vm_taxons AS t ON t.cd_ref = obs.cd_ref
 WHERE cas.is_blurred_geom = TRUE
 ORDER BY annee DESC
