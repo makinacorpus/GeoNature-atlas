@@ -24,7 +24,7 @@ function clearOverlays(){
     // TODO: Rendre les overlays dynamiques.
     m500FeatureGroup.eachLayer(
         function(l){
-            m5FeatureGroup.removeLayer(l);
+            m500FeatureGroup.removeLayer(l);
         });
     COMFeatureGroup.eachLayer(
         function(l){

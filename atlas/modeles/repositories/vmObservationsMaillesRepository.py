@@ -249,23 +249,24 @@ LIMIT :obsLimit;
 # Use for API
 def getObservationsTaxonAreaMaille(connection, id_area, cd_ref):
     sql = """
-SELECT
-    o.cd_ref,
-    area.id_area,
-    o.type_code,
-    date_part('year'::text, o.dateobs) AS annee,
-    area.area_geojson,
-    area.the_geom,
-    t.cd_ref,
-    t.nom_vern,
-    t.lb_nom
-FROM atlas.vm_observations AS o
-         JOIN atlas.vm_taxons AS t ON t.cd_ref = o.cd_ref
-         JOIN atlas.vm_l_areas AS area
-              ON ST_INTERSECTS(o.geom_point, area.the_geom)
-        WHERE o.cd_ref = :thiscdref
-            AND area.id_area = :thisIdArea
-        ORDER BY area.id_area
+select
+    obs.cd_ref,
+    obs.id_area,
+    obs.type_code,
+    date_part('year'::text, obs.dateobs) AS annee,
+    areas.area_geojson,
+    areas.the_geom,
+    tax.nom_vern,
+    tax.lb_nom
+from
+    atlas.vm_observations obs
+    join atlas.vm_l_areas areas
+        on areas.id_area = obs.id_area
+    join atlas.vm_taxons tax
+        on tax.cd_ref = obs.cd_ref
+where
+    st_intersects(areas.the_geom, (select the_geom from atlas.vm_l_areas where id_area = :thisIdArea))
+    and obs.cd_ref = :thiscdref;
     """
     observations = connection.execute(text(sql), thisIdArea=id_area, thiscdref=cd_ref)
     tabObs = list()
