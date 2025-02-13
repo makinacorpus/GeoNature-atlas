@@ -169,7 +169,7 @@ def lastObservationsMailles(connection, mylimit, idPhoto):
         tax.lb_nom, tax.nom_vern, tax.group2_inpn,
         o.dateobs, o.altitude_retenue, o.id_observation,
         medias.url, medias.chemin, medias.id_media,
-        vla.the_geom AS geom
+        vla.area_geojson AS geom
         FROM atlas.vm_observations_mailles obs
         JOIN atlas.vm_taxons tax ON tax.cd_ref = obs.cd_ref
         JOIN atlas.vm_observations o ON o.id_observation=ANY(obs.id_observations)
