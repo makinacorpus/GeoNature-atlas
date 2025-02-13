@@ -104,12 +104,6 @@ main {
   width: 100%;
 }
 
-@media(min-width: 768px) {
-  #navbarSupportedContent {
-      position: static;
-  }
-}
-
 /* carto */
 
 .leaflet-touch .leaflet-bar a:last-child {
@@ -180,6 +174,12 @@ a {
     position: absolute;
     top: 100%;
     right: 0;
+}
+
+@media(min-width: 768px) {
+  #navbarSupportedContent {
+      position: static;
+  }
 }
 
 .logoStructure {
