@@ -56,7 +56,7 @@ def getObservationsMaillesTerritorySpecies(session, cd_ref):
                 id_maille=o.id_area,
                 type_code=o.type_code,
                 nb_observations=int(o.obs_nbr),
-                last_observation=o.last_obs_year,
+                annee=o.last_obs_year,
                 cd_ref=o.cd_ref,
                 taxon=format_taxon_name(o),
             )
