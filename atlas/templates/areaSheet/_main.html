@@ -32,6 +32,9 @@
         var observations = {{observations|tojson}};
         var areaInfos = {{ areaInfos | tojson }};
         var url_limit_territory = "{{url_for('static', filename='custom/territoire.json') }}";
+        const translations = {
+            "nb_observations": `{{ _('obs.number.s') }}`
+        };
     </script>
     {% include 'templates/core/assets_couches_sig.html' %}
     <script src="{{ url_for('static', filename='custom/maps-custom.js') }}"></script>

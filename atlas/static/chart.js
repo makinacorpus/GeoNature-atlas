@@ -84,7 +84,7 @@ function formatPieData(data) {
         labels: labels,
         datasets: [
             {
-                label: 'Dataset 1',
+                label: `${translations.nb_observations}`,
                 data: data_count,
                 backgroundColor: configuration.COLOR_PIE_CHARTS,
                 hoverOffset: 25
