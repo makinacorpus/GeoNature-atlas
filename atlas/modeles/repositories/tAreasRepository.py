@@ -7,7 +7,7 @@ from sqlalchemy.sql import text
 from sqlalchemy.sql.expression import func
 from flask import current_app
 
-from atlas.modeles.entities.vmAreas import VmAreas
+from atlas.modeles.entities.vmAreas import VmAreas, VmBibAreasTypes
 
 
 def getAllAreas(session):
@@ -28,7 +28,9 @@ def searchMunicipalities(session, search, limit=50):
             VmAreas.id_area,
             func.length(VmAreas.area_name),
         )
+        .join(VmBibAreasTypes)
         .filter(func.unaccent(VmAreas.area_name).ilike(func.unaccent(like_search)))
+        .filter(VmBibAreasTypes.type_code.in_(current_app.config["TYPE_TERRITOIRE_SHEET"]))
         .order_by(VmAreas.area_name)
         .limit(limit)
     )
