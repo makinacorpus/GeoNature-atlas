@@ -91,6 +91,8 @@ function createLayer(coucheSigInfo) {
   }
 }
 
+var layerTreeCtrl = undefined;
+
 function addLayerControlToMap(map) {
   var layer_types_map = {
     wms: "leaflet",
@@ -103,15 +105,90 @@ function addLayerControlToMap(map) {
         {
           layer: createLayer(coucheSigInfo),
           type: layer_types_map[coucheSigInfo.type],
-          name: coucheSigInfo.name
+          name: coucheSigInfo.name,
+          allVisible: !!coucheSigInfo.defaultVisible, // Used by plugin: to turn all children layers on
+          defaultVisible: !!coucheSigInfo.defaultVisible // Used by this script: to turn the 1st-level layer on
         }
       );
     }
   );
-  var layerTreeCtrl = new L.Control.CollapsableLayerTreeControl(sigLayers, {
+  console.log(sigLayers);
+  layerTreeCtrl = new L.Control.CollapsableLayerTreeControl(sigLayers, {
     position: 'topright',
     collapsed: true
   });
 
   map.addControl(layerTreeCtrl);
+
+  // Select the node that will be observed for mutations
+  const targetNode = document.querySelector(".layer-tree-control");
+
+  // Options for the observer (which mutations to observe)
+  const config = { attributes: false, childList: true, subtree: true };
+
+  var getAncestorWith = function (node, classNames) {
+    var found = false;
+    var ancestor = node.parentElement;
+    while (!found) {
+      classNames.forEach(
+        (className) => {
+          if (ancestor.classList.contains(className))
+            found = true;
+        }
+      );
+      if (!found)
+        ancestor = ancestor.parentElement;
+    }
+    return ancestor;
+  };
+
+  var applyAutoCheck = function (node) {
+    // todo
+    // - given check-mark node (or checkbox <= better!)
+    // - get the data-id from ancestor node
+    // getParentWith(...)
+    // - check if layer is supposed to be visible by default => look into layerTreeCtrl._layers
+    // - if so check the checkbox => change event => display the layer
+    let ancestor = getAncestorWith(node, ['leaf-header', 'node-header']);
+    // console.log("applyAutoCheck", ancestor.getAttribute('data-id'));
+    let dataId = ancestor.getAttribute('data-id');
+    let isDefaultVisible = false;
+    layerTreeCtrl._layers.forEach(
+      (layer) => {
+        if (dataId === 'layertree-' + L.stamp(layer) && layer.defaultVisible)
+          isDefaultVisible = true;
+      }
+    );
+    // console.log(dataId, isDefaultVisible);
+    if (isDefaultVisible) {
+      node.click();
+      console.log(`layer ${dataId} clicked!`);
+    }
+  };
+
+  // Callback function to execute when mutations are observed
+  const callback = (mutationList, observer) => {
+    // console.log("mutation!", mutationList);
+    for (const mutation of mutationList) {
+      if (mutation.type === "childList") {
+        // console.log("A child node has been added or removed.");
+        mutation.addedNodes.forEach((node) => {
+          if (node.classList && node.classList.contains('check-box')) {
+            applyAutoCheck(node);
+          }
+        });
+      } else if (mutation.type === "attributes") {
+        console.log(`The ${mutation.attributeName} attribute was modified.`);
+      }
+    }
+  };
+
+  // Create an observer instance linked to the callback function
+  const observer = new MutationObserver(callback);
+
+  // Start observing the target node for configured mutations
+  observer.observe(targetNode, config);
+
+  // Later, you can stop observing
+  // observer.disconnect();
 }
