@@ -95,10 +95,8 @@ function displayObsTaxonMaille(cd_ref) {
 }
 
 function refreshTerritoryArea(elem) {
-    $(this)
-        .siblings()
-        .removeClass("current");
-    $(this).addClass("current");
+    document.querySelector("#taxonList .current")?.classList.remove("current")
+    elem.currentTarget.classList.add('current');
     if (configuration.AFFICHAGE_TERRITOIRE_OBS) {
         displayObsTaxonMaille(elem.currentTarget.getAttribute("cdref"));
     }
