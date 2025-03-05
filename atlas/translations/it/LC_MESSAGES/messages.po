@@ -143,9 +143,8 @@ msgid "atlas.presentation"
 msgstr "Presentazione dell'atlante"
 
 #: atlas/templates/areaSheet/_main.html:72
-#, fuzzy
 msgid "last.obs.zone"
-msgstr "Ultime osservazioni "
+msgstr "ultime osservazioni"
 
 #: atlas/templates/areaSheet/moreZoneInfo.html:5
 msgid "general_presentation"

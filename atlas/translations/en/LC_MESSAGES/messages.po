@@ -142,9 +142,8 @@ msgid "atlas.presentation"
 msgstr "Atlas presentation"
 
 #: atlas/templates/areaSheet/_main.html:72
-#, fuzzy
 msgid "last.obs.zone"
-msgstr "Latest observations within"
+msgstr "last observations"
 
 #: atlas/templates/areaSheet/moreZoneInfo.html:5
 msgid "general_presentation"

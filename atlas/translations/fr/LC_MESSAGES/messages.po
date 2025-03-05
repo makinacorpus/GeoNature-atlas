@@ -144,7 +144,7 @@ msgstr "Présentation de l'atlas"
 
 #: atlas/templates/areaSheet/_main.html:72
 msgid "last.obs.zone"
-msgstr "Dernière observation en "
+msgstr "dernières observations"
 
 #: atlas/templates/areaSheet/moreZoneInfo.html:5
 msgid "general_presentation"
