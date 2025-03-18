@@ -311,6 +311,7 @@ def ficheEspece(cd_nom):
 
     statuts = vmStatutBdcRepository.get_taxons_statut_bdc(connection, cd_ref)
     groupes_statuts = _make_groupes_statuts(statuts)
+    groupes_statuts_have_labels = any([groupe.get("label") for groupe in groupes_statuts])
 
     couches_sig_info_for_page = _get_couches_sig_info("species")
     this_taxon_group2 = taxon["taxonSearch"]["group2_inpn"]
@@ -345,6 +346,7 @@ def ficheEspece(cd_nom):
         observers=observers,
         organisms=organisms,
         groupesStatuts=groupes_statuts,
+        groupesStatutsHaveLabels=groupes_statuts_have_labels,
         couchesSigInfo=couches_sig_info,
     )
 
@@ -370,9 +372,21 @@ def _make_groupes_statuts(statuts):
     """
 
     def is_statut_in_groupe(statut, groupe):
-        group_types = {origin["cd_type_statut"] for origin in groupe["origins"]}
-        group_sigs = {origin["cd_sig"] for origin in groupe["origins"]}
-        return statut["cd_type_statut"] in group_types and statut["cd_sig"] in group_sigs
+        for filter_item in groupe["filters"]:
+            if filter_item.get("cd_type_statut"):
+                has_valid_type = statut["cd_type_statut"] == filter_item.get("cd_type_statut")
+            else:
+                has_valid_type = True
+
+            if filter_item.get("cd_sig"):
+                has_valid_sig = statut["cd_sig"] == filter_item.get("cd_sig")
+            else:
+                has_valid_sig = True
+
+            if has_valid_type and has_valid_sig:
+                return True
+        else:
+            return False
 
     groupes_statuts = []
     for config_groupe in current_app.config["GROUPES_STATUTS"]:
