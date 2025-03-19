@@ -27,13 +27,10 @@ L.Control.CollapsableLayerTreeControl = L.Control.LayerTreeControl.extend({
   },
 
   onAdd: function (map) {
-    // TODO: call onAdd on LayerTreeControl
     L.Control.LayerTreeControl.prototype.onAdd.call(this, map);
 
     var container = this._container;
     var collapsed = this.options.collapsed;
-    // TODO: add the class on the already created DOM elmt
-    // this._treeContainer = L.DomUtil.create('div', 'layer-tree-control-list', container);
     container.childNodes[0].classList.add('layer-tree-control-list');
 
     if (collapsed) {
@@ -67,20 +64,21 @@ L.Control.CollapsableLayerTreeControl = L.Control.LayerTreeControl.extend({
   }
 });
 
+function _deepCopy(obj) {
+  return JSON.parse(JSON.stringify(obj));
+}
+
 function createLeafletLayer(coucheSigInfo) {
-  return L.tileLayer.wms(
-    coucheSigInfo.url,
-    coucheSigInfo.options
-  );
+  let options = _deepCopy(coucheSigInfo.options || {});
+  options.layers = [coucheSigInfo.layer];
+  return L.tileLayer.wms(coucheSigInfo.url, options);
 }
 
 function createEsriDynamicLayer(coucheSigInfo) {
-  return L.esri.dynamicMapLayer(
-    {
-      url: coucheSigInfo.url,
-      layers: []
-    }
-  );
+  let options = _deepCopy(coucheSigInfo.options || {});
+  options.layers = [];
+  options.url = coucheSigInfo.url;
+  return L.esri.dynamicMapLayer(options);
 }
 
 function createLayer(coucheSigInfo) {
