@@ -65,6 +65,18 @@ htmlLegend = configuration.AFFICHAGE_MAILLE
 
 generateLegende(htmlLegend);
 
+// Gestionnaire de couches SIG additionnelles
+if (couchesSigInfo !== undefined) {
+  addLayerControlToMap(map);
+}
+
+function displayObsPreciseBaseUrl() {
+    if (sheetType === 'commune') {
+        return configuration.URL_APPLICATION + "/api/observations/" + areaInfos.areaCode
+    } else {
+        return configuration.URL_APPLICATION + "/api/observations/area/" + areaInfos.id_area
+    }
+};
 
 var baseUrl =  configuration.URL_APPLICATION + "/api/observations/" + areaInfos.areaCode
 
@@ -90,7 +102,7 @@ function displayObsTaxon(id_area, cd_ref) {
         configuration.URL_APPLICATION + "/static/images/loading.svg"
       );
     }
-  }).done(function(observations) {    
+  }).done(function(observations) {
     $("#loadingGif").hide();
     map.removeLayer(currentLayer);
     if (configuration.AFFICHAGE_MAILLE) {
