@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - develop
+      - recette
   release:
     types: [published]
 
