@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2025-03-20 16:28+0100\n"
+"POT-Creation-Date: 2025-03-24 17:11+0100\n"
 "PO-Revision-Date: 2021-07-19 09:53+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: it\n"
@@ -18,27 +18,27 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.9.1\n"
 
-#: atlas/atlasRoutes.py:169 atlas/utils.py:99
+#: atlas/atlasRoutes.py:170 atlas/utils.py:99
 msgid "municipalities"
 msgstr "Comuni"
 
-#: atlas/atlasRoutes.py:169 atlas/utils.py:99
+#: atlas/atlasRoutes.py:170 atlas/utils.py:99
 msgid "territories"
 msgstr "Territori"
 
-#: atlas/atlasRoutes.py:171 atlas/utils.py:101
+#: atlas/atlasRoutes.py:172 atlas/utils.py:101
 msgid "municipality"
 msgstr "Comune"
 
-#: atlas/atlasRoutes.py:171 atlas/utils.py:101
+#: atlas/atlasRoutes.py:172 atlas/utils.py:101
 msgid "territory"
 msgstr "territorio"
 
-#: atlas/atlasRoutes.py:172 atlas/utils.py:102
+#: atlas/atlasRoutes.py:173 atlas/utils.py:102
 msgid "search.city"
 msgstr "Ricerca per comune"
 
-#: atlas/atlasRoutes.py:172 atlas/utils.py:102
+#: atlas/atlasRoutes.py:173 atlas/utils.py:102
 msgid "search.area"
 msgstr "Ricerca per territorio"
 
@@ -160,7 +160,7 @@ msgstr "Presentazione dell'atlante"
 msgid "obs.number.s"
 msgstr "Numero di osservazioni"
 
-#: atlas/templates/areaSheet/_main.html:69
+#: atlas/templates/areaSheet/_main.html:70
 msgid "last.obs.area"
 msgstr "ultime osservazioni"
 
@@ -177,20 +177,20 @@ msgid "data_sources"
 msgstr "Origine dati"
 
 #: atlas/templates/areaSheet/statArea.html:8
-#: atlas/templates/core/listTaxons.html:80
+#: atlas/templates/core/listTaxons.html:123
 #: atlas/templates/core/statHierarchy.html:7
 #: atlas/templates/core/tabTaxons.html:19
 #: atlas/templates/home/globalStats.html:16
 #: atlas/templates/organismSheet/statsInfos.html:11
 #: atlas/templates/organismSheet/topSpecies.html:61
-#: atlas/templates/speciesSheet/identityCard.html:135
+#: atlas/templates/speciesSheet/identityCard.html:144
 #: atlas/templates/speciesSheet/map.html:15
 #: atlas/templates/speciesSheet/otherInformations.html:151
 msgid "observations"
 msgstr "Osservazioni"
 
 #: atlas/templates/areaSheet/statArea.html:8
-#: atlas/templates/core/listTaxons.html:79
+#: atlas/templates/core/listTaxons.html:122
 #: atlas/templates/core/statHierarchy.html:7
 #: atlas/templates/organismSheet/topSpecies.html:61
 #: atlas/templates/speciesSheet/map.html:15
@@ -285,7 +285,8 @@ msgid "asearch.remove.selection"
 msgstr "Rimuovi dalla selezione"
 
 #: atlas/templates/core/advanced_search.html:427
-#: atlas/templates/core/listTaxons.html:86 atlas/templates/home/lastObs.html:44
+#: atlas/templates/core/listTaxons.html:129
+#: atlas/templates/home/lastObs.html:44
 #: atlas/templates/home/mostViewNow.html:33
 #: atlas/templates/home/newSpecies.html:45
 #: atlas/templates/home/taxoRank.html:61
@@ -294,42 +295,43 @@ msgid "species.sheet"
 msgstr "Scheda specie"
 
 #: atlas/templates/core/advanced_search.html:429
-#: atlas/templates/core/listTaxons.html:85
+#: atlas/templates/core/listTaxons.html:128
 #: atlas/templates/core/tabTaxons.html:87
 #: atlas/templates/organismSheet/topSpecies.html:66
-#: atlas/templates/speciesSheet/identityCard.html:180
+#: atlas/templates/speciesSheet/identityCard.html:189
 msgid "check.species.sheet"
 msgstr "Vedere la scheda delle specie"
 
-#: atlas/templates/core/listTaxons.html:14
+#: atlas/templates/core/listTaxons.html:15
 msgid "filter.species"
 msgstr "Filtrare le species"
 
-#: templates/core/listTaxons.html:24
+#: atlas/templates/core/listTaxons.html:24
 msgid "autres.filtres"
 msgstr "Altri filtri"
 
-#: templates/core/listTaxons.html:33
+#: atlas/templates/core/listTaxons.html:33
 msgid "espèces.protégées.uniquement"
 msgstr "Solo specie protette"
 
-#: templates/core/listTaxons.html:39
+#: atlas/templates/core/listTaxons.html:39
+#, python-format
 msgid "espèces.%(label_patrimonialite)s.uniquement"
 msgstr "Solo specie %(label_patrimonialite)s"
 
-#: templates/core/listTaxons.html:23
+#: atlas/templates/core/listTaxons.html:57
 msgid "display.municipality.obs"
 msgstr "Guarda le osservazioni sul territorio"
 
-#: atlas/templates/core/listTaxons.html:48
+#: atlas/templates/core/listTaxons.html:91
 #: atlas/templates/core/tabTaxons.html:62
 #: atlas/templates/organismSheet/topSpecies.html:36
-#: atlas/templates/speciesSheet/identityCard.html:64
-#: atlas/templates/speciesSheet/identityCard.html:158
+#: atlas/templates/speciesSheet/identityCard.html:84
+#: atlas/templates/speciesSheet/identityCard.html:167
 msgid "this.taxon.has.a.protected.status"
 msgstr "Questo taxon ha uno status di protezione"
 
-#: atlas/templates/core/listTaxons.html:81
+#: atlas/templates/core/listTaxons.html:124
 msgid "last.obs.in"
 msgstr "Ultime osservazioni "
 
@@ -353,12 +355,12 @@ msgid "group"
 msgstr "Gruppo"
 
 #: atlas/templates/core/tabTaxons.html:8
-#: atlas/templates/speciesSheet/identityCard.html:128
+#: atlas/templates/speciesSheet/identityCard.html:137
 msgid "scientific.name"
 msgstr "Nome binomiale"
 
 #: atlas/templates/core/tabTaxons.html:9
-#: atlas/templates/speciesSheet/identityCard.html:127
+#: atlas/templates/speciesSheet/identityCard.html:136
 msgid "common.name"
 msgstr "Nome volgare"
 
@@ -368,7 +370,7 @@ msgid "last.obs"
 msgstr "Ultime osservazioni"
 
 #: atlas/templates/core/tabTaxons.html:21
-#: atlas/templates/speciesSheet/identityCard.html:136
+#: atlas/templates/speciesSheet/identityCard.html:145
 msgid "sheet"
 msgstr "Scheda"
 
@@ -517,11 +519,11 @@ msgstr "Provenienza dei dati"
 msgid "author"
 msgstr "Autore"
 
-#: atlas/templates/speciesSheet/identityCard.html:97
+#: atlas/templates/speciesSheet/identityCard.html:101
 msgid "check.species.sheet.inpn"
 msgstr "Consulta la scheda species INPN"
 
-#: atlas/templates/speciesSheet/identityCard.html:130
+#: atlas/templates/speciesSheet/identityCard.html:139
 msgid "protection"
 msgstr "Stato di protezione"
 
