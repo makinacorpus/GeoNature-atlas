@@ -72,7 +72,7 @@ function formatPieData(data) {
             {
                 label: `${translations.nb_observations} `,
                 data: data_count,
-                backgroundColor: configuration.ORGANISMS_CHART_COLOR,
+                backgroundColor: configuration.COLOR_PIE_CHARTS,
                 hoverOffset: 25
             }
         ]
