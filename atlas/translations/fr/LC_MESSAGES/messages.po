@@ -306,7 +306,19 @@ msgstr "Voir la fiche espèce"
 msgid "filter.species"
 msgstr "Filtrer les espèces"
 
-#: atlas/templates/core/listTaxons.html:23
+#: templates/core/listTaxons.html:24
+msgid "autres.filtres"
+msgstr "Autres filtres"
+
+#: templates/core/listTaxons.html:33
+msgid "espèces.protégées.uniquement"
+msgstr "Espèces protégées uniquement"
+
+#: templates/core/listTaxons.html:39
+msgid "espèces.%(label_patrimonialite)s.uniquement"
+msgstr "Espèces %(label_patrimonialite)s uniquement"
+
+#: templates/core/listTaxons.html:23
 msgid "display.municipality.obs"
 msgstr "Voir les observations sur le territoire"
 

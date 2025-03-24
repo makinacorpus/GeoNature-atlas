@@ -294,6 +294,18 @@ msgstr ""
 msgid "filter.species"
 msgstr ""
 
+#: templates/core/listTaxons.html:24
+msgid "autres.filtres"
+msgstr ""
+
+#: templates/core/listTaxons.html:33
+msgid "espèces.protégées.uniquement"
+msgstr ""
+
+#: templates/core/listTaxons.html:39
+msgid "espèces.patrimoniales.uniquement"
+msgstr ""
+
 #: atlas/templates/core/listTaxons.html:23
 msgid "display.municipality.obs"
 msgstr ""
