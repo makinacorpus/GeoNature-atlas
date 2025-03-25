@@ -132,7 +132,6 @@ function formatStackedBarChart(values, element) {
     const nb_species = []
     const nb_patrimonial = []
     const nb_species_in_teritory = []
-    console.log(values)
     Object.keys(values).forEach(key => {
         labels.push(key)
         nb_species.push(values[key].nb_species)
@@ -146,14 +145,14 @@ function formatStackedBarChart(values, element) {
         labels: labels,
         datasets: [
             {
-                label: "Total",
+                label: "Nombre d'espèces",
                 data: nb_species,
                 backgroundColor: [configuration.COLOR_STACKED_BAR_CHARTS[0]],
                 stack: "0",
             },
 
             {
-                label: "Total sur tout le territoire",
+                label: "Nombre d'espèces sur tout le territoire",
                 data: nb_species_in_teritory,
                 backgroundColor: [configuration.COLOR_STACKED_BAR_CHARTS[2]],
                 stack: "1",
@@ -162,7 +161,7 @@ function formatStackedBarChart(values, element) {
     };
     if(configuration.DISPLAY_PATRIMONIALITE) {
         data.datasets.push({
-            label: "Total patrimonial",
+            label: "Nombre d'espèces patrimonialies",
             data: nb_patrimonial,
             backgroundColor: [configuration.COLOR_STACKED_BAR_CHARTS[1]],
             stack: "2",
@@ -228,38 +227,38 @@ if (dataSourceChartElement) {
     const organismChart = pieChartConfig(dataSourceChartElement, formatPieData(organism_stats, dataSourceChartElement));
 }
 
-const areaCode = document.getElementById("taxonListItem").getAttribute("area-code")
+const areaCode = areaInfos.areaCode;
 
 fetch(`/api/area_chart_values/${areaCode}`)
     .then(response => response.json())
     .then(data => {
         $("#spinnerChart").hide();
-        biodiversity_stats_taxonomy_values_chart = data.biodiversity_stats_taxonomy_values_chart
-        observations_taxonomy_values_chart = data.observations_taxonomy_values_chart
-        biodiversity_stats_organism_values_chart = data.biodiversity_stats_organism_values_chart
-        observations_organism_values_chart = data.observations_organism_values_chart
+        species_by_taxonomic_group = data.species_by_taxonomic_group
+        observations_by_taxonomic_group = data.observations_by_taxonomic_group
+        nb_species_by_organism = data.nb_species_by_organism
+        observations_by_organism = data.observations_by_organism
 // Onglet observations et espèces
 
         const biodiversityChartElement = document.getElementById('biodiversityChart');
         if (biodiversityChartElement) {
-            const organismChart = stackedBarChartConfig(biodiversityChartElement, formatStackedBarChart(biodiversity_stats_taxonomy_values_chart, biodiversityChartElement));
+            const organismChart = stackedBarChartConfig(biodiversityChartElement, formatStackedBarChart(species_by_taxonomic_group, biodiversityChartElement));
         }
 
         const observationsChartElement = document.getElementById('observationsChart');
         if (observationsChartElement) {
-            const organismChart = pieChartConfig(observationsChartElement, formatPieData(observations_taxonomy_values_chart, observationsChartElement));
+            const organismChart = pieChartConfig(observationsChartElement, formatPieData(observations_by_taxonomic_group, observationsChartElement));
         }
 
 // Onglet provenance des données
 
         const biodiversityByTerritoryChartElement = document.getElementById('biodiversity_by_territoryChart');
         if (biodiversityByTerritoryChartElement) {
-            const organismChart = barChartConfig(biodiversityByTerritoryChartElement, formatBarChart(biodiversity_stats_organism_values_chart, biodiversityByTerritoryChartElement, "Espèces"));
+            const organismChart = barChartConfig(biodiversityByTerritoryChartElement, formatBarChart(nb_species_by_organism, biodiversityByTerritoryChartElement, "Espèces"));
         }
 
         const observationsByTerritoryChartElement = document.getElementById('observations_by_territoryChart');
         if (observationsByTerritoryChartElement) {
-            const organismChart = barChartConfig(observationsByTerritoryChartElement, formatBarChart(observations_organism_values_chart, observationsByTerritoryChartElement, "Observations"));
+            const organismChart = barChartConfig(observationsByTerritoryChartElement, formatBarChart(observations_by_organism, observationsByTerritoryChartElement, "Observations"));
         }
     })
     .catch(error => {

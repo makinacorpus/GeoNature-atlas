@@ -7,7 +7,7 @@ from sqlalchemy.sql import text
 from sqlalchemy.sql.expression import func
 
 from flask import current_app
-
+from werkzeug.exceptions import NotFound
 from atlas.modeles.entities.vmAreas import VmAreas, VmBibAreasTypes
 
 
@@ -43,19 +43,41 @@ def getAreaFromIdArea(connection, id_area):
            area.area_geojson,
            bib.type_name
         FROM atlas.vm_l_areas area
-        JOIN ref_geo.bib_areas_types bib ON bib.id_type = area.id_type
+        JOIN atlas.vm_bib_areas_types bib ON bib.id_type = area.id_type
         WHERE area.id_area = :thisIdArea
     """
-    req = connection.execute(text(sql), thisIdArea=id_area)
-    area_obj = dict()
-    for r in req:
-        area_obj = {
-            "areaName": r.area_name,
-            "areaCode": str(r.id_area),
-            "areaGeoJson": ast.literal_eval(r.area_geojson),
-            "typeName": r.type_name,
+    area = connection.execute(text(sql), thisIdArea=id_area).fetchone()
+    if not area:
+        raise NotFound()
+    area_dict = {
+        "areaName": area.area_name,
+        "areaCode": str(area.id_area),
+        "areaGeoJson": ast.literal_eval(area.area_geojson),
+        "typeName": area.type_name,
+        "areasParent": [],
+    }
+
+    sql_area_parent = """
+    SELECT l.area_name, l.id_area, bib.type_name
+    FROM atlas.vm_l_areas l
+    JOIN (
+        SELECT id_area_group  
+        FROM atlas.vm_cor_areas cor
+        WHERE cor.id_area = :thisIdArea
+    ) parent ON parent.id_area_group = l.id_area
+    JOIN atlas.vm_bib_areas_types bib ON bib.id_type = l.id_type
+    """
+    areas_parent = connection.execute(text(sql_area_parent), thisIdArea=id_area).fetchall()
+    areas_parent_serialized = [
+        {
+            "areaName": area.area_name,
+            "areaCode": str(area.id_area),
+            "typeName": area.type_name,
         }
-    return area_obj
+        for area in areas_parent
+    ]
+    area_dict["areasParent"] = areas_parent_serialized
+    return area_dict
 
 
 def getAreasObservationsChilds(connection, cd_ref):
@@ -101,69 +123,7 @@ def getAreasObservationsChilds(connection, cd_ref):
     return areas
 
 
-def get_infos_area(connection, id_area):
-    """
-    Get area info:
-    yearmin: fisrt observation year
-    yearmax: last observation year
-    id_parent: id parent area
-    area_name: name parent area
-    area_type_name: type parent area
-    """
-    sql = """
-SELECT
-    MIN(extract(YEAR FROM o.dateobs)) AS yearmin,
-    MAX(extract(YEAR FROM o.dateobs)) AS yearmax,
-    area.description,
-    ca.id_area_group AS id_parent,
-    (SELECT area_name FROM atlas.vm_l_areas WHERE id_area = ca.id_area_group) AS area_parent_name,
-    (SELECT type.type_name
-        FROM atlas.vm_l_areas l
-        JOIN atlas.vm_bib_areas_types type ON type.id_type = l.id_type
-    WHERE l.id_area = ca.id_area_group) AS area_parent_type_name
-FROM atlas.vm_observations o
-    JOIN atlas.vm_l_areas area ON st_intersects(o.the_geom_point, area.the_geom)
-    JOIN atlas.vm_cor_areas ca ON ca.id_area = area.id_area
-WHERE area.id_area = :id_area
-GROUP BY area.description,ca.id_area_group;
-    """
-
-    result = connection.execute(text(sql), id_area=id_area)
-    info_area = dict()
-    for r in result:
-        info_area = {
-            "yearmin": r.yearmin,
-            "yearmax": r.yearmax,
-            "description": r.description,
-            "id_parent": r.id_parent,
-            "parent_name": r.area_parent_name,
-            "parent_type_name": r.area_parent_type_name,
-        }
-
-    return info_area
-
-
-def get_nb_observations_by_taxonimy_group(connection, id_area):
-    """
-    Get number of species by taxonimy group:
-    """
-    sql = """
-SELECT COUNT(o.id_observation) AS nb_observations, t.group2_inpn
-from atlas.vm_observations o
-JOIN atlas.vm_taxons t ON t.cd_ref = o.cd_ref
-JOIN atlas.vm_l_areas area ON st_intersects(o.the_geom_point, area.the_geom)
-WHERE area.id_area = :id_area
-GROUP BY t.group2_inpn, area.id_area
-        """
-
-    result = connection.execute(text(sql), id_area=id_area)
-    info_chart = dict()
-    for r in result:
-        info_chart[r.group2_inpn] = r.nb_observations
-    return info_chart
-
-
-def get_biodiversity_stats_by_taxonimy_group(connection, id_area):
+def get_species_by_taxonomic_group(connection, id_area):
     """
     Get number of species by taxonimy group:
     """
@@ -187,7 +147,7 @@ def get_biodiversity_stats_by_taxonimy_group(connection, id_area):
     return info_chart
 
 
-def get_observations_stats_taxonomy_group(connection, id_area):
+def get_nb_observations_taxonomic_group(connection, id_area):
     """
     Get number of species by taxonimy group:
     """
@@ -205,24 +165,6 @@ def get_observations_stats_taxonomy_group(connection, id_area):
     return info_chart
 
 
-def get_all_id_observation_area(connection, id_area):
-    """
-    Get all id in area:
-    """
-    sql = """
-    SELECT DISTINCT obs.id_observation, obs.cd_ref
-    FROM atlas.vm_cor_area_synthese AS cas
-             JOIN atlas.vm_observations obs ON cas.id_synthese = obs.id_observation
-    WHERE cas.id_area = :idAreaCode
-            """
-
-    result = connection.execute(text(sql), idAreaCode=id_area)
-    list_id = list()
-    for r in result:
-        list_id.append(r.id_observation)
-    return tuple(list_id)
-
-
 def getStatsByArea(connection, id_area):
     sql = """
     SELECT *
@@ -230,4 +172,6 @@ def getStatsByArea(connection, id_area):
     WHERE id_area = :id_area;
     """
     result = connection.execute(text(sql), id_area=id_area).fetchone()
+    if not result:
+        raise NotFound()
     return result._asdict()

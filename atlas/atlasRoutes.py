@@ -417,7 +417,6 @@ def ficheArea(id_area):
 
     listTaxons = vmTaxonsRepository.getTaxonsAreas(connection, id_area)
     area = vmAreasRepository.getAreaFromIdArea(connection, id_area)
-
     stats_area = vmAreasRepository.getStatsByArea(connection, id_area)
 
     couches_sig_info = _get_couches_sig_info("commune")
