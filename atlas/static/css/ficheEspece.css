@@ -86,12 +86,20 @@ p.imgDescription.main {
 }
 
 #taxonName {
-    display: flex;
-    justify-content: space-between;
+    max-width: 85%;
 }
 
 #taxonomy {
     margin-top: 15px;
+}
+
+#inpnLink {
+    margin-top: 15px;
+}
+
+#taxonName {
+    display: flex;
+    justify-content: space-between;
 }
 
 #statuts-and-links-container {
@@ -100,10 +108,6 @@ p.imgDescription.main {
     gap: 1.2rem;
     justify-content: start;
     margin: 1.5rem 0;
-}
-
-#inpnLink {
-  margin-top: 15px;
 }
 
 .nav>li>a {

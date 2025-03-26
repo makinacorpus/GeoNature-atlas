@@ -189,6 +189,18 @@ class AtlasConfig(Schema):
     COLOR_STACKED_BAR_CHARTS = fields.List(
         fields.String(), load_default=["#E1CE7A", "#FBFFB9", "#FDD692"]
     )
+    AFFICHAGE_STATUTS = fields.Boolean(load_default=True)
+    GROUPES_STATUTS = fields.List(
+        fields.Dict,
+        load_default=[
+            {"label": "Monde", "filters": [{"cd_type_statut": "LRM", "cd_sig": "WORLD"}]},
+            {"label": "Europe", "filters": [{"cd_type_statut": "LRE", "cd_sig": "EUROPE"}]},
+            {
+                "label": "France métropolitaine",
+                "filters": [{"cd_type_statut": "LRN", "cd_sig": "TERFXFR"}],
+            },
+        ],
+    )
 
     COLOR_PIE_CHARTS = fields.List(
         fields.String(),
