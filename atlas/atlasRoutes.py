@@ -205,9 +205,12 @@ def index():
                 current_app.config["ATTR_MAIN_PHOTO"],
             )
             current_app.logger.debug("end AFFICHAGE_PRECIS")
-        couches_sig_info = _get_couches_sig_info("home")
     else:
         observations = []
+
+    if current_app.config["AFFICHAGE_DERNIERES_OBS"] or current_app.config["AFFICHAGE_TERRITOIRE_OBS"]:
+        couches_sig_info = _get_couches_sig_info("home")
+    else:
         couches_sig_info = []
 
     if current_app.config["AFFICHAGE_EN_CE_MOMENT"]:
@@ -419,7 +422,7 @@ def ficheArea(id_area):
     area = vmAreasRepository.getAreaFromIdArea(connection, id_area)
     stats_area = vmAreasRepository.getStatsByArea(connection, id_area)
 
-    couches_sig_info = _get_couches_sig_info("commune")
+    couches_sig_info = _get_couches_sig_info("area")
 
     session.close()
     connection.close()
