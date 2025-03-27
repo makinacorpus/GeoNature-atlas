@@ -649,12 +649,17 @@ function buildSpeciesEntries(taxons) {
     return rows.join('\n');
 }
 
-function onEachFeatureMailleLastObs(feature, layer) {
-    title = `${feature.properties.taxons.length} espèces observées dans la maille &nbsp;: `;
-    rows = buildSpeciesEntries(feature.properties.taxons);
-    popupContent = `<b>${title}</b><ul>${rows}</ul>`;
+function createPopUp(feature, layer) {
+    const title = `${feature.properties.taxons.length} espèces observées dans la maille &nbsp;: `;
+    const rows = buildSpeciesEntries(feature.properties.taxons);
+    const popupContent = `<b>${title}</b><ul>${rows}</ul>`;
 
     layer.bindPopup(popupContent, { maxHeight: 300 });
+}
+
+function onEachFeatureMailleLastObs(feature, layer) {
+    createPopUp(feature, layer);
+
 
     addInFeatureGroup(feature, layer);
 
@@ -811,7 +816,6 @@ function generateGeoJsonMailleLastObs(observations, isRefresh=false) {
         features: features,
     };
 }
-
 
 function displayMailleLayerLastObs(observations, isRefresh=false) {
     const geojsonMaille = generateGeoJsonMailleLastObs(observations, isRefresh);

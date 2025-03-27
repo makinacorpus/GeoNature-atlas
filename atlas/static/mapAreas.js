@@ -9,6 +9,10 @@ var currentLayer;
 // Current observation geoJson:  type object
 var myGeoJson;
 
+const id_area = document.location.pathname.split("/")[2]
+displayObs(id_area)
+
+
 // Display limit of the territory
 var areaLayer = L.geoJson(areaInfos.areaGeoJson, {
     style: function () {
@@ -30,12 +34,8 @@ bounds.extend(layerBounds);
 map.fitBounds(bounds);
 map.zoom = map.getZoom();
 // Display the 'x' last observations
-// MAILLE
-if (configuration.AFFICHAGE_MAILLE) {
-    displayMailleLayerLastObs(observations);
-}
 // POINT
-else {
+if (!configuration.AFFICHAGE_MAILLE) {
     displayMarkerLayerPointLastObs(observations);
 }
 
@@ -115,6 +115,25 @@ function displayObsTaxon(id_area, cd_ref) {
   });
 }
 
+function displayObs(areaCode) {
+    $("#loaderSpinner").show();
+    fetch(`/api/area/${areaCode}`)
+        .then(data => {
+            return data.json()
+        })
+        .then(observations => {
+            if (configuration.AFFICHAGE_MAILLE) {
+                displayMailleLayer(observations.observations_features);
+            } else {
+                displayMarkerLayerPointLastObs(observations)
+            }
+            $("#loaderSpinner").hide();
+        })
+        .catch(err => {
+            console.error(err)
+            $("#loaderSpinner").hide();
+        })
+}
 
 function displayObsTaxonMaille(areaCode, cd_ref) {
     $.ajax({
@@ -137,29 +156,31 @@ function displayObsTaxonMaille(areaCode, cd_ref) {
     });
 }
 
-function refreshObsArea(elem) {
-    $(this)
-        .siblings()
-        .removeClass("current");
-    $(this).addClass("current");
-    if (configuration.AFFICHAGE_MAILLE) {
-        displayObsTaxonMaille(elem.currentTarget.getAttribute("area-code"), elem.currentTarget.getAttribute("cdref"));
-    } else {
-        displayObsTaxon(elem.currentTarget.getAttribute("area-code"), elem.currentTarget.getAttribute("cdref"));
-    }
-    const name = elem.currentTarget.querySelector("#name").innerHTML;
-    $("#titleMap").fadeOut(500, function () {
+function refreshObsArea() {
+    $("#taxonList ul").on("click", "#taxonListItem", function () {
         $(this)
-            .html("Observations du taxon&nbsp;:&nbsp;" + name)
-            .fadeIn(500);
+            .siblings()
+            .removeClass("current");
+        $(this).addClass("current");
+        if (configuration.AFFICHAGE_MAILLE) {
+            displayObsTaxonMaille(this.getAttribute("area-code"), this.getAttribute("cdref"));
+        } else {
+            displayObsTaxon(this.getAttribute("area-code"), this.getAttribute("cdref"));
+        }
+        var name = $(this)
+            .find("#name")
+            .html();
+        $("#titleMap").fadeOut(500, function () {
+            $(this)
+                .html("Observations du taxon&nbsp;:&nbsp;" + name)
+                .fadeIn(500);
+        });
     });
 }
 
 $(document).ready(function () {
     $("#loaderSpinner").hide();
     if (configuration.INTERACTIVE_MAP_LIST) {
-        $("#taxonList ul").on("click", "#taxonListItem", elem => {
-            refreshObsArea(elem);
-        });
+        refreshObsArea();
     }
 });
