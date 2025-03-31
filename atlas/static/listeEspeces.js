@@ -6,9 +6,11 @@ $(".lazy").lazy({
 });
 $('[data-toggle="tooltip"]').tooltip();
 
-var taxonDomElem = Array.from(document.querySelectorAll("#taxonList li"))
 
 $(document).ready(function(){
+
+    var taxonDomElem = Array.from(document.querySelectorAll("#taxonList li"))
+
     function filterListeEspèces() {
         let name = document.querySelector("#taxonInput").value.toLowerCase();
         let onlyProtégées = document.querySelector("#filtreProtégées").checked;
