@@ -157,10 +157,8 @@ function displayObsTaxonMaille(areaCode, cd_ref) {
 }
 
 function refreshObsArea(elem) {
-    $(this)
-        .siblings()
-        .removeClass("current");
-    $(this).addClass("current");
+        document.querySelector("#taxonList .current")?.classList.remove("current")
+        elem.currentTarget.classList.add("current")
     if (configuration.AFFICHAGE_MAILLE) {
         displayObsTaxonMaille(elem.currentTarget.getAttribute("area-code"), elem.currentTarget.getAttribute("cdref"));
     } else {
