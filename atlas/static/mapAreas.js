@@ -90,7 +90,7 @@ function displayObsTaxon(id_area, cd_ref) {
         configuration.URL_APPLICATION + "/static/images/loading.svg"
       );
     }
-  }).done(function(observations) {    
+  }).done(function(observations) {
     $("#loadingGif").hide();
     map.removeLayer(currentLayer);
     if (configuration.AFFICHAGE_MAILLE) {
@@ -127,10 +127,8 @@ function displayObsTaxonMaille(areaCode, cd_ref) {
 
 function refreshObsArea() {
     $("#taxonList ul").on("click", "#taxonListItem", function () {
-        $(this)
-            .siblings()
-            .removeClass("current");
-        $(this).addClass("current");
+        document.querySelector("#taxonList .current")?.classList.remove("current")
+        elem.currentTarget.classList.add("current")
         if (configuration.AFFICHAGE_MAILLE) {
             displayObsTaxonMaille(this.getAttribute("area-code"), this.getAttribute("cdref"));
         } else {
