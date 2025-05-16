@@ -61,7 +61,7 @@ $(function(){
 
     // Display point layer
     else{
-        customMarkerStyle(observations);
+        displayMarkerLayerPointLastObs(observations);
 
         // interaction list - map
         $('.lastObslistItem').click(function(){
