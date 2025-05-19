@@ -171,14 +171,6 @@ function formatStackedBarChart(values, element) {
         labels: labels,
         datasets: datasets
     };
-    if(configuration.DISPLAY_PATRIMONIALITE) {
-        data.datasets.push({
-            label: "Nombre d'espèces patrimonialies",
-            data: nb_patrimonial,
-            backgroundColor: [configuration.COLOR_STACKED_BAR_CHARTS[1]],
-            stack: "2",
-        });
-    }
 
     return data
 }
