@@ -95,7 +95,7 @@ if (configuration.AFFICHAGE_TERRITOIRE_OBS) {
 if (configuration.AFFICHAGE_TERRITOIRE_OBS) {
     $(document).ready(function () {
         if (configuration.INTERACTIVE_MAP_LIST) {
-            $("#taxonList").on("click", "#taxonListItem", function (elem) {
+            $("#taxonList").on("click", ".taxonListItem", function (elem) {
                 refreshTerritoryArea(elem);
             });
         }

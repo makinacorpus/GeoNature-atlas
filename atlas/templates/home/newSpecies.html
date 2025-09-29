@@ -6,9 +6,9 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-lg-12">
-                    <h3 class="card-title title-spaced">
+                    <div class="fs-3 card-title title-spaced">
                         <span class="fa fa-bell icon-color-title"></span> &nbsp;{{ _('new.species.observed') }}
-                    </h3>
+                    </div>
                 </div>
             </div>
             <div class="row">
@@ -35,26 +35,33 @@
                             </div>
                         </a>
 
-                        <a href="{{ url_for('main.ficheEspece', cd_nom=species.cd_ref) }}"></a>
+                            <a href="{{ url_for('main.ficheEspece', cd_nom=species.cd_ref) }}"></a>
 
-                        <div class="card-body center">
-                            <p>
-                                {% if species.nom_vern != None %}
-                                    <b>{{ species.nom_vern }}</b>
-                                {% endif %}
-                                <br/><i>{{ species.lb_nom }}</i>
-                            </p>
-                            <a href="{{ url_for('main.ficheEspece', cd_nom=species.cd_ref) }}"
-                               class="btn btn-primary" role="button">{{ _('species.sheet') }}
-                            </a>
+
+                                <div class="card-body center">
+                                    <p>
+                                        {% if species.nom_vern != None %}
+                                            <b>{{ species.nom_vern }}</b>
+                                        {% endif %}
+                                        <br/><i>{{ species.lb_nom }}</i>
+                                    </p>
+                                    <a role="button" title="{{ _('check.species.sheet') }}" href="{{ url_for('main.ficheEspece', cd_nom=species.cd_ref) }}"
+                                       class="btn btn-primary">{{ _('species.sheet') }}
+                                        <span class="visually-hidden">
+                                  {% if species.nom_vern != None %}
+                                      <b>{{ species.nom_vern }}</b>
+                                  {% endif %}
+                                            <br/><i>{{ species.lb_nom }}</i>
+                                        </span>
+                                    </a>
+                                </div>
+
+                            </div>
                         </div>
-
-                    </div>
+                    {% endfor %}
                 </div>
-                {% endfor %}
             </div>
         </div>
-    </div>
 
-</div>
+    </div>
 {% endblock %}

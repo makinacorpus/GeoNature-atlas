@@ -2,13 +2,16 @@
     <div class="card mt-4" id="mostViewNow">
         <div class="card-body">
 
-            <h3 class="title-spaced">{{ _('see.at.the.moment') }}
-                <span data-bs-toggle="tooltip"
-                      title="{{ _('species.most.obs.last.15.days') }}"
-                      data-bs-placement="right">
-                    <a class="fa fa-question-circle helpTip"></a>
-                </span>
-            </h3>
+            <div class="fs-3 title-spaced">
+                <span>{{ _('see.at.the.moment') }}</span>
+                <button data-bs-toggle="tooltip"
+                        title="{{ _('species.most.obs.last.15.days') }}"
+                        data-bs-placement="right"
+                        type="button"
+                        style="all: unset;">
+                    <span class="fa fa-question-circle helpTip"></span>
+                </button>
+            </div>
             <div class="row p-4">
                 {% for tax in mostViewTaxon %}
                     <div class="col-12 col-sm-6 col-md-4 col-lg-3 no-padding">
@@ -16,21 +19,25 @@
                             {% if tax.path == None %}
                                 <img class="default-logo"
                                      src="{{ url_for('static', filename='images/picto_' + tax.group2_inpn | replace(" ", "_") +'.png') }}"
-                                     alt="">
+                                     alt="Pictogramme du groupe '{{ tax.group2_inpn }}'">
                             {% else %}
                                 {% if configuration.REDIMENSIONNEMENT_IMAGE %}
                                     {% set img_path = configuration.TAXHUB_URL+'/api/tmedias/thumbnail/'+tax.id_media|string+'?h=500' %}
                                 {% else %}
                                     {% set img_path = tax.path %}
                                 {% endif %}
-                                    <div class="cover"
-                                         style="background-image:url({{img_path}});height: 250px;"
-                                         data-bs-toggle="tooltip" title="{{ tax.group2_inpn }}"
-                                         data-bs-placement="left"></div>
+                                <div class="cover"
+                                     style="background-image:url({{img_path}});height: 250px;"
+                                     data-bs-toggle="tooltip" title="{{ tax.group2_inpn }}"
+                                     data-bs-placement="left"></div>
                             {% endif %}
                             <div class="overlay">
                                 <h2>{{ tax.taxonName|safe }}</h2>
-                                <a class="info" href="{{ url_for('main.ficheEspece', cd_nom=tax.cd_ref) }}">{{ _('species.sheet') }}</a>
+                                <a title="{{ _('check.species.sheet') }}" class="info" href="{{ url_for('main.ficheEspece', cd_nom=tax.cd_ref) }}">{{ _('species.sheet') }}
+                                    <span class="visually-hidden">
+                                            {{ tax.taxonName|safe }}
+                                    </span>
+                                </a>
                             </div>
                         </div>
                     </div>

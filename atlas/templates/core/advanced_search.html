@@ -420,7 +420,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="col-sm-12 col-md-7 col-lg-8 col-xl-9 d-flex flex-column m-0 p-0">
             <div class="d-flex align-content-stretch bg-warning flex-grow-1">
                 <div class="d-flex flex-grow-1">
@@ -451,7 +451,7 @@
         </div>
         <div id="taxonList" id="list" class="d-flex align-content-stretch bg-white flex-grow-1">
             <ul class="list-group w-100">
-                <li v-for="(item, key)  in items" :key="key" id="taxonListItem" class="d-flex border-bottom p-2">
+                <li v-for="(item, key)  in items" :key="key" class="d-flex border-bottom p-2 taxonListItem">
                      <img loading="lazy" class="mx-auto d-block INPNgroup"
                                  v-bind:src="item.media" alt="Generic placeholder image">
                     <div class="flex-grow-1">
@@ -460,7 +460,7 @@
                         </h5>
                         <p class="mt-0 mb-1 text-info"><small>[[item.nom_sci]]</small></p>
                         <span class="float-end">
-                            <a class="badge bg-primary text-decoration-none" :href="'/espece/'+item.cd_nom" data-toggle="tooltip"
+                            <a class="badge badge-primary text-decoration-none" :href="'/espece/'+item.cd_nom" data-toggle="tooltip"
                                 title="Consulter la fiche espèce" data-placement="left">
                                 <i class="fas fa-list fa-fw"></i> Fiche espèce</i>
                             </a>

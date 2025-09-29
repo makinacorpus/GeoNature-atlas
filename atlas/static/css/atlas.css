@@ -133,12 +133,12 @@ main {
 
 .leaflet-control-layers.leaflet-control.leaflet-control-layers-expanded {
     .nav-tabs {
-    margin: 0;
-    border-bottom: 1px solid #ddd;
-}
-.nav-tabs .nav-item {
-    margin-bottom: -1px;
-}
+        margin: 0;
+        border-bottom: 1px solid #ddd;
+    }
+    .nav-tabs .nav-item {
+        margin-bottom: -1px;
+    }
 
     .tab-content {
         padding: 10px;
@@ -188,6 +188,7 @@ a {
     background-color: white !important;
     color: black;
     border-color: var(--main-color);
+    text-decoration: underline;
 }
 
 .btn-outline-secondary {
@@ -529,6 +530,10 @@ input {
     background-color: rgba(0, 0, 0, 0.5);
     -webkit-transition: all 0.4s ease-in-out;
     transition: all 0.4s ease-in-out;
+
+    i {
+        color: #FFFFFF;
+    }
 }
 
 .hovereffect .img-responsive-logo {
@@ -615,12 +620,33 @@ footer {
     background-color: var(--light);
     margin-top: 10px;
 
-    small>ul {
+    a {
+        color: var(--main-color);
+    }
+
+    ul {
         display: inline-flex;
         list-style-type: none;
-        li>a {
-            padding-left: 0.4rem;
-            padding-right: 0.4rem;
+        flex-wrap: wrap;
+
+
+        li {
+
+            button {
+                border: 0;
+                background: transparent;
+
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+
+            >button,
+            >a {
+                color: var(--main-color);
+                padding-left: 0.4rem;
+                padding-right: 0.4rem;
+            }
         }
     }
 }
@@ -667,6 +693,10 @@ footer {
     width: 100%;
     background-color: rgba(0, 0, 0, 0.596);
     opacity: 0;
+
+    .center i {
+        color: white;
+    }
 }
 
 .zoom-effect-wrapper:hover .zoom-effect-overlay {
@@ -675,11 +705,11 @@ footer {
 
 
 .img-custom-medias {
-    height: 100%;
+    height: 250px;
     width: 100%;
     background-position: center center;
-    /*background-size: cover;*/
-    transition: 0.2s ease-in-out;
+    -webkit-transition: 0.3s ease-in-out;
+    transition: 0.3s ease-in-out;
 }
 
 
@@ -891,7 +921,7 @@ footer {
                         font-weight: bold;
                     };
                     &.lb_nom {
-                       font-style: italic;
+                        font-style: italic;
                     };
                 }
 

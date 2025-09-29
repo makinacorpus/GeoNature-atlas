@@ -3,23 +3,23 @@
     <div class="card container info_card">
         <ul class="nav nav-tabs">
             {% if configuration.AFFICHAGE_TAB_AREA_GENERAL_PRESENTATION and areaInfos.description %}
-                <li class="nav-item">
-                    <a class="nav-link active" data-bs-toggle="tab" href="#general_presentation">{{ _('general_presentation') }}</a>
+                <li id="tab-general-presentation" class="nav-item">
+                    <a class="nav-link active" data-bs-toggle="tab" href="#general_presentation" aria-controls="#general_presentation" >{{ _('general_presentation') }}</a>
                 </li>
             {% endif %}
             {% if configuration.AFFICHAGE_TAB_AREA_OBS_ESPECES %}
-                <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="tab" href="#observations_and_species">{{ _('observations_and_species') }}</a>
+                <li id="tab-species-observation" class="nav-item">
+                    <a class="nav-link" data-bs-toggle="tab" href="#observations_and_species" aria-controls="#observations_and_species" >{{ _('observations_and_species') }}</a>
                 </li>
             {% endif %}
             {% if configuration.AFFICHAGE_MENACE %}
-                <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="tab" href="#threatened_species">{{ _('threatened.species') }}</a>
+                <li id="tab-species-threatened" class="nav-item">
+                    <a class="nav-link" data-bs-toggle="tab" href="#threatened_species" aria-controls="#threatened_species" >{{ _('threatened.species') }}</a>
                 </li>
             {% endif %}
             {% if configuration.ORGANISM_MODULE %}
-                <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="tab" href="#data_sources">{{ _('data_sources') }}</a>
+                <li id="tab-organism" class="nav-item">
+                    <a class="nav-link" data-bs-toggle="tab" href="#data_sources" aria-controls="#data_sources" >{{ _('data_sources') }}</a>
                 </li>
             {% endif %}
         </ul>
@@ -31,12 +31,12 @@
             </div>
 
             {% if configuration.AFFICHAGE_TAB_AREA_GENERAL_PRESENTATION and areaInfos.description %}
-                <div id="general_presentation" class="tab-pane fade show active">
+                <div id="general_presentation" class="tab-pane fade show active" aria-labelledby="tab-general-presentation">
                     {{ areaInfos.description | safe }}
                 </div>
             {% endif %}
             {% if configuration.AFFICHAGE_TAB_AREA_OBS_ESPECES %}
-                <div id="observations_and_species" class="tab-pane fade">
+                <div id="observations_and_species" class="tab-pane fade" aria-labelledby="tab-species-observation">
                     <div class="infos_biodiversity">
                         <div><strong>Nombre d'espèces</strong> par groupe taxonomique</div>
                         <div class="chart-container" style="position: relative;">
@@ -52,7 +52,7 @@
                 </div>
             {% endif %}
             {% if configuration.AFFICHAGE_MENACE %}
-            <div id="threatened_species" class="tab-pane fade">
+            <div id="threatened_species" class="tab-pane fade" aria-labelledby="tab-species-threatened">
                 <!-- Bloc d'informations -->
                 <div class="card border-primary mb-0 shadow">
                     <div class="card-header info">
@@ -88,7 +88,7 @@
             </div>
             {% endif %}
             {% if configuration.ORGANISM_MODULE %}
-                <div id="data_sources" class="tab-pane fade">
+                <div id="data_sources" class="tab-pane fade" aria-labelledby="tab-organism">
                     <div class="infos_biodiversity">
                         <div><strong>Nombre d'espèces</strong> par source de données</div>
                         <div class="chart-container" style="position: relative;">
@@ -107,6 +107,9 @@
     </div>
 {% endblock %}
 <script>
+    const to_extract_trad = [
+        {{ _('other.species') }}
+    ]
     // Click on first tab to activate it
     document.querySelectorAll('.info_card .nav-link')[0].click();
 </script>

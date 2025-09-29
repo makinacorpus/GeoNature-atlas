@@ -8,19 +8,19 @@
     <div id="top-species-taxon-list" class="d-flex align-content-stretch bg-white flex-grow-1">
         <ul class="list-group w-100">
             {% for taxon in mostObsTaxs %}
-            <li id="taxonListItem" class="d-flex border-bottom p-2 align-items-center" cdRef="{{ taxon.cd_ref }}">
+            <li class="d-flex border-bottom p-2 align-items-center taxonListItem" cdRef="{{ taxon.cd_ref }}">
                 <!-- Image -->
                 <div class="pictoImgList me-2" data-bs-placement="center">
                     {% if taxon["photo"]["path"] == None or not taxon["photo"]["path"] %}
                     <img class="mx-auto d-block"
-                         src="{{ url_for('static', filename='images/picto_'+ taxon.group2_inpn| replace(" ", "_") |urlencode+'.png') }}">
+                         src="{{ url_for('static', filename='images/picto_'+ taxon.group2_inpn| replace(" ", "_") |urlencode+'.png') }}" alt="Logo du groupe {{ taxon.group2_inpn }}">
                     {% else %}
                         {% if configuration.REDIMENSIONNEMENT_IMAGE %}
                             {% set img_path = configuration.TAXHUB_URL+'/api/tmedias/thumbnail/'+ taxon.photo.id_media|string+'?h=100&w=150' %}
                         {% else %}
                             {% set img_path = configuration.REMOTE_MEDIAS_URL+taxon.photo.path %}
                         {% endif %}
-                    <img class="mainImg" src="{{ img_path }}" style='width:100px'>
+                    <img class="mainImg" src="{{ img_path }}" style='width:100px' alt="Pictogramme du taxon '{{ taxon.nom_vern }}'">
                     {% endif %}
                 </div>
 
@@ -53,6 +53,7 @@
                             {% if configuration.PROTECTION and taxon.protection == 'oui' %}
                             <a href="https://inpn.mnhn.fr/espece/cd_nom/{{ taxon.cd_ref }}/tab/statut" target="_blank">
                                 <img src="{{ url_for('static', filename='custom/images/protected.png') }}"
+                                     alt="Pictogramme de taxon protégé"
                                      style="width: 30px; height: 30px;"
                                      data-bs-toggle="tooltip"
                                      title="{{ _('this.taxon.has.a.protected.status') }}">
@@ -64,12 +65,13 @@
                                 <img src="{{ url_for('static', filename='custom/images/logo_patrimonial.png') }}"
                                      style="width: 30px; height: 30px;"
                                      data-bs-toggle="tooltip"
+                                     alt="{{ _('this.taxa.is.patrimonial')}}"
                                      title="{{ _('this.taxa.is.patrimonial')}}">
                                 {% endif %}
                             {% endif %}
 
                             <!-- Link to species sheet -->
-                            <a class="badge bg-primary mt-2 text-white text-decoration-none"
+                            <a class="badge badge-primary mt-2 text-white text-decoration-none"
                                href="{{ url_for('main.ficheEspece', cd_nom=taxon['cd_ref']) }}"
                                data-bs-toggle="tooltip"
                                title="{{ _('check.species.sheet') }}">

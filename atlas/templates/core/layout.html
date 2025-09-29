@@ -50,7 +50,7 @@
                              class="alert alert-warning alert-dismissible fade show position-fixed end-0 top-0 m-3"
                              role="alert">
                             {{ message }}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Bouton de fermeture du message"></button>
                         </div>
                     </div>
                 {% endfor %}
@@ -63,7 +63,7 @@
 </main>
 
 {% if configuration.AFFICHAGE_FOOTER %}
-    <footer>
+    <footer id="page-footer">
         {% include 'static/custom/templates/footer.html' %}
     </footer>
 {% endif %}

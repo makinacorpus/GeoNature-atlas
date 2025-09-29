@@ -1,22 +1,25 @@
 {% block globalStats %}
-<div class="card mt-4">
+<div id="globalStats" class="card mt-4">
     <div class="card-body">
-        <h3 class="card-title"><i class="fas fa-chart-line icon-color-title">&nbsp;</i> {{ _('home.insomefigures') }}
+        <div class="fs-3 card-title"><i class="fas fa-chart-line icon-color-title">&nbsp;</i> {{ _('home.insomefigures') }}
              <div id="mainstat-spinner" class="spinner-border" role="status">
                 <span class="visually-hidden">Loading...</span>
             </div>
-        </h3>
+        </div>
 
         <div class="row">
             <div class="col-sm-12 col-lg stat-object">
                 <div class="stat-thumbnail border-end">
                     <i class="fas fa-search fa-3x blue"></i>
-                    <input id="hiddenInputTaxonStat" type="hidden" name="cd_ref">
                     <h1 class="large text-muted" id="nbObs"></h1>
-                    <h4 class="text-muted text-uppercase font-weight-bold">{{ _('observations') }}</h4>
+                    <div class="fs-5 mb-2 text-muted text-uppercase font-weight-bold">{{ _('observations') }}</div>
 
                     {% if configuration.AFFICHAGE_DERNIERES_OBS %}
-                        <p><a id="localScroll" href="#DernieresObservations" class="btn btn-primary" role="button">{{ _('home.seelatestobs') }}</a></p>
+                        <p>
+                            <a id="localScroll" href="#DernieresObservations" class="btn btn-primary" role="button">
+                                {{ _('home.seelatestobs') }}
+                            </a>
+                        </p>
                     {% endif %}
                 </div>
             </div>
@@ -25,7 +28,7 @@
                 <div class="stat-thumbnail border-end">
                     <i class="fas fa-leaf fa-3x"></i>
                     <h1 class="large text-muted" id="nbTaxons"></h1>
-                    <h4 class="text-muted text-uppercase font-weight-bold">{{ _('species') }}</h4>
+                    <div class="fs-5 mb-2 text-muted text-uppercase font-weight-bold">{{ _('species') }}</div>
 
                     <form method="POST" class="navbar-form" role="search">
                         <div class="form-group has-feedback center-input">
@@ -33,8 +36,7 @@
                                 <i class="fas fa-search"></i>
                             </span>
                             <input id="searchTaxonsStat" type="text" class="form-control"
-                                   placeholder="{{ _('search.species') }}&nbsp;&nbsp;&nbsp;" loading="false" />
-                            <input id="hiddenInputTaxonStat" type="hidden" name="cd_ref">
+                                   placeholder="{{ _('search.species') }}" title="{{ _('search.species') }}" aria-label="{{ _('search.species') }}" loading="false" />
                         </div>
                     </form>
                 </div>
@@ -53,9 +55,8 @@
                                 <i class="fas fa-search" aria-hidden="true"></i>
                             </span>
                             <input id="searchAreasStat" type="text" class="form-control"
-                                   placeholder="{{ _('search.area') }}&nbsp;&nbsp;&nbsp;">
+                                   placeholder="{{ _('search.area') }}" title="{{ _('search.area') }}" aria-label="{{ _('search.area') }}">
                         </div>
-                        <input id="hiddenInputAreasStat" type="hidden" name="id_area">
                     </form>
                 </div>
             </div>
@@ -64,9 +65,15 @@
                 <div class="stat-thumbnail">
                     <i class="fas fa-camera fa-3x"></i>
                     <h1 class="large text-muted" id="nbPictures"></h1>
-                    <h4 class="text-muted text-uppercase font-weight-bold">{{ _('photos') }}</h4>
-
-                    <p><a href="{{ url_for('main.photos') }}" class="btn btn-primary" role="button">{{ _('gallery.title') }}</a></p>
+                    <div class="fs-5 mb-2 text-muted text-uppercase font-weight-bold">{{ _('photos') }}</div>
+                        <button
+                            onclick='location.href="{{ url_for('main.photos') }}"'
+                            class="btn btn-primary"
+                            title="{{ _('gallery.title') }}"
+                            style="font-size: var(--bs-btn-font-size);"
+                        >
+                            {{ _('gallery.title') }}
+                        </button>
                 </div>
             </div>
             {% endif %}

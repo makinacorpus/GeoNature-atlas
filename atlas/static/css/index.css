@@ -69,15 +69,17 @@ h4 {
   color: grey;
 }
 
-/*.text-muted {*/
-/*  text-transform: uppercase;*/
-/*  font-weight: 700;*/
-/*  font-size: 1.5rem;*/
-/*}*/
+.text-muted {
+  color: #000000 !important;
+}
 
 .title-spaced {
   letter-spacing: 0.025em;
   line-height: 38px;
+}
+
+#introduction {
+    scroll-margin: 60px
 }
 
 .textIntroduction {
@@ -102,6 +104,10 @@ h3.title-spaced {
 
 /* Bandeau de logos (slider slick) en page accueil */
 
+#bandeaulogoshome {
+  scroll-margin: 60px;
+}
+
 .slidepartenaireindex {
   width: 280px;
 }
@@ -117,6 +123,10 @@ h3.title-spaced {
 }
 
 /*Stat block*/
+
+#globalStats {
+  scroll-margin: 60px;
+}
 
 .stat-object {
   min-height: 200px;
@@ -284,6 +294,12 @@ h3.title-spaced {
   font-weight: bold;
 }
 
+/*Terrotory part*/
+
+#species_obs_territory {
+  scroll-margin: 60px;
+}
+
 /*.singleTaxon {
   cursor: pointer;
 }*/
@@ -325,6 +341,7 @@ td.singleTaxon.detail {
 
 #mostViewNow {
   clear: both;
+  scroll-margin: 60px;
 }
 
 .default-logo {

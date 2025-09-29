@@ -9,12 +9,12 @@
             </div>
 
             <!-- Wrapper for slides -->
-            <div class="carousel-inner">
+            <div class="carousel-inner" id="photo-carousel">
                 {% for photo in photoCarousel %}
                     {% if loop.first %}
-                        <div class="carousel-item active">
+                        <div class="carousel-item active" aria-label="{{ loop.index }} {{ _('of') }} {{ photoCarousel|length }}">
                     {% else %}
-                        <div class="carousel-item">
+                        <div class="carousel-item" aria-label="{{ loop.index }} {{ _('of') }} {{ photoCarousel|length }}">
                     {% endif %}
 
                     {% if configuration.REDIMENSIONNEMENT_IMAGE %}
@@ -49,13 +49,13 @@
             </div>
 
             <!-- Controls -->
-            <a class="carousel-control-prev" href="#fixed" role="button" data-bs-slide="prev">
+            <a class="carousel-control-prev" aria-controls="photo-carousel" href="#fixed" role="button" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
+                <span class="visually-hidden">{{ _('previous') }}</span>
             </a>
-            <a class="carousel-control-next" href="#fixed" role="button" data-bs-slide="next">
+            <a class="carousel-control-next" aria-controls="photo-carousel" href="#fixed" role="button" data-bs-slide="next">
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
+                <span class="visually-hidden">{{ _('next') }}</span>
             </a>
         </div>
     </div>

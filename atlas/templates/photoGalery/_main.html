@@ -48,7 +48,8 @@
                             {% endfor %}
 
                             <li>
-                                <a id="allGroups" class="btn btn-primary"
+                                <a id="allGroups" class="btn btn-secondary"
+                                   href="#"
                                    role="button"
                                    data-bs-toggle="tooltip"
                                    title="{{ _('all.groups') }}"
@@ -70,7 +71,9 @@
                     </ul>
                     <div class="d-flex justify-content-center mt-3">
                         <input type="text" class="form-control" id="searchPhotos"
+                                aria-label="{{ _('search.species') }}"
                                 placeholder="{{ _('search.species') }}"
+                                title="{{ _('search.species') }}"
                                 value="">
                     </div>
                 </div>

@@ -5,7 +5,7 @@
             {% if url_logo != none %}
                 <div class="col-auto">
                     {% if url_organism|length > 9 %}
-                        <a href="{{ url_organism }}" target="_blank">
+                        <a href="{{ url_organism }}" target="_blank" aria-label="Lien vers l'organisme: {{ nom_organism }}">
                             <img id="mainImg" src="{{ url_logo }}" style="width: 200px;" alt="{{ nom_organism }}">
                         </a>
                     {% else %}

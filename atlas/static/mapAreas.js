@@ -130,7 +130,7 @@ function refreshObsArea(elem) {
 $(document).ready(function () {
     $("#loaderSpinner").hide();
     if (configuration.INTERACTIVE_MAP_LIST) {
-        $("#taxonList ul").on("click", "#taxonListItem", (elem) => {
+        $("#taxonList ul").on("click", ".taxonListItem", (elem) => {
             refreshObsArea(elem);
         });
     }

@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - develop
+      - last_accesibility
   release:
     types: [published]
 

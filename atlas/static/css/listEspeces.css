@@ -18,6 +18,35 @@ footer {
     overflow-y: auto;
     min-height: 10rem;
 
+    /* Accueil - liste d'espèces */
+
+    &.current {
+        background-color: var(--third-color);
+    }
+
+    .taxonListItem {
+        position: relative;
+
+        &:has(.taxon-list-item-button:focus),
+        &:hover {
+            background-color: #cccccc;
+            cursor: pointer;
+        }
+
+
+        .taxon-list-item-button {
+            position: absolute;
+            inset: 0;
+            background: transparent;
+            all: initial;
+
+            &:focus {
+                background-color: var(--second-color);
+                cursor: pointer;
+            }
+        }
+    }
+
 }
 
 #list-taxon-loader-spinner {
@@ -26,7 +55,6 @@ footer {
     height: 3rem;
     display: none;
 }
-
 
 /*#mapWrapper {*/
 /*  position: relative !important;*/
@@ -171,7 +199,7 @@ tbody tr.current {
 
 .pictoImgList.has-media-False {
     width: 80px;
-    
+
 }
 
 
@@ -189,7 +217,7 @@ tbody tr.current {
 }
 
 
-@media (min-width: 992px and max-width: 1200px) {
+@media (min-width: 992px) and (max-width: 1200px) {
 #statHierarchy i {
     font-size: 1.5rem;
     color: green;

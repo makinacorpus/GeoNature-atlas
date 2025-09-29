@@ -47,7 +47,8 @@ function generateHtmlPhoto(photos, redimentionnement, taxhub_url) {
                 ? `&copy; ${stripHtml(photo.author)} - `
                 : "";
             const licence = `${stripHtml(photo.licence)} ${stripHtml(photo.source)}`;
-            const datatitle = `${subject} ${description} ${author} ${licence}`;
+            const cdRef = photo.cd_ref ? photo.cd_ref : "";
+            const datatitle = `${subject} ${description} ${author} ${licence} (cdref: ${cdRef}) `;
             onePhoto = `
                 <div class="col-lg-3 col-md-4 col-sm-6 col-12" style="padding-left:0px; padding-right: 0px">
                         <a
@@ -55,12 +56,10 @@ function generateHtmlPhoto(photos, redimentionnement, taxhub_url) {
                             href="${photo.path}"
                             data-lightbox="imageSet"
                             data-title="${datatitle}"
-                            data-alt="${photo.cd_ref}"
                         >
                             <div
                                 class="zoom-effect cover gallery-photo-cover"
                                 style="background-image:url('${photo_url}')"
-                                alt="${photo.name}"
                             ></div>
                             <div class="zoom-effect-overlay text-white fw-bold">
                                 <div class="center">
@@ -154,7 +153,7 @@ jQuery(function () {
     );
 
     $("#lightbox .lb-link").on("click", function () {
-        const cdRef = $("#lightbox .lb-image").attr("alt");
+        const cdRef = $("#lightbox .lb-caption").text().split("cdref: ")[1].split(")")[0];
         const url = `${configuration.URL_APPLICATION}/espece/${cdRef}`;
         $(this).attr("href", url);
         location.href = url;

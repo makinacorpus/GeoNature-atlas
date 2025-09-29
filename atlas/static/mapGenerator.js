@@ -174,12 +174,11 @@ function createTabControl() {
         type="button" class="btn-close"
         data-dismiss="modal"
         onclick="control.collapse();"
-        aria-label="Close">
+        aria-label="Fermer le panneau des couches">
     <span aria-hidden="true" class="text-white">×</span>
 </button>
         
 <div class="leaflet-control-layers leaflet-control" aria-haspopup="true">
-    <a class="leaflet-control-layers-toggle" href="#" title="Layers" role="button"></a>
     <ul class="nav nav-tabs" id="overlay-tab" role="tablist">
       <li class="nav-item mr-1">
         <a class="nav-link active" id="legend-tab" data-bs-toggle="tab" href="#legend-tab-content" role="tab" aria-controls="legend" aria-selected="true">Légende</a>
@@ -409,7 +408,7 @@ function generateMap(zoomHomeButton) {
             container.style.cursor = "pointer";
             $(container).attr("data-bs-placement", "right");
             $(container).attr("data-bs-toggle", "tooltip");
-            $(container).attr("title", "Photos aérienne");
+            $(container).attr("role", "presentation");
 
             container.onclick = function () {
                 if (currentTileMap === "topo") {
@@ -525,18 +524,18 @@ function getColor(d) {
     return d > 100
         ? "#800026"
         : d > 50
-          ? "#BD0026"
-          : d > 20
-            ? "#E31A1C"
-            : d > 10
-              ? "#FC4E2A"
-              : d > 5
-                ? "#FD8D3C"
-                : d > 2
-                  ? "#FEB24C"
-                  : d > 1
-                    ? "#FED976"
-                    : "#FFEDA0";
+            ? "#BD0026"
+            : d > 20
+                ? "#E31A1C"
+                : d > 10
+                    ? "#FC4E2A"
+                    : d > 5
+                        ? "#FD8D3C"
+                        : d > 2
+                            ? "#FEB24C"
+                            : d > 1
+                                ? "#FED976"
+                                : "#FFEDA0";
 }
 
 function generateObservationsLegend(isMaille = false) {
@@ -748,7 +747,7 @@ function buildSpeciesEntries(taxons) {
     taxons.forEach((taxon) => {
         rows.push(`
     <a title="Cliquez pour aller à la fiche de '${taxon.nom_vern}'" class="tooltip-item btn" href="/espece/${taxon.cd_ref}" target="_blank">
-        <img class="me-2 has-media-${taxon.has_media}" src="${taxon.media}" alt="">
+        <img class="me-2 has-media-${taxon.has_media}" src="${taxon.media}" alt="Image du taxon '${taxon.nom_vern}'">
         <div class="tooltip-item-text">
             <p class="name_vern">${taxon.nom_vern ? taxon.nom_vern : ""}</p>
             <p class="lb_nom">${taxon.lb_nom}</p>
@@ -865,11 +864,14 @@ function generateSliderOnMap() {
             $(sliderContainer).css("margin-bottom", "-300px");
             $(sliderContainer).css("margin-left", "200px");
             $(sliderContainer).css("text-align", "center");
-            $(sliderContainer).append(
-                "<p> <span id='yearMin'> </span> <input id='sliderControl' type='text'/> <span id='yearMax'>  </span>  </p>" +
-                    "<p id='nbObs'> Nombre d'observation(s): " +
-                    nb_obs +
-                    " </p>",
+            $(sliderContainer).append(`
+            <p>
+                 <span class="me-3" id='yearMin'>${taxonYearMin}</span>
+                 <input id='sliderControl' type='text'/>
+                 <span class="ms-3" id='yearMax'>${YEARMAX}</span>
+            </p>
+            <label class="mb-3" id='nbObs' for="sliderControl"> Nombre d'observation(s): ${nb_obs}</label>
+            `,
             );
             L.DomEvent.disableClickPropagation(sliderContainer);
             return sliderContainer;
@@ -884,7 +886,4 @@ function generateSliderOnMap() {
         max: YEARMAX,
         step: configuration.MAP.STEP,
     });
-
-    $("#yearMax").html("&nbsp;&nbsp;&nbsp;&nbsp;" + YEARMAX);
-    $("#yearMin").html(taxonYearMin + "&nbsp;&nbsp;&nbsp;&nbsp");
 }

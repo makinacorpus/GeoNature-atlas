@@ -1,4 +1,4 @@
-window.onresize = function () {
+window.onresize = function() {
     var presentationText = document.getElementById("presentation-text");
     if (presentationText) {
         if (window.innerWidth <= 800) {
