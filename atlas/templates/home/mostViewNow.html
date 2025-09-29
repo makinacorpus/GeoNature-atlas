@@ -2,11 +2,12 @@
     <div class="card mt-4" id="mostViewNow">
         <div class="card-body">
 
-            <h3 class="title-spaced">{{ _('see.at.the.moment') }}
+            <div class="fs-3 title-spaced">{{ _('see.at.the.moment') }}
                 <span data-bs-toggle="tooltip"
                       title="{{ _('species.most.obs.last.15.days') }}"
-                      data-bs-placement="right">
-                    <a class="fa fa-question-circle helpTip"></a>
+                      data-bs-placement="right"
+                      role="tooltip">
+                    <a class="fa fa-question-circle helpTip" aria-label="{{ _('species.most.obs.last.15.days') }}"></a>
                 </span>
             </h3>
             <div class="row p-4">

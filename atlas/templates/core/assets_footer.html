@@ -4,4 +4,9 @@
     </script>
     <!-- main JS -->
     <script src="{{ url_for('static', filename='main.js') }}"></script>
+    {% if personal_data %}
+        <script>
+            $("#modalPersonalData").modal('show');
+        </script>
+    {% endif %}
 {% endblock %}

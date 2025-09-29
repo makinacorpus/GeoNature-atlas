@@ -28,14 +28,17 @@ function displayObsTaxonMaille(cd_ref) {
 }
 
 function refreshTerritoryArea(elem) {
+    document.querySelector("#taxonList .current")?.setAttribute("aria-current", "false");
     document.querySelector("#taxonList .current")?.classList.remove("current")
-    elem.currentTarget.classList.add('current');
+    elem.currentTarget.parentElement.classList.add('current');
+    elem.currentTarget.setAttribute("aria-current", "true");
     if (configuration.AFFICHAGE_TERRITOIRE_OBS) {
         displayObsTaxonMaille(elem.currentTarget.getAttribute("cdref"));
     }
-    const name = $(this)
+    const name = $(this).parents()
         .find("#name")
         .html();
+    console.log("name => ", name)
     $("#titleMap").fadeOut(500, function () {
         $(this)
             .html("Observations du taxon&nbsp;:&nbsp;" + name)
@@ -43,16 +46,11 @@ function refreshTerritoryArea(elem) {
     });
 }
 
-
-
 $(document).ready(function () {
     if (configuration.INTERACTIVE_MAP_LIST) {
-        $("#taxonList").on("click", "#taxonListItem", function (elem) {
-            refreshTerritoryArea(elem);
-        });
+        $("#taxonList").on("click", ".taxon-list-button", refreshTerritoryArea);
     }
 });
-
 
 // Generate legends and check configuration to choose which to display (Maille ou Point)
 
@@ -66,44 +64,44 @@ htmlLegend = configuration.AFFICHAGE_MAILLE ? htmlLegendMaille : htmlLegendPoint
 generateLegende(htmlLegend);
 
 // Add territory obs on map
- if (configuration.AFFICHAGE_TERRITOIRE_OBS){
-        $("#loaderSpinner").show();
+if (configuration.AFFICHAGE_TERRITOIRE_OBS){
+    $("#loaderSpinner").show();
 
-        // display maille layer
-        fetch(`/api/observationsMailleTerritory`)
-            .then(response => response.json())
-            .then(data => {
-                observations = data
-                displayMailleLayer(observations);
-                $("#loaderSpinner").hide();
+    // display maille layer
+    fetch(`/api/observationsMailleTerritory`)
+        .then(response => response.json())
+        .then(data => {
+            observations = data
+            displayMailleLayer(observations);
+            $("#loaderSpinner").hide();
 
-            })
+        })
 
 
-        // interaction list - map
-        $('.lastObslistItem').click(function(elem){
-            $(this).siblings().removeClass('current');
-            $(this).addClass('current');
-            const idMaille = Number(elem.currentTarget.getAttribute("area-code"));
-            p = (currentLayer._layers);
-            let selectLayer;
-            for (var key in p) {
-                if (p[key].feature.properties.meshId === idMaille){
-                    selectLayer = p[key];
-                }
+    // interaction list - map
+    $('.lastObslistItem').click(function(elem){
+        $(this).siblings().removeClass('current');
+        $(this).addClass('current');
+        const idMaille = Number(elem.currentTarget.getAttribute("area-code"));
+        p = (currentLayer._layers);
+        let selectLayer;
+        for (var key in p) {
+            if (p[key].feature.properties.meshId === idMaille){
+                selectLayer = p[key];
             }
+        }
 
-            resetStyleMailles()
-            selectLayer.setStyle(styleMailleClickedOrHover(selectLayer));
-            selectLayer.openPopup(selectLayer._bounds.getCenter());
-            var bounds = L.latLngBounds([]);
-            var layerBounds = selectLayer.getBounds();
-            bounds.extend(layerBounds);
-            map.fitBounds(bounds, {
-                maxZoom : 12
-            });
+        resetStyleMailles()
+        selectLayer.setStyle(styleMailleClickedOrHover(selectLayer));
+        selectLayer.openPopup(selectLayer._bounds.getCenter());
+        var bounds = L.latLngBounds([]);
+        var layerBounds = selectLayer.getBounds();
+        bounds.extend(layerBounds);
+        map.fitBounds(bounds, {
+            maxZoom : 12
         });
-    }
+    });
+}
 
 
     if(configuration.AFFICHAGE_DERNIERES_OBS) {
@@ -140,7 +138,7 @@ generateLegende(htmlLegend);
                 $(this).siblings().removeClass('current');
                 $(this).addClass('current');
                 var id_observation = $(this).attr('idSynthese');
-        
+
                 var p = (currentLayer._layers);
                 var selectLayer;
                 for (var key in p) {

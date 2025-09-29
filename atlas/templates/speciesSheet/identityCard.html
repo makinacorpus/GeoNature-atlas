@@ -82,16 +82,21 @@
                              src="{{ url_for('static', filename=configuration.PATRIMONIALITE.config[taxon.taxonSearch.patrimonial].icon) }}"
                              data-bs-toggle="tooltip"
                              title="{{ configuration.PATRIMONIALITE.config[taxon.taxonSearch.patrimonial].text }}"
-                             data-bs-placement="right">
+                             alt="{{ configuration.PATRIMONIALITE.config[taxon.taxonSearch.patrimonial].text }}"
+                             data-bs-placement="right" aria-expanded="false">
                     {% endif %}
 
                     <div id="inpnLink">
-                        <a href="https://inpn.mnhn.fr/espece/cd_nom/{{ taxon.taxonSearch.cd_ref }}" target="_blank">
-                            <img width="90px"
-                                 src="{{ url_for('static', filename='images/logo_inpn.png') }}"
-                                 data-bs-toggle="tooltip"
-                                 title="{{ _('check.species.sheet.inpn') }}"
-                                 data-bs-placement="right">
+                        <a href="https://inpn.mnhn.fr/espece/cd_nom/{{ taxon.taxonSearch.cd_ref }}" target="_blank"
+                           title="Lien vers la fiche INPN de l'espèce" aria-label="Lien vers la fiche INPN de l'espèce">
+                            <img
+                                width="90px"
+                                src="{{ url_for('static', filename='images/logo_inpn.png') }}"
+                                alt="Logo inpn"
+                                data-bs-toggle="tooltip"
+                                title="{{ _('check.species.sheet.inpn') }}"
+                                aria-label="{{ _('check.species.sheet.inpn') }}"
+                                data-bs-placement="right"/>
                         </a>
                     </div>
                 </div>

@@ -5,8 +5,13 @@
            class="d-flex justify-content-center align-items-center p-3 w-100 h-100"
            data-bs-toggle="tooltip"
            title="{{ _('back.to.home') }}"
-           data-bs-placement="right">
-            <span id="main_icon" class="fa fa-home"></span>
+           aria-label="{{ _('back.to.home') }}"
+           tabindex="0"
+           aria-hidden="false"
+           data-bs-placement="right"
+           aria-expanded="false"
+           aria-current="false">
+           <span id="main_icon" class="fa fa-home"></span>
         </a>
     </li>
 
@@ -17,6 +22,11 @@
                    class="d-flex justify-content-center align-items-center p-3 w-100 h-100"
                    data-bs-toggle="tooltip"
                    title="{{ page_values.title }}"
+                   aria-label="{{ page_values.title }}"
+                   tabindex="0"
+                   aria-hidden="false"
+                   aria-expanded="false"
+                   aria-current="false"
                    data-bs-placement="right">
                     {% if 'customized_picto' in page_values %}
                         <span>
@@ -33,6 +43,11 @@
                    class="d-flex justify-content-center align-items-center p-3 w-100 h-100"
                    data-bs-toggle="tooltip"
                    title="{{ page_values.title }}"
+                   aria-label="{{ page_values.title }}"
+                   tabindex="0"
+                   aria-expanded="false"
+                   aria-current="false"
+                   aria-hidden="false"
                    data-bs-placement="right">
                     {% if 'customized_picto' in page_values %}
                         <span>
@@ -51,6 +66,11 @@
                class="d-flex justify-content-center align-items-center p-3 w-100 h-100"
                data-bs-toggle="tooltip"
                title="{{ _('advanced_search') }}"
+               aria-label="{{ _('advanced_search') }}"
+               tabindex="0"
+               aria-expanded="false"
+               aria-current="false"
+               aria-hidden="false"
                data-bs-placement="right">
                 <span class="fa fa-search"></span>
             </a>
@@ -62,6 +82,11 @@
            class="d-flex justify-content-center align-items-center p-3 w-100 h-100"
            data-bs-toggle="tooltip"
            title="{{ _('gallery.title') }}"
+           aria-label="{{ _('gallery.title') }}"
+           tabindex="0"
+           aria-expanded="false"
+           aria-current="false"
+           aria-hidden="false"
            data-bs-placement="right">
             <span class="fa fa-camera"></span>
         </a>

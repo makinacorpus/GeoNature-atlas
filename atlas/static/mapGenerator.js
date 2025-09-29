@@ -187,7 +187,7 @@ function generateMap(zoomHomeButton) {
             container.style.cursor = "pointer";
             $(container).attr("data-bs-placement", "right");
             $(container).attr("data-bs-toggle", "tooltip");
-            $(container).attr("title", "Photos aérienne");
+            $(container).attr("role", "presentation");
 
             container.onclick = function () {
                 if (currentTileMap == "topo") {
@@ -337,8 +337,8 @@ function generateLegendMaille() {
         for (var i = 0; i < grades.length; i++) {
             grade_n1 = grades[i + 1] ? `&ndash; ${grades[i + 1] } <br>` : "+"
             labels.push(
-                `<i style="background: ${getColor(grades[i] + 1)}"></i>
-            ${grades[i]}${grade_n1}
+                `<i role="img" style="background: ${getColor(grades[i] + 1)}"></i>
+            <span>${grades[i]}${grade_n1}</span>
         `
             );
         }

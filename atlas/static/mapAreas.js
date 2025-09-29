@@ -145,14 +145,16 @@ function displayObsTaxonMaille(areaCode, cd_ref) {
 }
 
 function refreshObsArea(elem) {
+        document.querySelector("#taxonList .current")?.setAttribute("aria-current", "false");
         document.querySelector("#taxonList .current")?.classList.remove("current")
-        elem.currentTarget.classList.add("current")
+        elem.currentTarget.parentElement.classList.add('current');
+        elem.currentTarget.parentElement.setAttribute("aria-current", "true");
         if (configuration.AFFICHAGE_MAILLE) {
             displayObsTaxonMaille(elem.currentTarget.getAttribute("area-code"), elem.currentTarget.getAttribute("cdref"));
         } else {
             displayObsTaxon(elem.currentTarget.getAttribute("area-code"), elem.currentTarget.getAttribute("cdref"));
         }
-        var name = $(elem.currentTarget)
+        var name = $(elem.currentTarget).parents()
             .find("#name")
             .html();
         $("#titleMap").html("Observations du taxon&nbsp;:&nbsp;" + name)

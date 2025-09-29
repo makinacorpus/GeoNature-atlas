@@ -99,6 +99,8 @@ main {
 }
 
 #navbarSupportedContent .form-inline {
+  display: flex;
+  align-items: center;
   flex-flow: nowrap;
 }
 
@@ -143,6 +145,7 @@ a {
   background-color: var(--main-color) !important;
 }
 
+.btn.btn-secondary:focus,
 .btn.btn-secondary:hover {
   background-color: white !important;
   color: black;
@@ -166,8 +169,17 @@ a {
   border-radius: 0px;
   border-bottom: 1px solid var(--main-color);
   z-index: 1999;
-  height: 60px;
+  flex-direction: column;
+  padding: 0;
   flex-wrap: nowrap;
+
+  .navbar-menu {
+    display: flex;
+    flex-direction: row;
+    height: 60px;
+    width: 100%;
+    align-items: center;
+  }
 }
 
 .navbar a.titreAppli {
@@ -335,6 +347,7 @@ sidebar {
   border-bottom: 1px solid var(--main-color);
 }
 
+#sidebar_menu li:focus-within,
 #sidebar_menu li:hover {
   background-color: var(--main-color);
 }
@@ -353,6 +366,7 @@ li.sidebar-brand {
   font-size: 120%;
 }
 
+#sidebar-wrapper a:focus,
 #sidebar-wrapper a:hover {
   cursor: pointer;
   color: black;
@@ -501,21 +515,26 @@ input {
   padding: 7px 14px;
 }
 
+.hovereffect a.info:focus-within,
 .hovereffect a.info:hover {
   box-shadow: 0 0 5px #fff;
 }
 
+.hovereffect:focus-within .img-responsive-logo,
 .hovereffect:hover .img-responsive-logo {
   -ms-transform: scale(1.2);
   -webkit-transform: scale(1.2);
   transform: scale(1.2);
 }
 
+.hovereffect:focus-within .overlay,
 .hovereffect:hover .overlay {
   opacity: 1;
   filter: alpha(opacity=100);
 }
 
+.hovereffect:focus-within h2,
+.hovereffect:focus-within a.info,
 .hovereffect:hover h2,
 .hovereffect:hover a.info {
   opacity: 1;
@@ -525,6 +544,7 @@ input {
   transform: translatey(0);
 }
 
+.hovereffect:focus-within a.info,
 .hovereffect:hover a.info {
   -webkit-transition-delay: 0.2s;
   transition-delay: 0.2s;
@@ -541,6 +561,15 @@ footer {
   margin-bottom: 0px;
   background-color: var(--light);
   margin-top: 10px;
+
+  small>ul {
+    display: inline-flex;
+    list-style-type: none;
+    li>a {
+      padding-left: 0.4rem;
+      padding-right: 0.4rem;
+    }
+  }
 }
 
 .credits {
@@ -623,6 +652,10 @@ footer {
 
 .clickable {
   cursor: pointer;
+}
+
+#newSpecies {
+  scroll-margin: 60px;
 }
 
 #newSpecies .card {

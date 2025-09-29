@@ -1,21 +1,41 @@
 .panel {
-    margin-top: 10px;
-    padding: 5px;
+  margin-top: 10px;
+  padding: 5px;
 }
 
 #page {
-    padding-left: 0;
-    padding-right: 0;
+  padding-left: 0;
+  padding-right: 0;
 }
 
 footer {
-    margin-top: 0;
+  margin-top: 0;
 }
 
 #taxonList {
-    flex: 1 1 0;
-    overflow-y: auto;
-    min-height: 10rem;
+  flex: 1 1 0;
+  overflow-y: auto;
+  min-height: 10rem;
+
+  a.badge {
+    position: relative;
+    z-index: 1;
+  }
+
+  .taxon-list-button {
+    all: initial;
+    inset: 0;
+    cursor: pointer;
+    padding: 2px;
+    position: absolute;
+
+    &:focus,
+    &:hover {
+      outline-offset: -2px;
+      outline: 2px solid lightgray;
+
+    }
+  }
 }
 
 
@@ -28,52 +48,52 @@ footer {
 /*}*/
 
 #mapContainer {
-    height: calc(100vh - 60px);
+  height: calc(100vh - 60px);
 }
 
 #map {
-    height: 600px;
+  height: 600px;
 }
 
 #clear {
-    clear: both;
+  clear: both;
 }
 
 #parent {
-    text-align: center;
-    margin-top: 10px;
+  text-align: center;
+  margin-top: 10px;
 }
 
 table.dataTable {
-    line-height: 1;
-    font-size: 1rem;
+  line-height: 1;
+  font-size: 1rem;
 }
 
 table.dataTable thead .sorting,
 table.dataTable thead .sorting_asc,
 table.dataTable thead .sorting_desc {
-    background: none;
+  background: none;
 }
 
 .dataTables_length {
-    margin: 10px;
+  margin: 10px;
 }
 
 .dataTables_filter {
-    margin: 10px;
+  margin: 10px;
 }
 
 .dataTables_paginate {
-    margin: 10px;
+  margin: 10px;
 }
 
 .dataTables_wrapper .dataTables_paginate .paginate_button {
-    padding: 0px;
+  padding: 0px;
 }
 
 .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
-    padding: 0px;
-    border: none;
+  padding: 0px;
+  border: none;
 }
 
 .pagination > .disabled > a,
@@ -82,110 +102,110 @@ table.dataTable thead .sorting_desc {
 .pagination > .disabled > span,
 .pagination > .disabled > span:focus,
 .pagination > .disabled > span:hover {
-    cursor: default;
+  cursor: default;
 }
 
 #stat li {
-    float: left;
-    width: 100px;
-    text-align: center;
-    border-right: 1px solid #e8e8e8;
-    list-style-type: none;
+  float: left;
+  width: 100px;
+  text-align: center;
+  border-right: 1px solid #e8e8e8;
+  list-style-type: none;
 }
 
 ul#stat {
-    float: left;
-    padding: 5px;
-    margin-left: 32%;
+  float: left;
+  padding: 5px;
+  margin-left: 32%;
 }
 
 #statHierarchy li {
-    display: inline-block;
-    width: 100px;
+  display: inline-block;
+  width: 100px;
 }
 
 ul#statHierarchy {
-    float: left;
-    padding: 5px;
-    margin: auto;
-    width: 100%;
-    text-align: center;
-    margin-top: 10px;
+  float: left;
+  padding: 5px;
+  margin: auto;
+  width: 100%;
+  text-align: center;
+  margin-top: 10px;
 }
 
 .leaflet-bar.leaflet-control.leaflet-control-custom img {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 3px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 3px;
 }
 
 #myTable .glyphicon {
-    color: #333333;
-    font-size: 2em;
+  color: #333333;
+  font-size: 2em;
 }
 
 .hiddenSpan {
-    visibility: hidden;
+  visibility: hidden;
 }
 
 tbody tr:hover {
-    background-color: rgba(var(--main-color-rgb), 0.2) !important;
-    /*background-color: #cccccc !important;*/
-    cursor: pointer;
+  background-color: rgba(var(--main-color-rgb), 0.2) !important;
+  /*background-color: #cccccc !important;*/
+  cursor: pointer;
 }
 
 tbody tr.current {
-    background-color: rgba(var(--main-color-rgb), 0.4) !important;
-    font-weight: bold;
+  background-color: rgba(var(--main-color-rgb), 0.4) !important;
+  font-weight: bold;
 }
 
 .pictoImgListIcon {
-    width: 60px;
+  width: 60px;
 }
 
 .pictoImgList {
-    width: 80px;
-    background-position: center center;
-    background-size: cover;
-    height: 80px;
-    border-radius: 6px;
+  width: 80px;
+  background-position: center center;
+  background-size: cover;
+  height: 80px;
+  border-radius: 6px;
 }
 
 
 #taxonList .current {
-    background-color: var(--light);
+  background-color: var(--light);
 }
 
 
 
 @media (max-width: 1200px) {
   #statHierarchy i {
-      font-size: 2rem;
-      color: red;
+    font-size: 2rem;
+    color: red;
   }
 }
 
 
- @media (min-width: 992px and max-width: 1200px) {
-  #statHierarchy i {
-    font-size: 1.5rem;
-      color: green;
-  }
+@media (min-width: 992px and max-width: 1200px) {
+#statHierarchy i {
+  font-size: 1.5rem;
+  color: green;
+}
 }
 
 
- @media screen and (max-width: 768px) {
+@media screen and (max-width: 768px) {
   #statHierarchy i {
     font-size: 1rem;
-      color: blue;
+    color: blue;
   }
 }
 
 
- @media screen and (max-width: 576px) {
+@media screen and (max-width: 576px) {
   #statHierarchy i {
     font-size: 0.8rem;
-      color: deeppink;
+    color: deeppink;
   }
 }

@@ -1,11 +1,11 @@
-$(document).ready(function() {
-  $(window).keydown(function(event) {
-    if (event.keyCode == 13) {
-      event.preventDefault();
-      return false;
-    }
-  });
-});
+// $(document).ready(function() {
+//   $(window).keydown(function(event) {
+//     if (event.keyCode === 13) {
+//       event.preventDefault();
+//       return false;
+//     }
+//   });
+// });
 
 window.onresize = function() {
   var presentationText = document.getElementById("presentation-text");
@@ -27,9 +27,9 @@ autocompleteSearch = function(inputID, urlDestination, nbProposal) {
   $(inputID).autocomplete({
     source: function(request, response) {
       var searchUrl;
-      if (urlDestination == "espece") {
+      if (urlDestination === "espece") {
         searchUrl = "/api/searchTaxon";
-      } else if (urlDestination == "area") {
+      } else if (urlDestination === "area") {
         searchUrl = "/api/searchArea";
       }
       else {

@@ -45,13 +45,13 @@
     <div class="container-fluid">
         <!-- Introduction -->
         {% if configuration.AFFICHAGE_INTRODUCTION %}
-            <div class="mt-4">
+            <div id="introduction" class="mt-4">
                 {% include 'static/custom/templates/introduction.html' %}
             </div>
         {% endif %}
 
         {% if configuration.AFFICHAGE_LOGOS_HOME %}
-            <div class="mt-4">
+            <div id="bandeaulogoshome" class="mt-4">
                 {% include 'static/custom/templates/bandeaulogoshome.html' %}
             </div>
         {% endif %}

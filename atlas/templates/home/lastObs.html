@@ -2,10 +2,10 @@
 <div id="DernieresObservations">
     <div class="card mt-4">
         <div class="card-body pb-0">
-            <h3 class="card-title"><i class="fas fa-binoculars icon-color-title"></i>
+            <div class="fs-3 card-title"><i class="fas fa-binoculars icon-color-title"></i>
                 {{ configuration.TEXT_LAST_OBS }} {{ observations | length }}
                 {{ 'observations' if observations | length > 1 else 'observation' }}
-            </h3>
+            </div>
         </div>
         <div class="row" id="mapRow">
             <!-- CARTE des dernières observations -->
