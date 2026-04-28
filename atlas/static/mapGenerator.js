@@ -524,18 +524,18 @@ function getColor(d) {
     return d > 100
         ? "#800026"
         : d > 50
-            ? "#BD0026"
-            : d > 20
-                ? "#E31A1C"
-                : d > 10
-                    ? "#FC4E2A"
-                    : d > 5
-                        ? "#FD8D3C"
-                        : d > 2
-                            ? "#FEB24C"
-                            : d > 1
-                                ? "#FED976"
-                                : "#FFEDA0";
+          ? "#BD0026"
+          : d > 20
+            ? "#E31A1C"
+            : d > 10
+              ? "#FC4E2A"
+              : d > 5
+                ? "#FD8D3C"
+                : d > 2
+                  ? "#FEB24C"
+                  : d > 1
+                    ? "#FED976"
+                    : "#FFEDA0";
 }
 
 function generateObservationsLegend(isMaille = false) {
@@ -871,8 +871,7 @@ function generateSliderOnMap() {
                  <span class="ms-3" id='yearMax'>${YEARMAX}</span>
             </p>
             <label class="mb-3" id='nbObs' for="sliderControl"> Nombre d'observation(s): ${nb_obs}</label>
-            `,
-            );
+            `);
             L.DomEvent.disableClickPropagation(sliderContainer);
             return sliderContainer;
         },

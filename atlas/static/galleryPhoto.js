@@ -153,7 +153,10 @@ jQuery(function () {
     );
 
     $("#lightbox .lb-link").on("click", function () {
-        const cdRef = $("#lightbox .lb-caption").text().split("cdref: ")[1].split(")")[0];
+        const cdRef = $("#lightbox .lb-caption")
+            .text()
+            .split("cdref: ")[1]
+            .split(")")[0];
         const url = `${configuration.URL_APPLICATION}/espece/${cdRef}`;
         $(this).attr("href", url);
         location.href = url;
