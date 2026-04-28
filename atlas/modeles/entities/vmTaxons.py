@@ -93,7 +93,7 @@ class VmTaxons(db.Model):
                     urljoin(
                         current_app.config["TAXHUB_URL"]
                         + "/",  # force the last / because urljoin remove the /taxhub ...
-                        f"api/tmedias/thumbnail/{self.main_media.id_media}?h={height}&width={width}",
+                        f"api/tmedias/thumbnail/{self.main_media.id_media}?h={height}&w={width}",
                     ),
                     True,
                 )
